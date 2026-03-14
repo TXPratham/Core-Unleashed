@@ -6,62 +6,92 @@
 <title>Notifications</title>
 
 <style>
-
+/* Full-page layout */
 body{
-font-family: Arial, sans-serif;
-background:#f4f6f9;
-margin:0;
-padding:0;
-text-align:center;
+  font-family: Arial, sans-serif;
+  background:#f4f6f9;
+  margin:0;
+  padding:0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
+/* Header */
 .header{
-background:#2c3e50;
-color:white;
-padding:20px;
-font-size:24px;
+  background:#2c3e50;
+  color:white;
+  padding:18px;
+  text-align:center;
+  font-size:22px;
+  flex: 0 0 auto;
 }
 
+/* Notification container fills the page */
 .container{
-width:60%;
-margin:30px auto;
-background:white;
-padding:20px;
-border-radius:10px;
-box-shadow:0 4px 10px rgba(0,0,0,0.1);
+  width:90%;
+  max-width:500px;
+  margin:0 auto;
+  background:white;
+  flex:1 1 auto;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+  overflow-y: auto;
 }
 
-ul{
-list-style:none;
-padding:0;
+/* Notification cards */
+.notification{
+  display:flex;
+  align-items:center;
+  background:#e8f0fe;
+  padding:20px;
+  margin-bottom:15px;
+  border-radius:10px;
+  font-size:18px;
+  display:none; /* hidden by default */
 }
 
-li{
-padding:12px;
-margin:8px 0;
-background:#e8f0fe;
-border-radius:6px;
-font-size:16px;
+/* Notification icon */
+.icon{
+  font-size:24px;
+  margin-right:12px;
 }
 
+/* Notification text */
+.text{
+  flex:1;
+}
+
+/* Timestamp */
+.time{
+  font-size:12px;
+  color:gray;
+}
+
+/* Motivational quote */
 .quote{
-margin-top:20px;
-font-style:italic;
-color:#555;
+  text-align:center;
+  margin-top:20px;
+  font-style:italic;
+  color:#555;
 }
 
+/* Back button */
 .button{
-display:inline-block;
-margin-top:20px;
-padding:10px 20px;
-background:#3498db;
-color:white;
-text-decoration:none;
-border-radius:5px;
+  display:block;
+  width:200px;
+  margin:25px auto;
+  text-align:center;
+  padding:10px;
+  background:#3498db;
+  color:white;
+  text-decoration:none;
+  border-radius:6px;
 }
 
 .button:hover{
-background:#2980b9;
+  background:#2980b9;
 }
 
 </style>
@@ -70,21 +100,44 @@ background:#2980b9;
 <body>
 
 <div class="header">
-Core Unleashed - Student Notifications
+🔔 Student Notifications
 </div>
 
 <div class="container">
 
-<marquee direction="up" scrollamount="2" height="150">
+<div class="notification">
+<div class="icon">📢</div>
+<div class="text">
+Amazon invited students for internship
+<div class="time">Today</div>
+</div>
+</div>
 
-<ul>
-<li>Amazon invited students for internship - Today</li>
-<li>Pre-placement talk scheduled tomorrow - 10 AM</li>
-<li>Microsoft interview on Monday - 9 AM</li>
-<li>Google summer internship applications open</li>
-</ul>
+<div class="notification">
+<div class="icon">🎤</div>
+<div class="text">
+Pre-placement talk scheduled tomorrow
+<div class="time">10:00 AM</div>
+</div>
+</div>
 
-</marquee>
+<div class="notification">
+<div class="icon">💼</div>
+<div class="text">
+Microsoft interview scheduled
+<div class="time">Monday - 9 AM</div>
+</div>
+</div>
+
+<div class="notification">
+<div class="icon">🚀</div>
+<div class="text">
+Google summer internship applications open
+<div class="time">New</div>
+</div>
+</div>
+
+</div>
 
 <div class="quote">
 "Success comes from continuous learning and consistent effort."
@@ -92,7 +145,21 @@ Core Unleashed - Student Notifications
 
 <a href="main.html" class="button">Back to Dashboard</a>
 
-</div>
+<script>
+let notifications = document.querySelectorAll(".notification");
+let index = 0;
+
+function showNotification(){
+  if(index < notifications.length){
+    notifications[index].style.display = "flex";
+    index++;
+    setTimeout(showNotification,2000); // show next notification after 2s
+  }
+}
+
+// Start the animation
+showNotification();
+</script>
 
 </body>
 </html>
