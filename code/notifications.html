@@ -31,13 +31,17 @@ border-radius:10px;
 box-shadow:0 4px 10px rgba(0,0,0,0.1);
 }
 
-.notification{
+ul{
+list-style:none;
+padding:0;
+}
+
+li{
+padding:12px;
+margin:8px 0;
 background:#e8f0fe;
-padding:15px;
-margin:10px 0;
 border-radius:6px;
 font-size:16px;
-display:none;
 }
 
 .quote{
@@ -71,10 +75,16 @@ Core Unleashed - Student Notifications
 
 <div class="container">
 
-<div class="notification">Amazon invited students for internship - Today</div>
-<div class="notification">Pre-placement talk scheduled tomorrow - 10 AM</div>
-<div class="notification">Microsoft interview on Monday - 9 AM</div>
-<div class="notification">Google summer internship applications open</div>
+<marquee direction="up" scrollamount="2" height="150">
+
+<ul>
+<li>Amazon invited students for internship - Today</li>
+<li>Pre-placement talk scheduled tomorrow - 10 AM</li>
+<li>Microsoft interview on Monday - 9 AM</li>
+<li>Google summer internship applications open</li>
+</ul>
+
+</marquee>
 
 <div class="quote">
 "Success comes from continuous learning and consistent effort."
@@ -83,23 +93,6 @@ Core Unleashed - Student Notifications
 <a href="main.html" class="button">Back to Dashboard</a>
 
 </div>
-
-<script>
-
-let notifications = document.querySelectorAll(".notification");
-let index = 0;
-
-function showNotification(){
-if(index < notifications.length){
-notifications[index].style.display = "block";
-index++;
-setTimeout(showNotification,2000);
-}
-}
-
-showNotification();
-
-</script>
 
 </body>
 </html>
