@@ -12,52 +12,64 @@ font-family: Arial, sans-serif;
 background:#f4f6f9;
 margin:0;
 padding:0;
-text-align:center;
 }
 
 .header{
 background:#2c3e50;
 color:white;
-padding:20px;
-font-size:24px;
+padding:18px;
+text-align:center;
+font-size:22px;
 }
 
 .container{
-width:60%;
-margin:30px auto;
+width:90%;
+max-width:500px;
+margin:25px auto;
+}
+
+.notification{
+display:flex;
+align-items:center;
 background:white;
-padding:20px;
+padding:15px;
+margin-bottom:12px;
 border-radius:10px;
-box-shadow:0 4px 10px rgba(0,0,0,0.1);
+box-shadow:0 3px 8px rgba(0,0,0,0.1);
+display:none;
 }
 
-ul{
-list-style:none;
-padding:0;
+.icon{
+font-size:24px;
+margin-right:12px;
 }
 
-li{
-padding:12px;
-margin:8px 0;
-background:#e8f0fe;
-border-radius:6px;
-font-size:16px;
+.text{
+flex:1;
+}
+
+.time{
+font-size:12px;
+color:gray;
 }
 
 .quote{
+text-align:center;
 margin-top:20px;
 font-style:italic;
 color:#555;
 }
 
 .button{
-display:inline-block;
-margin-top:20px;
-padding:10px 20px;
+display:block;
+width:200px;
+margin:25px auto;
+text-align:center;
+padding:10px;
 background:#3498db;
 color:white;
 text-decoration:none;
-border-radius:5px;
+border-radius:6px;
 }
 
 .button:hover{
@@ -70,29 +82,13 @@ background:#2980b9;
 <body>
 
 <div class="header">
-Core Unleashed - Student Notifications
+🔔 Student Notifications
 </div>
 
 <div class="container">
 
-<marquee direction="up" scrollamount="2" height="150">
-
-<ul>
-<li>Amazon invited students for internship - Today</li>
-<li>Pre-placement talk scheduled tomorrow - 10 AM</li>
-<li>Microsoft interview on Monday - 9 AM</li>
-<li>Google summer internship applications open</li>
-</ul>
-
-</marquee>
-
-<div class="quote">
-"Success comes from continuous learning and consistent effort."
-</div>
-
-<a href="main.html" class="button">Back to Dashboard</a>
-
-</div>
-
-</body>
-</html>
+<div class="notification">
+<div class="icon">📢</div>
+<div class="text">
+Amazon invited students for internship
+<div class
