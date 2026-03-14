@@ -12,64 +12,48 @@ font-family: Arial, sans-serif;
 background:#f4f6f9;
 margin:0;
 padding:0;
+text-align:center;
 }
 
 .header{
 background:#2c3e50;
 color:white;
-padding:18px;
-text-align:center;
-font-size:22px;
+padding:20px;
+font-size:24px;
 }
 
 .container{
-width:90%;
-max-width:500px;
-margin:25px auto;
+width:60%;
+margin:30px auto;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
 }
 
 .notification{
-display:flex;
-align-items:center;
-background:white;
+background:#e8f0fe;
 padding:15px;
-margin-bottom:12px;
-border-radius:10px;
-box-shadow:0 3px 8px rgba(0,0,0,0.1);
+margin:10px 0;
+border-radius:6px;
+font-size:16px;
 display:none;
 }
 
-.icon{
-font-size:24px;
-margin-right:12px;
-}
-
-.text{
-flex:1;
-}
-
-.time{
-font-size:12px;
-color:gray;
-}
-
 .quote{
-text-align:center;
 margin-top:20px;
 font-style:italic;
 color:#555;
 }
 
 .button{
-display:block;
-width:200px;
-margin:25px auto;
-text-align:center;
-padding:10px;
+display:inline-block;
+margin-top:20px;
+padding:10px 20px;
 background:#3498db;
 color:white;
 text-decoration:none;
-border-radius:6px;
+border-radius:5px;
 }
 
 .button:hover{
@@ -82,13 +66,40 @@ background:#2980b9;
 <body>
 
 <div class="header">
-🔔 Student Notifications
+Core Unleashed - Student Notifications
 </div>
 
 <div class="container">
 
-<div class="notification">
-<div class="icon">📢</div>
-<div class="text">
-Amazon invited students for internship
-<div class
+<div class="notification">Amazon invited students for internship - Today</div>
+<div class="notification">Pre-placement talk scheduled tomorrow - 10 AM</div>
+<div class="notification">Microsoft interview on Monday - 9 AM</div>
+<div class="notification">Google summer internship applications open</div>
+
+<div class="quote">
+"Success comes from continuous learning and consistent effort."
+</div>
+
+<a href="main.html" class="button">Back to Dashboard</a>
+
+</div>
+
+<script>
+
+let notifications = document.querySelectorAll(".notification");
+let index = 0;
+
+function showNotification(){
+if(index < notifications.length){
+notifications[index].style.display = "block";
+index++;
+setTimeout(showNotification,2000);
+}
+}
+
+showNotification();
+
+</script>
+
+</body>
+</html>
