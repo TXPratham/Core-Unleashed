@@ -1,21 +1,98 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Notifications</title>
+
+<style>
+
+body{
+font-family: Arial, sans-serif;
+background:#f4f6f9;
+margin:0;
+padding:0;
+text-align:center;
+}
+
+.header{
+background:#2c3e50;
+color:white;
+padding:20px;
+font-size:24px;
+}
+
+.container{
+width:60%;
+margin:30px auto;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+ul{
+list-style:none;
+padding:0;
+}
+
+li{
+padding:12px;
+margin:8px 0;
+background:#e8f0fe;
+border-radius:6px;
+font-size:16px;
+}
+
+.quote{
+margin-top:20px;
+font-style:italic;
+color:#555;
+}
+
+.button{
+display:inline-block;
+margin-top:20px;
+padding:10px 20px;
+background:#3498db;
+color:white;
+text-decoration:none;
+border-radius:5px;
+}
+
+.button:hover{
+background:#2980b9;
+}
+
+</style>
 </head>
 
 <body>
 
-<h1>Student Notifications</h1>
+<div class="header">
+Core Unleashed - Student Notifications
+</div>
+
+<div class="container">
+
+<marquee direction="up" scrollamount="2" height="150">
 
 <ul>
 <li>Amazon invited students for internship - Today</li>
 <li>Pre-placement talk scheduled tomorrow - 10 AM</li>
 <li>Microsoft interview on Monday - 9 AM</li>
+<li>Google summer internship applications open</li>
 </ul>
 
-<a href="main.html">Back to Dashboard</a>
+</marquee>
+
+<div class="quote">
+"Success comes from continuous learning and consistent effort."
+</div>
+
+<a href="main.html" class="button">Back to Dashboard</a>
+
+</div>
 
 </body>
 </html>
