@@ -37,7 +37,17 @@ body{
   padding:20px;
   border-radius:10px;
   box-shadow:0 4px 10px rgba(0,0,0,0.1);
-  overflow-y: auto;
+  overflow:hidden; /* hide overflow for scroll effect */
+  position: relative;
+}
+
+/* Notifications wrapper for scrolling */
+.scrolling-notifications {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 100%;
+  animation: scrollUp 10s linear infinite;
 }
 
 /* Notification cards */
@@ -49,7 +59,6 @@ body{
   margin-bottom:15px;
   border-radius:10px;
   font-size:18px;
-  display:none; /* hidden by default */
 }
 
 /* Notification icon */
@@ -94,6 +103,11 @@ body{
   background:#2980b9;
 }
 
+/* Scroll animation */
+@keyframes scrollUp {
+  0% { transform: translateY(100%); }
+  100% { transform: translateY(-100%); }
+}
 </style>
 </head>
 
@@ -105,36 +119,38 @@ body{
 
 <div class="container">
 
-<div class="notification">
-<div class="icon">📢</div>
-<div class="text">
-Amazon invited students for internship
-<div class="time">Today</div>
-</div>
-</div>
+<div class="scrolling-notifications">
+  <div class="notification">
+    <div class="icon">📢</div>
+    <div class="text">
+      Amazon invited students for internship
+      <div class="time">Today</div>
+    </div>
+  </div>
 
-<div class="notification">
-<div class="icon">🎤</div>
-<div class="text">
-Pre-placement talk scheduled tomorrow
-<div class="time">10:00 AM</div>
-</div>
-</div>
+  <div class="notification">
+    <div class="icon">🎤</div>
+    <div class="text">
+      Pre-placement talk scheduled tomorrow
+      <div class="time">10:00 AM</div>
+    </div>
+  </div>
 
-<div class="notification">
-<div class="icon">💼</div>
-<div class="text">
-Microsoft interview scheduled
-<div class="time">Monday - 9 AM</div>
-</div>
-</div>
+  <div class="notification">
+    <div class="icon">💼</div>
+    <div class="text">
+      Microsoft interview scheduled
+      <div class="time">Monday - 9 AM</div>
+    </div>
+  </div>
 
-<div class="notification">
-<div class="icon">🚀</div>
-<div class="text">
-Google summer internship applications open
-<div class="time">New</div>
-</div>
+  <div class="notification">
+    <div class="icon">🚀</div>
+    <div class="text">
+      Google summer internship applications open
+      <div class="time">New</div>
+    </div>
+  </div>
 </div>
 
 </div>
@@ -144,22 +160,6 @@ Google summer internship applications open
 </div>
 
 <a href="main.html" class="button">Back to Dashboard</a>
-
-<script>
-let notifications = document.querySelectorAll(".notification");
-let index = 0;
-
-function showNotification(){
-  if(index < notifications.length){
-    notifications[index].style.display = "flex";
-    index++;
-    setTimeout(showNotification,2000); // show next notification after 2s
-  }
-}
-
-// Start the animation
-showNotification();
-</script>
 
 </body>
 </html>
