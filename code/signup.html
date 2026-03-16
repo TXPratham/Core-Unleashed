@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create an account for the Campus Placement Management System">
+    <title>Sign Up | Campus Placement Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="login.css">
+    <style>
+        .signup-form { display: none; }
+        .signup-form.active { display: block; }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-wrapper">
+        <!-- Left Branding side -->
+        <div class="login-info-section">
+            <div class="brand-logo">
+                <img src="logo.png" alt="Placement Logo" style="width: 40px; height: 40px; border-radius: 4px;">
+            </div>
+            <h2>Join the Unified Platform.</h2>
+            <p>Create an account to discover opportunities, connect with top talent, or manage campus drives efficiently.</p>
+
+            <ul class="features-list">
+                <li>Personalized Dashboard</li>
+                <li>Real-Time Notifications</li>
+                <li>Seamless Communication</li>
+            </ul>
+        </div>
+
+        <!-- Right Form side -->
+        <div class="login-form-section" style="overflow-y: auto;">
+            <div class="login-header" style="margin-bottom: 24px;">
+                <h1>Create Account</h1>
+                <p>Select your role and fill in the details below</p>
+            </div>
+
+            <div class="role-selector">
+                <label class="role-option">
+                    <input type="radio" name="role" value="student" checked onchange="toggleForm('student')">
+                    <span class="role-btn">Student</span>
+                </label>
+                <label class="role-option">
+                    <input type="radio" name="role" value="recruiter" onchange="toggleForm('recruiter')">
+                    <span class="role-btn">Recruiter</span>
+                </label>
+                <label class="role-option">
+                    <input type="radio" name="role" value="admin" onchange="toggleForm('admin')">
+                    <span class="role-btn">Admin</span>
+                </label>
+            </div>
+
+            <form action="#" method="POST" id="main-signup-form">
+                
+                <!-- Student Form Fields -->
+                <div id="student-form" class="signup-form active">
+                    <div class="form-group">
+                        <label for="student-name">Full Name</label>
+                        <input type="text" id="student-name" name="student_name" class="form-control" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="student-id">University ID (Reg No.)</label>
+                        <input type="text" id="student-id" name="student_id" class="form-control" placeholder="e.g. 2024CS012" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="student-email">University Email</label>
+                        <input type="email" id="student-email" name="student_email" class="form-control" placeholder="your.name@university.edu" required>
+                    </div>
+                </div>
+
+                <!-- Recruiter Form Fields -->
+                <div id="recruiter-form" class="signup-form">
+                    <div class="form-group">
+                        <label for="recruiter-name">Full Name</label>
+                        <input type="text" id="recruiter-name" name="recruiter_name" class="form-control" placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="company-name">Company Name</label>
+                        <input type="text" id="company-name" name="company_name" class="form-control" placeholder="Enter your company name">
+                    </div>
+                    <div class="form-group">
+                        <label for="work-email">Work Email</label>
+                        <input type="email" id="work-email" name="work_email" class="form-control" placeholder="name@company.com">
+                    </div>
+                </div>
+
+                <!-- Admin Form Fields -->
+                <div id="admin-form" class="signup-form">
+                    <div class="form-group">
+                        <label for="admin-name">Full Name</label>
+                        <input type="text" id="admin-name" name="admin_name" class="form-control" placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="department">Department</label>
+                        <input type="text" id="department" name="department" class="form-control" placeholder="e.g. Placement Cell">
+                    </div>
+                    <div class="form-group">
+                        <label for="admin-email">Staff Email</label>
+                        <input type="email" id="admin-email" name="admin_email" class="form-control" placeholder="staff@university.edu">
+                    </div>
+                    <div class="form-group">
+                        <label for="admin-code">Access Code</label>
+                        <input type="password" id="admin-code" name="admin_code" class="form-control" placeholder="Enter authorized access code">
+                    </div>
+                </div>
+
+                <!-- Common Password Fields -->
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Create a password" required>
+                </div>
+                
+                <div class="form-options" style="margin-bottom: 20px;">
+                    <label class="remember-me">
+                        <input type="checkbox" name="terms" required>
+                        <span>I agree to the <a href="#" class="forgot-password">Terms & Conditions</a></span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-submit">Sign Up</button>
+            </form>
+
+            <div class="sign-up-link">
+                Already have an account? <a href="login.html">Sign In</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleForm(role) {
+            // Hide all specialized forms and remove the required attribute
+            document.querySelectorAll('.signup-form').forEach(form => {
+                form.classList.remove('active');
+                const inputs = form.querySelectorAll('input');
+                inputs.forEach(input => input.removeAttribute('required'));
+            });
+
+            // Show selected form and add the required attribute to its inner fields
+            const activeForm = document.getElementById(role + '-form');
+            activeForm.classList.add('active');
+            
+            const visibleInputs = activeForm.querySelectorAll('input');
+            visibleInputs.forEach(input => input.setAttribute('required', 'true'));
+        }
+
+        document.getElementById('main-signup-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const selectedRole = document.querySelector('input[name="role"]:checked').value;
+            // Redirect to the profile setup page passing the chosen role
+            window.location.href = `setup_profile.html?role=${selectedRole}`;
+        });
+    </script>
+</body>
+
+</html>
