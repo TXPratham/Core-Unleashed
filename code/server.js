@@ -9,6 +9,7 @@ const app = express();
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); // Support for JSON-encoded bodies
+app.use(express.static(__dirname)); // Serve static files like HTML, CSS
 app.use(session({
     secret: process.env.SESSION_SECRET || 'fallback-secret-key',
     resave: false,
@@ -56,9 +57,9 @@ app.post('/login', async (req, res) => {
     const { usn, email, password, role } = req.body;
 
     try {
-        // Search by Email AND University ID, restricted by the selected Role
+        // Search by Email OR University ID, restricted by the selected Role
         const [rows] = await db.query(
-            'SELECT * FROM users WHERE email = ? AND university_id = ? AND role = ?',
+            'SELECT * FROM users WHERE (email = ? OR university_id = ?) AND role = ?',
             [email, usn, role]
         );
 
