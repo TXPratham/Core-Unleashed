@@ -11,79 +11,58 @@
 
 <body>
 
-    <!-- Top Navigation Bar -->
-    <nav class="navbar">
-        <div class="brand">
-            <img src="logo.png" alt="Placement Logo" style="width: 32px; height: 32px; border-radius: 4px;">
-            <span class="brand-text">Placement Portal</span>
-        </div>
-        <div class="nav-links">
-            <a href="home.html" class="nav-item active">Home</a>
-            <a href="student_profile.html" class="nav-item">Dashboard</a>
-            <a href="company_invites.html" class="nav-item">Jobs</a>
-            <a href="alumni_chat.html" class="nav-item">Alumni Network</a>
-            <div class="nav-actions">
-                <button class="icon-btn" title="Notifications">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                    </svg>
-                    <span class="badge">3</span>
-                </button>
-                <div class="avatar">JS</div>
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-top">
+                <a href="home.html" class="brand" title="Placement Portal">
+                    <img src="logo.png" alt="Logo" class="brand-img">
+                </a>
+                
+                <nav class="nav-menu">
+                    <a href="home.html" class="nav-item active" title="Home">
+                        <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    </a>
+                    <a href="#" class="nav-item" title="Search">
+                        <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </a>
+                    <a href="company_invites.html" class="nav-item" title="Explore / Jobs">
+                        <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+                    </a>
+                    <a href="alumni_chat.html" class="nav-item" title="Messages">
+                        <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                    </a>
+                    <a href="#" class="nav-item" title="Notifications">
+                        <div class="nav-icon-wrapper">
+                            <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                            </svg>
+                            <span class="badge"></span>
+                        </div>
+                    </a>
+                    <a href="#" class="nav-item" title="Create">
+                        <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                    </a>
+                    <a href="student_profile.html" class="nav-item" title="Profile">
+                        <div class="avatar-small">JS</div>
+                    </a>
+                </nav>
             </div>
-        </div>
-    </nav>
+            
+            <div class="sidebar-bottom">
+                <a href="#" class="nav-item" title="More">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </a>
+            </div>
+        </aside>
 
-    <main class="container">
-        <!-- Page Header -->
-        <header class="page-header">
-            <div>
-                <h1>Welcome back, Jane! 👋</h1>
-                <p>Here's a quick glimpse of what's happening with your placement journey today.</p>
-            </div>
-            <button class="btn-primary">Update Resume</button>
-        </header>
+        <!-- Main Content area -->
+        <main class="main-content">
+            <div class="container">
 
-        <!-- Stats Overview Row -->
-        <section class="overview-grid">
-            <div class="stat-card">
-                <div class="stat-icon bg-blue">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-                </div>
-                <div class="stat-info">
-                    <h3>3</h3>
-                    <p>Active Applications</p>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon bg-purple">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                </div>
-                <div class="stat-info">
-                    <h3>2</h3>
-                    <p>Upcoming Drives</p>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon bg-orange">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3zm-8.27 4a2 2 0 0 1-3.46 0"></path></svg>
-                </div>
-                <div class="stat-info">
-                    <h3>5</h3>
-                    <p>New Notifications</p>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon bg-green">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                </div>
-                <div class="stat-info">
-                    <h3>85%</h3>
-                    <p>Profile Completeness</p>
-                </div>
-            </div>
-        </section>
+
+
 
         <!-- Main Content Grid -->
         <div class="dashboard-grid">
@@ -208,8 +187,9 @@
                     </ul>
                 </div>
             </div>
-        </div>
-    </main>
+            </div>
+        </main>
+    </div>
 
     <script>
         // Simple script to toggle notification unread status
@@ -217,13 +197,10 @@
             item.addEventListener('click', function() {
                 if(this.classList.contains('unread')) {
                     this.classList.remove('unread');
-                    const badge = document.querySelector('.badge');
-                    let count = parseInt(badge.textContent);
-                    if(count > 0) {
-                        badge.textContent = count - 1;
-                        if(count - 1 === 0) {
-                            badge.style.display = 'none';
-                        }
+                    // Hide dot if there are no more unread items
+                    if (document.querySelectorAll('.notification-item.unread').length === 0) {
+                        const badge = document.querySelector('.badge');
+                        if (badge) badge.style.display = 'none';
                     }
                 }
             });
