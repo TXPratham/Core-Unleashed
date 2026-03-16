@@ -149,14 +149,7 @@
 
                         // Wait a brief moment before redirecting so they see exactly "Sign In Successful"
                         setTimeout(() => {
-                            const selectedRole = document.querySelector('input[name="role"]:checked').value;
-                            if (selectedRole === 'student') {
-                                window.location.href = 'student_profile.html';
-                            } else if (selectedRole === 'recruiter') {
-                                window.location.href = 'recruiter_dashboard.html';
-                            } else if (selectedRole === 'admin') {
-                                window.location.href = 'qr_attendance_dashboard.html';
-                            }
+                            window.location.href = 'home.html';
                         }, 500);
                     } else {
                         // Error connecting to backend/invalid credentials
