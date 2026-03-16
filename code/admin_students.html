@@ -246,13 +246,28 @@
             </div>
 
             <div class="form-group-modal">
+                <label for="new-name">Full Name</label>
+                <input type="text" id="new-name" placeholder="Enter student's full name" required>
+            </div>
+
+            <div class="form-group-modal">
                 <label for="new-email">Student Email</label>
                 <input type="email" id="new-email" placeholder="student@university.edu" required>
             </div>
 
             <div class="form-group-modal">
+                <label for="new-degree">Degree</label>
+                <input type="text" id="new-degree" placeholder="e.g. B.Tech, MCA" required>
+            </div>
+
+            <div class="form-group-modal">
                 <label for="new-branch">Branch</label>
                 <input type="text" id="new-branch" placeholder="e.g. CSE, ISE, ECE" required>
+            </div>
+
+            <div class="form-group-modal">
+                <label for="new-grad">Graduation Year</label>
+                <input type="number" id="new-grad" placeholder="e.g. 2025" min="2020" max="2030" required>
             </div>
 
             <div class="modal-actions">
@@ -272,12 +287,16 @@
             document.getElementById('addStudentModal').classList.remove('active');
             // Clear inputs
             document.getElementById('new-usn').value = '';
+            document.getElementById('new-name').value = '';
             document.getElementById('new-email').value = '';
+            document.getElementById('new-degree').value = '';
             document.getElementById('new-branch').value = '';
+            document.getElementById('new-grad').value = '';
         }
 
         function submitStudent() {
             const usn = document.getElementById('new-usn').value;
+            const name = document.getElementById('new-name').value || 'Unknown Name';
             const branch = document.getElementById('new-branch').value;
             
             if (!usn) {
@@ -293,14 +312,14 @@
                 <td><strong style="color:var(--text-main);">${usn.toUpperCase()}</strong></td>
                 <td>
                     <div class="student-info">
-                        <div class="student-avatar" style="background:#e5e7eb; color:#9ca3af;">--</div>
+                        <div class="student-avatar" style="background:#e5e7eb; color:#9ca3af;">${name.charAt(0).toUpperCase()}</div>
                         <div class="student-details-text">
-                            <span class="student-name" style="color:var(--text-muted);">Not Registered</span>
+                            <span class="student-name">${name}</span>
                         </div>
                     </div>
                 </td>
                 <td>${branch ? branch.toUpperCase() : 'N/A'}</td>
-                <td><span class="status-badge status-pending">Invited</span></td>
+                <td><span class="status-badge status-pending">Profile Created</span></td>
                 <td>0 Offers</td>
                 <td>
                     <button class="action-btn" title="Resend Invite">
@@ -313,7 +332,7 @@
             
             tbody.insertBefore(newRow, tbody.children[1]); // insert after the first one just for UI effect
             
-            alert(`Student ${usn} has been authorized! They can now sign up and set their password.`);
+            alert(`Student ${name} (${usn}) has been authorized! Their profile is ready. They can now sign up using their USN to set a password.`);
             closeAddModal();
         }
     </script>
