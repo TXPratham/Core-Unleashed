@@ -111,21 +111,70 @@
             const btnText = submitBtn.querySelector('span');
             const spinner = submitBtn.querySelector('.spinner');
 
-            form.addEventListener('submit', (e) => {
+            form.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 // Loading state
                 btnText.style.display = 'none';
                 spinner.classList.remove('hidden');
                 submitBtn.classList.add('loading');
 
-                // Simulate Network Request
-                setTimeout(() => {
+                // Real Network Request to MySQL backed server
+                try {
+                    const role = document.querySelector('input[name="role"]:checked').value;
+                    const usnInput = document.getElementById('usn');
+                    const emailInput = document.getElementById('email');
+
+                    // Build request body safely handling if inputs don't exist in all roles
+                    const reqBody = {
+                        role: role,
+                        usn: usnInput ? usnInput.value : '',
+                        email: emailInput ? emailInput.value : document.getElementById('usn').value, // Fallbacks
+                        password: document.getElementById('password').value
+                    };
+
+                    const response = await fetch('/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(reqBody)
+                    });
+
+                    if (response.ok) {
+                        spinner.classList.add('hidden');
+                        btnText.style.display = 'inline';
+                        btnText.textContent = "Sign In Successful";
+                        submitBtn.classList.remove('loading');
+                        submitBtn.classList.add('success');
+
+                        // Wait a brief moment before redirecting so they see exactly "Sign In Successful"
+                        setTimeout(() => {
+                            const selectedRole = document.querySelector('input[name="role"]:checked').value;
+                            if (selectedRole === 'student') {
+                                window.location.href = 'student_profile.html';
+                            } else if (selectedRole === 'recruiter') {
+                                window.location.href = 'recruiter_dashboard.html';
+                            } else if (selectedRole === 'admin') {
+                                window.location.href = 'qr_attendance_dashboard.html';
+                            }
+                        }, 500);
+                    } else {
+                        // Error connecting to backend/invalid credentials
+                        spinner.classList.add('hidden');
+                        btnText.style.display = 'inline';
+                        btnText.textContent = "Sign In";
+                        submitBtn.classList.remove('loading');
+                        const errorText = await response.text();
+                        alert("Login failed: " + errorText);
+                    }
+                } catch (err) {
+                    console.error("Login error:", err);
                     spinner.classList.add('hidden');
                     btnText.style.display = 'inline';
-                    btnText.textContent = "Sign In Successful";
+                    btnText.textContent = "Sign In";
                     submitBtn.classList.remove('loading');
-                    submitBtn.classList.add('success');
-                }, 1500);
+                    alert("An error occurred during login. Please ensure the server is running.");
+                }
             });
         });
     </script>
