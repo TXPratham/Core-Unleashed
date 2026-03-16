@@ -45,7 +45,7 @@
                 <p>Please enter your details to sign up</p>
             </div>
 
-            <form action="/register" method="POST">
+            <form id="signup-form">
                 <div class="role-selector">
                     <label class="role-option">
                         <input type="radio" name="role" value="student" checked onchange="updateSignupFields('student')">
@@ -111,6 +111,12 @@
                 emailInput.placeholder = 'staff@university.edu';
             }
         }
+
+        document.getElementById('signup-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const selectedRole = document.querySelector('input[name="role"]:checked').value;
+            window.location.href = `setup_profile.html?role=${selectedRole}`;
+        });
     </script>
 </body>
 
