@@ -73,7 +73,7 @@
         <header class="dashboard-header">
             <div>
                 <h1>Student Management & Analysis</h1>
-                <p>Track student performance, analyze placement readiness, and invite new students.</p>
+                <p>Track student performance, analyze placement readiness, and add new students directly.</p>
             </div>
             <div class="header-actions">
                 <button class="btn-primary" onclick="openAddModal()">
@@ -81,7 +81,7 @@
                         <line x1="12" y1="5" x2="12" y2="19"></line>
                         <line x1="5" y1="12" x2="19" y2="12"></line>
                     </svg>
-                    Invite Student (USN)
+                    Add Student
                 </button>
             </div>
         </header>
@@ -110,15 +110,21 @@
 
             <div class="stat-card">
                 <div class="stat-title">
-                    <span>Pending Invitations</span>
+                    <span>Recently Added</span>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="8.5" cy="7" r="4"></circle>
+                        <line x1="20" y1="8" x2="20" y2="14"></line>
+                        <line x1="23" y1="11" x2="17" y2="11"></line>
                     </svg>
                 </div>
-                <div class="stat-value">62</div>
-                <div class="stat-trend trend-neutral">
-                    <span>Awaiting sign-up</span>
+                <div class="stat-value">14</div>
+                <div class="stat-trend trend-up">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="19" x2="12" y2="5"></line>
+                        <polyline points="5 12 12 5 19 12"></polyline>
+                    </svg>
+                    Added this week
                 </div>
             </div>
 
@@ -208,19 +214,20 @@
                                 <td><strong style="color:var(--text-main);">1RD20EC012</strong></td>
                                 <td>
                                     <div class="student-info">
-                                        <div class="student-avatar" style="background:#e5e7eb; color:#9ca3af;">--</div>
+                                        <div class="student-avatar">SJ</div>
                                         <div class="student-details-text">
-                                            <span class="student-name" style="color:var(--text-muted);">Not Registered</span>
+                                            <span class="student-name">Sarah Jenkins</span>
                                         </div>
                                     </div>
                                 </td>
                                 <td>ECE</td>
-                                <td><span class="status-badge status-pending">Invited</span></td>
+                                <td><span class="status-badge" style="background:var(--success-bg); color:var(--success-text);">Active Profile</span></td>
                                 <td>0 Offers</td>
                                 <td>
-                                    <button class="action-btn" title="Resend Invite">
+                                    <button class="action-btn" title="View Analytics">
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M21.5 2v6h-6M2.13 15.57a9 9 0 0 0 15.93 2.15l3.44-3.52M2.5 22v-6h6M21.87 8.43a9 9 0 0 0-15.93-2.15L2.5 9"></path>
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
                                         </svg>
                                     </button>
                                 </td>
@@ -236,8 +243,8 @@
     <div class="modal-overlay" id="addStudentModal">
         <div class="modal-box">
             <div class="modal-header">
-                <h2>Invite New Student</h2>
-                <p>Add a student's USN to allow them to create an account and set their own password during Sign Up.</p>
+                <h2>Add New Student</h2>
+                <p>Create a complete student profile with USN and password so they can log in directly.</p>
             </div>
             
             <div class="form-group-modal">
@@ -253,6 +260,11 @@
             <div class="form-group-modal">
                 <label for="new-email">Student Email</label>
                 <input type="email" id="new-email" placeholder="student@university.edu" required>
+            </div>
+
+            <div class="form-group-modal">
+                <label for="new-password">Password</label>
+                <input type="password" id="new-password" placeholder="Create a password" required>
             </div>
 
             <div class="form-group-modal">
@@ -272,7 +284,7 @@
 
             <div class="modal-actions">
                 <button class="btn-secondary" onclick="closeAddModal()" style="width: auto;">Cancel</button>
-                <button class="btn-primary" onclick="submitStudent()" style="width: auto;">Send Invite</button>
+                <button class="btn-primary" onclick="submitStudent()" style="width: auto;">Add Student</button>
             </div>
         </div>
     </div>
@@ -289,6 +301,7 @@
             document.getElementById('new-usn').value = '';
             document.getElementById('new-name').value = '';
             document.getElementById('new-email').value = '';
+            document.getElementById('new-password').value = '';
             document.getElementById('new-degree').value = '';
             document.getElementById('new-branch').value = '';
             document.getElementById('new-grad').value = '';
@@ -298,9 +311,10 @@
             const usn = document.getElementById('new-usn').value;
             const name = document.getElementById('new-name').value || 'Unknown Name';
             const branch = document.getElementById('new-branch').value;
+            const password = document.getElementById('new-password').value;
             
-            if (!usn) {
-                alert('Please enter a USN.');
+            if (!usn || !password) {
+                alert('Please enter a USN and Password.');
                 return;
             }
 
@@ -332,7 +346,7 @@
             
             tbody.insertBefore(newRow, tbody.children[1]); // insert after the first one just for UI effect
             
-            alert(`Student ${name} (${usn}) has been authorized! Their profile is ready. They can now sign up using their USN to set a password.`);
+            alert(`Student ${name} (${usn}) has been added successfully! They can now log in directly using their USN and the provided password.`);
             closeAddModal();
         }
     </script>
