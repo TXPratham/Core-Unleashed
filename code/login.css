@@ -6,9 +6,10 @@
     --text-main: #0f172a; /* Dark Navy for readability */
     --text-muted: #475569;
     --white: #ffffff;
-    --blue-panel: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-    --blue-card: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
-    --shadow: 0 30px 60px -12px rgba(37, 99, 235, 0.12);
+    --blue-panel: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    --blue-hero: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    --blue-glass: rgba(219, 234, 254, 0.4);
+    --shadow: 0 40px 100px -20px rgba(15, 23, 42, 0.15);
 }
 
 * {
@@ -28,12 +29,16 @@ html, body {
 
 body {
     background: #f0f9ff;
-    background-image: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    background-image: radial-gradient(at 0% 0%, #eff6ff 0%, transparent 50%),
+                      radial-gradient(at 100% 0%, #e0f2fe 100% 0%, transparent 50%),
+                      radial-gradient(at 100% 100%, #f0f9ff 0%, transparent 50%),
+                      radial-gradient(at 0% 100%, #eff6ff 0%, transparent 50%);
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     padding: 20px;
+    min-height: 100vh;
 }
 
 body::before, body::after {
@@ -62,6 +67,8 @@ body::after {
     animation: moveBlob2 25s infinite alternate-reverse;
 }
 
+/* Background blobs restored */
+
 @keyframes moveBlob1 {
     0% { transform: translate(0, 0); }
     100% { transform: translate(100px, 100px); }
@@ -74,15 +81,18 @@ body::after {
 
 .login-wrapper {
     display: flex;
-    background: var(--blue-card); /* No pure white */
+    background: var(--blue-glass); /* Slightly more tinted for light background */
+    backdrop-filter: blur(25px) saturate(180%);
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
     border-radius: 40px;
     box-shadow: var(--shadow);
     overflow: hidden;
     width: 100%;
-    max-width: 946px;
-    min-height: 616px;
+    max-width: 1080px;
+    min-height: 680px;
     animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle light blue border instead of solid */
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    position: relative;
 }
 
 @keyframes slideUp {
@@ -91,35 +101,51 @@ body::after {
 }
 
 .login-info-section {
-    flex: 1;
-    background: linear-gradient(135deg, #1d4ed8 0%, #3b82f6 100%);
+    flex: 1.1;
+    background: linear-gradient(135deg, rgba(30, 64, 175, 0.85) 0%, rgba(37, 99, 235, 0.75) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     color: #ffffff;
-    padding: 60px;
+    padding: 60px 80px 60px 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     position: relative;
     overflow: hidden;
+    z-index: 2;
+    /* The Curve Mask */
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0 0 H 85 C 105 35 70 70 95 100 H 0 Z' fill='black' /%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0 0 H 85 C 105 35 70 70 95 100 H 0 Z' fill='black' /%3E%3C/svg%3E");
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
 }
 
 .login-info-section::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
-    filter: blur(20px);
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.2) 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 40%),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    filter: blur(1px);
+    opacity: 0.8;
 }
 
 .brand-logo {
-    background: var(--white);
-    width: 32px;
-    height: 32px;
-    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 4px;
-    margin-bottom: 12px;
+    padding: 12px;
+    margin-bottom: 32px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transform: none; /* Removed the tilt for proper alignment */
 }
 
 .brand-logo img {
@@ -129,15 +155,16 @@ body::after {
 }
 
 .login-info-section h2 {
-    font-size: 2.25rem; /* Scaled up further */
+    font-size: 2.75rem;
     font-weight: 800;
     line-height: 1.1;
     margin-bottom: 24px;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.04em;
+    color: #ffffff;
 }
 
 .login-info-section p {
-    font-size: 1.05rem;
+    font-size: 1.2rem;
     line-height: 1.6;
     opacity: 0.9;
     margin-bottom: 40px;
@@ -174,13 +201,15 @@ body::after {
 
 /* Right side */
 .login-form-section {
-    flex: 1.25;
-    padding: 60px 70px;
+    flex: 1;
+    padding: 60px 70px 60px 40px; /* Reduced left padding because of overlap */
+    margin-left: -80px; /* Overlap into the curved area */
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background: var(--blue-panel); /* Blue gradient panel instead of white */
+    background: transparent; /* Wrapper background handles this */
     position: relative;
+    z-index: 1;
 }
 
 .login-header h1 {
@@ -210,25 +239,30 @@ body::after {
     display: block;
     text-align: center;
     padding: 14px;
-    border: none;
-    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     color: var(--text-muted);
     border-radius: 14px;
     cursor: pointer;
     font-size: 0.95rem;
     font-weight: 700;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .role-btn:hover {
-    background: rgba(255, 255, 255, 0.6);
-    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px);
+    color: var(--primary);
 }
 
 .role-option input:checked + .role-btn {
-    background: var(--primary);
+    background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
     color: white;
-    border-color: var(--primary);
+    border-color: transparent;
+    box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4), 0 0 15px rgba(37, 99, 235, 0.3);
+    transform: scale(1.02);
 }
 
 .form-group { margin-bottom: 16px; }
@@ -244,21 +278,22 @@ body::after {
 .form-control {
     width: 100%;
     padding: 16px 20px;
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 16px;
-    background: rgba(250, 251, 255, 0.6); /* Translucent light blue */
-    backdrop-filter: blur(10px);
+    background: rgba(224, 242, 254, 0.35); /* Subtle blue tint */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     font-size: 1rem;
     font-weight: 500;
     color: var(--text-main);
     transition: all 0.3s ease;
-    box-shadow: inset 0 2px 4px rgba(37, 99, 235, 0.05);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.03);
 }
 
 .form-control:focus {
     outline: none;
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    background: rgba(255, 255, 255, 0.55);
+    box-shadow: 0 8px 16px rgba(37, 99, 235, 0.1);
 }
 
 .form-options {
@@ -285,18 +320,49 @@ body::after {
 
 .btn-submit {
     width: 100%;
-    padding: 16px; /* Larger button */
-    background: var(--primary);
+    padding: 18px;
+    background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
     color: white;
     border: none;
-    border-radius: 12px;
+    border-radius: 16px;
     font-size: 1.1rem;
     font-weight: 700;
     cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 25px -8px rgba(37, 99, 235, 0.5);
+    position: relative;
+    overflow: hidden;
 }
 
-.btn-submit:hover { transform: translateY(-1px); filter: brightness(1.05); }
+.btn-submit::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.btn-submit:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 35px -10px rgba(37, 99, 235, 0.7), 0 0 20px rgba(37, 99, 235, 0.4);
+    filter: brightness(1.15);
+}
+
+.btn-submit:hover::after {
+    left: 100%;
+}
+
+.btn-submit:active {
+    transform: translateY(1px) scale(0.98);
+}
 
 .sign-up-link {
     text-align: center;
