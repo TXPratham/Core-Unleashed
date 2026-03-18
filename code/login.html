@@ -19,7 +19,8 @@
                 <img src="logo.png" alt="Placement Logo" style="width: 40px; height: 40px; border-radius: 4px;">
             </div>
             <h2>Unlock Your Career Potential Today.</h2>
-            <p>Experience a seamless placement journey with intelligent tools designed to connect top talent with industry-leading recruiters directly.</p>
+            <p>Experience a seamless placement journey with intelligent tools designed to connect top talent with
+                industry-leading recruiters directly.</p>
 
             <ul class="features-list">
                 <li>AI-Powered Resume Optimization</li>
@@ -102,7 +103,7 @@
             const role = document.querySelector('input[name="role"]:checked').value;
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            
+
             // Check localStorage for simulated student accounts created by admin
             if (role === 'student') {
                 const addedStudents = JSON.parse(localStorage.getItem('addedStudents') || '[]');
