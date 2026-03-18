@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Campus Placement Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="recruiter_dashboard.css">
+    <style>
+        /* Admin specific color adjustments just in case */
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary: #f1f5f9;
+            --secondary-hover: #e2e8f0;
+            --bg-main: #f8fafc;
+        }
+
+        .avatar {
+            background: #8b5cf6;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-overlay.active { display: flex; animation: fadeIn 0.2s; }
+        .modal-box {
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .modal-header { margin-bottom: 20px; }
+        .modal-header h2 { font-size: 1.25rem; color: var(--text-main); margin-bottom: 8px; }
+        .modal-header p { font-size: 0.9rem; color: var(--text-muted); }
+        .form-group-modal { margin-bottom: 16px; }
+        .form-group-modal label { display: block; margin-bottom: 6px; font-size: 0.85rem; font-weight: 500; color: var(--text-main); }
+        .form-group-modal input, .form-group-modal select { width: 100%; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.95rem; }
+        .modal-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Navigation -->
+    <nav class="navbar">
+        <div class="brand">
+            <img src="logo.png" alt="Placement Logo" style="width: 32px; height: 32px; border-radius: 4px;">
+        </div>
+        <div class="nav-links">
+            <a href="#" class="nav-item active">Dashboard</a>
+            <a href="admin_students.html" class="nav-item">Students</a>
+            <a href="#" class="nav-item">Companies</a>
+            <a href="#" class="nav-item">Placement Drives</a>
+            <div class="avatar">A</div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Container -->
+    <div class="container">
+
+        <!-- Welcome Header -->
+        <header class="dashboard-header">
+            <div>
+                <h1>Admin Overview</h1>
+                <p>Monitor placement activities and key metrics across the university.</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn-secondary" onclick="downloadReports()">Download Reports</button>
+                <button class="btn-primary" onclick="openCreateEventModal()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Create Event
+                </button>
+            </div>
+        </header>
+
+        <!-- Key Metrics Cards (Admin Context) -->
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-title">
+                    <span>Total Students Registered</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                </div>
+                <div class="stat-value">1,248</div>
+                <div class="stat-trend trend-up">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="19" x2="12" y2="5"></line>
+                        <polyline points="5 12 12 5 19 12"></polyline>
+                    </svg>
+                    98% of eligible batch
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-title">
+                    <span>Active Companies</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                </div>
+                <div class="stat-value">42</div>
+                <div class="stat-trend trend-up">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="19" x2="12" y2="5"></line>
+                        <polyline points="5 12 12 5 19 12"></polyline>
+                    </svg>
+                    +5 from last week
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-title">
+                    <span>Upcoming Drives</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                </div>
+                <div class="stat-value">8</div>
+                <div class="stat-trend trend-neutral">
+                    <span>Next 14 Days</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-title">
+                    <span>Students Placed</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                </div>
+                <div class="stat-value">415</div>
+                <div class="stat-trend trend-up">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="19" x2="12" y2="5"></line>
+                        <polyline points="5 12 12 5 19 12"></polyline>
+                    </svg>
+                    33% of registered
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content Area -->
+        <main class="content-grid">
+
+            <!-- Left Column: Ongoing Drives -->
+            <section class="section-card">
+                <div class="section-header">
+                    <h2>Live & Upcoming Drives</h2>
+                    <a href="#" class="view-all">View Full Calendar</a>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Company</th>
+                                <th>Target Branches</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="student-info">
+                                        <div class="student-avatar" style="background:#f97316;">T</div>
+                                        <div class="student-details-text">
+                                            <span class="student-name">TechCorp Inc.</span>
+                                            <span class="student-degree">Software Eng</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>CSE, IT</td>
+                                <td><span class="status-badge" style="background:var(--success-bg); color:var(--success-text);">Ongoing</span></td>
+                                <td>Today</td>
+                                <td>
+                                    <button class="action-btn" title="View Drive">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                        </svg>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="student-info">
+                                        <div class="student-avatar" style="background:#0ea5e9;">C</div>
+                                        <div class="student-details-text">
+                                            <span class="student-name">CloudSys Data</span>
+                                            <span class="student-degree">Data Science</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>CSE, IT, ECE</td>
+                                <td><span class="status-badge status-shortlisted">Scheduled</span></td>
+                                <td>Oct 28</td>
+                                <td>
+                                    <button class="action-btn" title="View Drive">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                        </svg>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="student-info">
+                                        <div class="student-avatar" style="background:#10b981;">G</div>
+                                        <div class="student-details-text">
+                                            <span class="student-name">Global Finance</span>
+                                            <span class="student-degree">Analyst</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>All Branches</td>
+                                <td><span class="status-badge status-pending">Reg. Open</span></td>
+                                <td>Nov 02</td>
+                                <td>
+                                    <button class="action-btn" title="View Drive">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                        </svg>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Right Column: Quick Admin Actions -->
+            <section class="section-card">
+                <div class="section-header">
+                    <h2>Admin Actions</h2>
+                </div>
+                <div class="job-list">
+                    <div class="job-item" style="cursor:pointer;" onclick="location.href='admin_verify_students.html'">
+                        <div class="job-details">
+                            <h3>Verify Student Profiles</h3>
+                            <div class="job-meta">
+                                <span>34 profiles pending approval</span>
+                            </div>
+                        </div>
+                        <div class="job-stats">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" style="color:var(--text-muted)">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="job-item" style="cursor:pointer;" onclick="location.href='qr_attendance_dashboard.html'">
+                        <div class="job-details">
+                            <h3>QR Attendance Dashboard</h3>
+                            <div class="job-meta">
+                                <span>Manage live talk attendances</span>
+                            </div>
+                        </div>
+                        <div class="job-stats">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" style="color:var(--text-muted)">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="job-item" style="cursor:pointer;" onclick="location.href='admin_approve_recruiters.html'">
+                        <div class="job-details">
+                            <h3>Approve Employer Requests</h3>
+                            <div class="job-meta">
+                                <span>2 new companies requested access</span>
+                            </div>
+                        </div>
+                        <div class="job-stats">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" style="color:var(--text-muted)">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Create Event Modal -->
+    <div class="modal-overlay" id="createEventModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2>Create New Event</h2>
+                <p>Schedule a new placement drive, pre-placement talk, or training session.</p>
+            </div>
+            
+            <div class="form-group-modal">
+                <label for="event-title">Event Title</label>
+                <input type="text" id="event-title" placeholder="e.g. Google Campus Drive" required>
+            </div>
+
+            <div class="form-group-modal">
+                <label for="event-type">Event Type</label>
+                <select id="event-type">
+                    <option value="drive">Placement Drive</option>
+                    <option value="talk">Pre-Placement Talk</option>
+                    <option value="training">Training Session</option>
+                </select>
+            </div>
+
+            <div class="form-group-modal">
+                <label for="event-date">Date & Time</label>
+                <input type="datetime-local" id="event-date" required>
+            </div>
+
+            <div class="form-group-modal">
+                <label for="event-branches">Target Branches</label>
+                <input type="text" id="event-branches" placeholder="e.g. CSE, ISE, ECE" required>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="closeCreateEventModal()" style="width: auto;">Cancel</button>
+                <button class="btn-primary" onclick="submitEvent()" style="width: auto;">Create Event</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function downloadReports() {
+            const csvData = "Report Type,Count,Trend\nTotal Students,1248,+98%\nActive Companies,42,+5\nUpcoming Drives,8,Neutral\nStudents Placed,415,+33%";
+            const blob = new Blob([csvData], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'admin_platform_reports.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            alert("Reports downloaded successfully!");
+        }
+
+        function openCreateEventModal() {
+            document.getElementById('createEventModal').classList.add('active');
+        }
+
+        function closeCreateEventModal() {
+            document.getElementById('createEventModal').classList.remove('active');
+            document.getElementById('event-title').value = '';
+            document.getElementById('event-type').value = 'drive';
+            document.getElementById('event-date').value = '';
+            document.getElementById('event-branches').value = '';
+        }
+
+        function submitEvent() {
+            const title = document.getElementById('event-title').value;
+            const date = document.getElementById('event-date').value;
+            
+            if (!title || !date) {
+                alert("Please fill in the event title and date.");
+                return;
+            }
+
+            alert(`Event "${title}" has been successfully created!`);
+            closeCreateEventModal();
+        }
+    </script>
+</body>
+
+</html>

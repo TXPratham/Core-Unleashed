@@ -26,19 +26,15 @@
         <!-- Left Branding side -->
         <div class="login-info-section">
             <div class="brand-logo">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                </svg>
-                <span class="brand-name">Core Unleashed</span>
+                <img src="logo.png" alt="Placement Logo" style="width: 40px; height: 40px; border-radius: 4px;">
             </div>
-            <h2>Join our community.</h2>
-            <p>Create an account to discover top opportunities, track applications, and connect seamlessly.</p>
+            <h2>Launch Your Career</h2>
+            <p>Your journey to the perfect job starts here. Build your profile and connect with top employers.</p>
 
             <ul class="features-list">
-                <li>Discover Top Opportunities</li>
-                <li>Track Applications in Real-Time</li>
-                <li>Connect with Verified Recruiters</li>
+                <li>Explore Placement Drives</li>
+                <li>Build Your Professional Profile</li>
+                <li>Connect with Top Employers</li>
             </ul>
         </div>
 
@@ -49,37 +45,35 @@
                 <p>Please enter your details to sign up</p>
             </div>
 
-            <form action="/register" method="POST">
+            <form id="signup-form">
                 <div class="role-selector">
                     <label class="role-option">
-                        <input type="radio" name="role" value="student" checked>
-                        <span class="role-btn">Student</span>
-                    </label>
-                    <label class="role-option">
-                        <input type="radio" name="role" value="recruiter">
+                        <input type="radio" name="role" value="recruiter" checked
+                            onchange="updateSignupFields('recruiter')">
                         <span class="role-btn">Recruiter</span>
                     </label>
                     <label class="role-option">
-                        <input type="radio" name="role" value="admin">
+                        <input type="radio" name="role" value="admin" onchange="updateSignupFields('admin')">
                         <span class="role-btn">Admin</span>
                     </label>
                 </div>
 
                 <div class="form-group">
-                    <label for="usn">USN</label>
-                    <input type="text" id="usn" name="usn" class="form-control" placeholder="Enter your USN" required>
+                    <label for="identifier" id="identifier-label">Company Name</label>
+                    <input type="text" id="identifier" name="identifier" class="form-control"
+                        placeholder="Enter your company name" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email"
+                    <label for="email" id="email-label">Work Email</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="name@company.com"
                         required>
                 </div>
 
                 <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="password" id="password-label">Password</label>
                     <input type="password" id="password" name="password" class="form-control"
-                        placeholder="Create a password" required>
+                        placeholder="Create a new password" required>
                 </div>
 
                 <button type="submit" class="btn-submit">Sign Up</button>
@@ -91,6 +85,32 @@
         </div>
     </div>
 
+    <script>
+        function updateSignupFields(role) {
+            const identifierLabel = document.getElementById('identifier-label');
+            const identifierInput = document.getElementById('identifier');
+            const emailLabel = document.getElementById('email-label');
+            const emailInput = document.getElementById('email');
+
+            if (role === 'recruiter') {
+                identifierLabel.textContent = 'Company Name';
+                identifierInput.placeholder = 'Enter your company name';
+                emailLabel.textContent = 'Work Email';
+                emailInput.placeholder = 'name@company.com';
+            } else if (role === 'admin') {
+                identifierLabel.textContent = 'Staff ID';
+                identifierInput.placeholder = 'Enter your Staff ID';
+                emailLabel.textContent = 'Staff Email';
+                emailInput.placeholder = 'staff@university.edu';
+            }
+        }
+
+        document.getElementById('signup-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const selectedRole = document.querySelector('input[name="role"]:checked').value;
+            window.location.href = `setup_profile.html?role=${selectedRole}`;
+        });
+    </script>
 </body>
 
 </html>
