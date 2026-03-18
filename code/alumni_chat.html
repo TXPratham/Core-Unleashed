@@ -267,10 +267,114 @@
             );
         }
 
+        function getReplyForMessage(userMessage) {
+            const msg = userMessage.toLowerCase();
+
+            // Keyword-based contextual replies
+            const replies = [
+                {
+                    keywords: ['salary', 'package', 'ctc', 'pay', 'compensation', 'lpa'],
+                    response: "Great question! The package varies by role and location. For my role, the CTC was quite competitive. I'd suggest checking levels.fyi for accurate numbers. During the interview, avoid bringing up salary — let HR handle that after you clear the rounds."
+                },
+                {
+                    keywords: ['dsa', 'data structure', 'algorithm', 'leetcode', 'coding round', 'competitive'],
+                    response: "DSA is super important! In my experience, they focused on arrays, trees, and dynamic programming. I solved around 250 LeetCode problems (mostly mediums). Focus on patterns rather than memorizing solutions — that's the key."
+                },
+                {
+                    keywords: ['interview', 'round', 'process', 'how many', 'stages'],
+                    response: "My interview had 4 rounds: an online assessment, two technical interviews (DSA + system design), and one behavioral/HR round. Each round was about 45–60 minutes. Prepare well for the behavioral round too — they really care about communication skills."
+                },
+                {
+                    keywords: ['resume', 'cv', 'shortlist', 'profile'],
+                    response: "For the resume, keep it one page. Highlight projects with measurable impact (e.g., 'reduced latency by 30%'). They look for relevant internships, strong projects, and a clean format. Avoid putting every skill you've ever touched — be honest about what you know well."
+                },
+                {
+                    keywords: ['system design', 'hld', 'lld', 'design round', 'architecture'],
+                    response: "System design was a big part of my interview! They asked me to design a URL shortener. Focus on understanding trade-offs, scalability, and database choices. 'Grokking the System Design Interview' and Alex Xu's book are excellent resources."
+                },
+                {
+                    keywords: ['nervous', 'anxiety', 'scared', 'stress', 'worried', 'panic', 'confident'],
+                    response: "I totally understand the feeling — I was nervous too! The best thing you can do is practice mock interviews. It builds confidence like nothing else. Also, remember that interviewers want you to succeed. Take a deep breath and just be yourself. You've got this! 💪"
+                },
+                {
+                    keywords: ['project', 'portfolio', 'github', 'open source'],
+                    response: "Projects make a huge difference! I had 2 strong projects on my resume — one full-stack app and one ML project. Make sure your GitHub is clean with good READMEs. If you've contributed to open source, definitely highlight that — recruiters love it."
+                },
+                {
+                    keywords: ['behavioral', 'hr', 'culture', 'leadership', 'teamwork', 'tell me about'],
+                    response: "For the behavioral round, use the STAR method (Situation, Task, Action, Result). They asked me about conflict resolution, a time I failed, and why I wanted to join. Be genuine and have 4-5 stories ready that showcase leadership, teamwork, and problem-solving."
+                },
+                {
+                    keywords: ['tip', 'advice', 'suggest', 'recommend', 'help', 'how to prepare', 'guidance'],
+                    response: "My top tips: 1) Start with DSA basics and do 2–3 problems daily, 2) Build at least 2 solid projects, 3) Practice mock interviews weekly, 4) Read about the company's products and values, 5) Get good sleep before the interview day. Consistency beats intensity!"
+                },
+                {
+                    keywords: ['graph', 'tree', 'dp', 'dynamic programming', 'binary tree', 'bfs', 'dfs'],
+                    response: "In my rounds, they focused heavily on DP and Trees. I got a question about finding the longest path in a binary tree, and a follow-up on DP optimization. I'd recommend mastering BFS/DFS traversals and common DP patterns like knapsack and LIS."
+                },
+                {
+                    keywords: ['sql', 'database', 'query', 'join', 'dbms'],
+                    response: "SQL came up in my technical round! They asked me to write complex queries involving JOINs, subqueries, and window functions. Make sure you're comfortable with GROUP BY, HAVING, and can explain normalization. HackerRank SQL track is a great resource for practice."
+                },
+                {
+                    keywords: ['intern', 'internship', 'summer', 'winter'],
+                    response: "Internships are a great way to get your foot in the door! My internship actually helped me convert to a full-time offer. Focus on making real impact during your internship — don't just do assigned tasks, propose improvements. Document everything you build."
+                },
+                {
+                    keywords: ['hello', 'hi', 'hey', 'good morning', 'good evening', 'sup', 'what\'s up'],
+                    response: "Hey! 👋 Good to hear from you. Feel free to ask me anything about the interview process, preparation tips, or my experience. I'm happy to help!"
+                },
+                {
+                    keywords: ['thank', 'thanks', 'appreciate', 'grateful'],
+                    response: "You're welcome! 😊 Always happy to help a fellow student. Don't hesitate to reach out if you have more questions later. Best of luck with your preparation — I'm rooting for you!"
+                },
+                {
+                    keywords: ['book', 'resource', 'material', 'study', 'course', 'learn'],
+                    response: "Here are my go-to resources: 1) 'Cracking the Coding Interview' for DSA, 2) Alex Xu's 'System Design Interview' book, 3) LeetCode and NeetCode for practice, 4) MIT OCW for CS fundamentals. For quick revision, Striver's SDE Sheet is excellent!"
+                }
+            ];
+
+            // Find the best matching reply based on keyword matches
+            let bestMatch = null;
+            let bestScore = 0;
+
+            for (const entry of replies) {
+                let score = 0;
+                for (const keyword of entry.keywords) {
+                    if (msg.includes(keyword)) {
+                        score++;
+                    }
+                }
+                if (score > bestScore) {
+                    bestScore = score;
+                    bestMatch = entry.response;
+                }
+            }
+
+            // Fallback generic replies if no keyword matches
+            if (!bestMatch) {
+                const fallbacks = [
+                    "That's a great point! From my experience, thorough preparation and consistency are key. Would you like me to share more specific details about any topic?",
+                    "Interesting question! I'd say the most important thing is to stay curious and keep practicing. Let me know if you want to dive deeper into any particular area.",
+                    "Good question! Every company is a bit different, but the fundamentals remain the same. Focus on strong coding skills and clear communication. Want me to elaborate on anything specific?",
+                    "I appreciate you asking! Based on my journey, I'd recommend focusing on one thing at a time rather than trying to cover everything. What specific area would you like to explore?"
+                ];
+                bestMatch = fallbacks[Math.floor(Math.random() * fallbacks.length)];
+            }
+
+            return bestMatch;
+        }
+
         function simulateReply() {
+            // Get the latest user message
+            const allSentMessages = document.querySelectorAll('.message.sent .msg-bubble');
+            const latestUserMessage = allSentMessages.length > 0
+                ? allSentMessages[allSentMessages.length - 1].textContent.trim()
+                : '';
+
             setTimeout(() => {
                 const messagesContainer = document.getElementById('chat-messages');
-                const avatar = document.getElementById('header-avatar'); // get current active peer
+                const avatar = document.getElementById('header-avatar');
 
                 const timeStr = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
 
@@ -288,10 +392,11 @@
                 messagesContainer.appendChild(replyDiv);
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
-                // Replace typing indicator with actual text
+                // Replace typing indicator with contextual reply
                 setTimeout(() => {
+                    const replyText = getReplyForMessage(latestUserMessage);
                     replyDiv.querySelector('.msg-content').innerHTML = `
-                        <div class="msg-bubble">That's a great question! For my interview, I was also asked about system design basics. I recommend checking out Grokking the System Design Interview. Let me know if you need any specific resources!</div>
+                        <div class="msg-bubble">${replyText}</div>
                         <span class="msg-time">${timeStr}</span>
                     `;
                     messagesContainer.scrollTop = messagesContainer.scrollHeight;
