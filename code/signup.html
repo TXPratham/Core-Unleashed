@@ -105,35 +105,10 @@
             }
         }
 
-        document.getElementById('signup-form').addEventListener('submit', async function (e) {
+        document.getElementById('signup-form').addEventListener('submit', function (e) {
             e.preventDefault();
-            const role = document.querySelector('input[name="role"]:checked').value;
-            const identifier = document.getElementById('identifier').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            const data = role === 'admin'
-                ? { role, staff_id: identifier, staff_email: email, password }
-                : { role, company_name: identifier, work_email: email, password };
-
-            try {
-                const response = await fetch('/signup', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-
-                const result = await response.json();
-                if (response.ok) {
-                    alert(result.message || 'Account created successfully!');
-                    window.location.href = `setup_profile.html?role=${role}`;
-                } else {
-                    alert(result.error || result.message || 'Error creating account');
-                }
-            } catch (error) {
-                console.error('Signup error:', error);
-                alert('Network error, please try again.');
-            }
+            const selectedRole = document.querySelector('input[name="role"]:checked').value;
+            window.location.href = `setup_profile.html?role=${selectedRole}`;
         });
     </script>
 </body>
