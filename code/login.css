@@ -7,7 +7,8 @@
     --primary-hover: #1d4ed8;
     --border-color: #cbd5e1;
     --input-bg: #ffffff;
-    --shadow: 0 10px 25px rgba(0, 0, 0, 0.05); /* Softer shadow as requested */
+    --shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    /* Softer shadow as requested */
     --focus-ring: rgba(37, 99, 235, 0.2);
 }
 
@@ -202,9 +203,9 @@ body {
     transition: all 0.2s ease;
 }
 
-.role-option input[value="student"]:checked + .role-btn,
-.role-option input[value="recruiter"]:checked + .role-btn,
-.role-option input[value="admin"]:checked + .role-btn {
+.role-option input[value="student"]:checked+.role-btn,
+.role-option input[value="recruiter"]:checked+.role-btn,
+.role-option input[value="admin"]:checked+.role-btn {
     background: linear-gradient(135deg, #1e3a8a, #2563eb);
     color: white;
     border-color: transparent;
@@ -302,4 +303,93 @@ body {
     .login-info-section h2 {
         font-size: 1.75rem;
     }
+}
+
+/* ── Input wrapper (icon prefix support) ── */
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper .form-control {
+    padding-left: 16px;
+}
+
+/* ── Form options row (remember me + forgot password) ── */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    font-size: 0.875rem;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+
+.remember-me input[type="checkbox"] {
+    accent-color: var(--primary);
+    width: 15px;
+    height: 15px;
+}
+
+/* ── Spinner ── */
+.spinner {
+    width: 22px;
+    height: 22px;
+    animation: rotate 1.4s linear infinite;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.spinner .path {
+    stroke: #fff;
+    stroke-linecap: round;
+    animation: dash 1.4s ease-in-out infinite;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes dash {
+    0% {
+        stroke-dasharray: 1, 150;
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -35;
+    }
+
+    100% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -124;
+    }
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ── Button state variants ── */
+.btn-submit.loading {
+    opacity: 0.8;
+    cursor: not-allowed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-submit.success {
+    background: linear-gradient(135deg, #059669, #10b981);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }

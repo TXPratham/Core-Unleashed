@@ -13,20 +13,20 @@
 <body>
 
     <div class="login-wrapper">
-        <!-- Left Branding side (Same as Login Theme) -->
-        <div class="login-info-section">
+        <!-- Left Branding side -->
+        <div class="login-info-section" style="background: linear-gradient(135deg, #1e3a8a, #2563eb); color: white;">
             <div class="brand-logo">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                 </svg>
-                <span class="brand-name">Core Unleashed</span>
+                <span class="brand-name" style="color: white;">Core Unleashed</span>
             </div>
-            <h2>Start your career journey with us.</h2>
-            <p>Welcome to the unified Campus Placement Management System where students, recruiters, and placement
-                officers connect seamlessly.</p>
+            <h2 style="color: white;">Start your career journey with us.</h2>
+            <p style="color: rgba(255,255,255,0.85);">Welcome to the unified Campus Placement Management System where
+                students, recruiters, and placement officers connect seamlessly.</p>
 
-            <ul class="features-list">
+            <ul class="features-list" id="signin-features">
                 <li>Discover Top Opportunities</li>
                 <li>Track Applications in Real-Time</li>
                 <li>Connect with Verified Recruiters</li>
@@ -43,29 +43,30 @@
             <form class="signin-form" action="#" method="POST">
                 <div class="role-selector">
                     <label class="role-option">
-                        <input type="radio" name="role" value="student" checked>
+                        <input type="radio" name="role" value="student" checked onchange="updateLoginFields('student')">
                         <span class="role-btn">Student</span>
                     </label>
                     <label class="role-option">
-                        <input type="radio" name="role" value="recruiter">
+                        <input type="radio" name="role" value="recruiter" onchange="updateLoginFields('recruiter')">
                         <span class="role-btn">Recruiter</span>
                     </label>
                     <label class="role-option">
-                        <input type="radio" name="role" value="admin">
+                        <input type="radio" name="role" value="admin" onchange="updateLoginFields('admin')">
                         <span class="role-btn">Admin</span>
                     </label>
                 </div>
 
-                <div class="form-group">
+                <!-- USN field (only for students) -->
+                <div class="form-group" id="usn-group">
                     <label for="usn">USN</label>
                     <div class="input-wrapper">
-                        <input type="text" id="usn" name="usn" class="form-control" placeholder="Enter your USN"
-                            required>
+                        <input type="text" id="usn" name="usn" class="form-control"
+                            placeholder="Enter your USN (e.g. 1RV20CS001)">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Email</label>
+                    <label for="email" id="email-label">Email</label>
                     <div class="input-wrapper">
                         <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email"
                             required>
@@ -103,7 +104,46 @@
         </div>
     </div>
 
-    <!-- Script to maintain the loading animation inside the new theme -->
+    <!-- Role field toggling (must be a regular script, not module, so inline onchange works) -->
+    <script>
+        function updateLoginFields(role) {
+            const usnGroup = document.getElementById('usn-group');
+            const emailLabel = document.getElementById('email-label');
+            const emailInput = document.getElementById('email');
+            const features = document.getElementById('signin-features');
+
+            if (role === 'student') {
+                usnGroup.style.display = 'block';
+                emailLabel.textContent = 'Email';
+                emailInput.placeholder = 'Enter your email';
+                features.innerHTML = `
+                    <li>Discover Top Opportunities</li>
+                    <li>Track Applications in Real-Time</li>
+                    <li>Connect with Verified Recruiters</li>
+                `;
+            } else if (role === 'recruiter') {
+                usnGroup.style.display = 'none';
+                emailLabel.textContent = 'Work Email';
+                emailInput.placeholder = 'name@company.com';
+                features.innerHTML = `
+                    <li>Post Job Openings</li>
+                    <li>Filter Top Candidates</li>
+                    <li>Schedule Interviews Easily</li>
+                `;
+            } else if (role === 'admin') {
+                usnGroup.style.display = 'none';
+                emailLabel.textContent = 'Staff Email';
+                emailInput.placeholder = 'staff@university.edu';
+                features.innerHTML = `
+                    <li>Manage Student Data</li>
+                    <li>Organize Placement Drives</li>
+                    <li>Track Live Attendance</li>
+                `;
+            }
+        }
+    </script>
+
+    <!-- Firebase Auth module script -->
     <script type="module">
         import { auth, db } from './firebase_setup.js';
         import { signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js';
