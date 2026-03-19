@@ -8,117 +8,225 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="home.css">
     <style>
+        :root {
+            --calendar-border: #e2e8f0;
+            --calendar-bg: #ffffff;
+            --calendar-today-bg: #eff6ff;
+            --calendar-hover: #f8fafc;
+        }
+
         .calendar-container {
-            background: white;
+            background: var(--calendar-bg);
             border-radius: 20px;
-            padding: 2rem;
+            padding: 2.5rem;
             box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--calendar-border);
+            min-height: 850px;
+            display: flex;
+            flex-direction: column;
         }
 
         .calendar-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
-        .month-year {
-            font-size: 1.5rem;
+        .view-controls {
+            display: flex;
+            background: #f1f5f9;
+            padding: 4px;
+            border-radius: 12px;
+            gap: 4px;
+        }
+
+        .view-btn {
+            border: none;
+            background: transparent;
+            padding: 10px 24px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .view-btn.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .year-selector-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            padding: 6px 16px;
+            border-radius: 14px;
+            border: 1px solid var(--calendar-border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .year-select {
+            border: none;
+            font-size: 1.4rem;
             font-weight: 800;
             color: var(--text-main);
+            background: transparent;
+            cursor: pointer;
+            outline: none;
         }
 
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 10px;
+        .year-select:hover { color: var(--primary); }
+
+        #yearView, #dayView {
+            display: none;
+            width: 100%;
         }
 
-        .day-name {
-            text-align: center;
-            font-weight: 600;
-            color: var(--text-muted);
-            padding: 10px 0;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .calendar-container.view-year #yearView { display: grid; }
+        .calendar-container.view-day #dayView { display: block; }
+
+        #yearView {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            flex: 1;
         }
 
-        .day-cell {
-            min-height: 120px;
-            border-radius: 12px;
-            border: 1px solid #f1f5f9;
-            padding: 8px;
-            background: #fafafa;
+        .mini-month {
+            background: white;
+            border: 1px solid var(--calendar-border);
+            border-radius: 18px;
+            padding: 18px;
             transition: all 0.2s ease;
         }
 
-        .day-cell:hover {
+        .mini-month:hover {
             border-color: var(--primary);
-            background: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+            transform: translateY(-2px);
         }
 
-        .day-number {
-            font-weight: 700;
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            display: inline-block;
-            width: 24px;
-            height: 24px;
+        .mini-month-name {
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--text-main);
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 10px;
+        }
+
+        .mini-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+        }
+
+        .mini-day {
+            font-size: 0.8rem;
             text-align: center;
-            line-height: 24px;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            color: #64748b;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.15s;
         }
 
-        .day-cell.today {
+        .mini-day:hover {
+            background: var(--calendar-hover);
+            color: var(--primary);
+        }
+
+        .mini-day.has-event {
             background: #eff6ff;
-            border-color: var(--primary);
+            color: var(--primary);
+            font-weight: 800;
+            box-shadow: inset 0 0 0 1px rgba(37, 99, 235, 0.2);
         }
 
-        .day-cell.today .day-number {
+        .mini-day.is-today {
+            background: var(--primary);
+            color: white !important;
+        }
+
+        .mini-day-name {
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: #94a3b8;
+            text-transform: uppercase;
+            text-align: center;
+            padding-bottom: 8px;
+        }
+
+        .day-view-card {
+            background: linear-gradient(135deg, white, #f8fafc);
+            border-radius: 20px;
+            border: 1px solid var(--calendar-border);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .day-header {
+            padding: 30px;
             background: var(--primary);
             color: white;
-            border-radius: 6px;
         }
 
-        .event-item {
-            font-size: 0.75rem;
-            padding: 4px 8px;
-            border-radius: 6px;
-            margin-bottom: 4px;
-            font-weight: 600;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            cursor: pointer;
+        .day-header h2 { font-size: 1.8rem; font-weight: 800; }
+
+        .event-card-large {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            padding: 24px;
+            border-bottom: 1px solid var(--calendar-border);
+            background: white;
+            transition: background 0.2s;
         }
 
-        .event-talk { background: #ecfdf5; color: #059669; border: 1px solid #bbf7d0; }
-        .event-test { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
-        .event-deadline { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+        .event-card-large:last-child { border-bottom: none; }
+        .event-card-large:hover { background: #fbfcfd; }
+
+        .event-time-tag {
+            min-width: 110px;
+            font-weight: 800;
+            color: var(--primary);
+            font-size: 1rem;
+            text-align: center;
+            padding: 10px;
+            background: var(--primary-light);
+            border-radius: 12px;
+        }
 
         .calendar-legend {
             display: flex;
-            gap: 20px;
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #f1f5f9;
+            gap: 30px;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--calendar-border);
+            flex-wrap: wrap;
         }
 
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
+        .legend-item { display: flex; align-items: center; gap: 12px; font-size: 0.9rem; font-weight: 700; color: #64748b; }
+        .legend-dot { width: 14px; height: 14px; border-radius: 5px; }
 
-        .legend-color {
-            width: 12px;
-            height: 12px;
-            border-radius: 3px;
-        }
+        @media (max-width: 1200px) { #yearView { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 900px) { #yearView { grid-template-columns: repeat(2, 1fr); } }
     </style>
 </head>
 
@@ -126,8 +234,58 @@
     <!-- Popup Overlay -->
     <div class="popup-overlay" id="popupOverlay" onclick="closeAllPopups()"></div>
 
+    <!-- Notifications Popup -->
+    <div class="popup-panel" id="notifPopup">
+        <div class="popup-header">
+            <h3>🔔 Notifications</h3>
+            <button class="popup-close" onclick="closeAllPopups()">×</button>
+        </div>
+        <div class="notification-list">
+            <div class="popup-notif-item unread">
+                <div class="noti-icon bg-blue-light">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                </div>
+                <div class="noti-content">
+                    <h4>Google Test Date Announced</h4>
+                    <p>Coding round on Oct 15th at 10:00 AM.</p>
+                </div>
+            </div>
+            <div class="popup-notif-item unread">
+                <div class="noti-icon bg-purple-light">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                </div>
+                <div class="noti-content">
+                    <h4>Resume Shortlisted by Microsoft</h4>
+                    <p>Your resume is shortlisted for SWE role.</p>
+                </div>
+            </div>
+        </div>
+        <a href="notification.html" class="popup-view-all">View All Notifications →</a>
+    </div>
+
+    <!-- Create Popup -->
+    <div class="popup-panel" id="quickPopup" style="width: 300px;">
+        <div class="popup-header">
+            <h3>✨ What to Create?</h3>
+            <button class="popup-close" onclick="closeAllPopups()">×</button>
+        </div>
+        <div style="padding: 16px; display: flex; flex-direction: column; gap: 12px;">
+            <a href="ai_resume_builder.html" class="create-card">
+                <div class="create-card-icon" style="background: var(--primary);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                </div>
+                <div class="create-card-text"><strong>AI Resume Builder</strong></div>
+            </a>
+            <a href="project_upload.html" class="create-card">
+                <div class="create-card-icon" style="background: #8b5cf6;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                </div>
+                <div class="create-card-text"><strong>Project Showcase</strong></div>
+            </a>
+        </div>
+    </div>
+
     <div class="app-layout">
-        <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-top">
                 <a href="home.html" class="brand" title="Placement Portal">
@@ -135,7 +293,7 @@
                 </a>
                 <nav class="nav-menu">
                     <a href="home.html" class="nav-item" title="Home">
-                        <svg class="nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                        <svg class="nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                     </a>
                     <a href="job_explorer.html" class="nav-item" title="Explore / Jobs">
                         <svg class="nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
@@ -144,10 +302,7 @@
                         <svg class="nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
                     </button>
                     <button class="nav-item" title="Notifications" onclick="togglePopup('notifPopup', event)">
-                        <div class="nav-icon-wrapper">
-                            <svg class="nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-                            <span class="badge" id="notifBadge" style="display: none;"></span>
-                        </div>
+                        <svg class="nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
                     </button>
                     <a href="alumni_chat.html" class="nav-item" title="Alumni Chat">
                         <svg class="nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
@@ -163,127 +318,195 @@
 
         <main class="main-content">
             <header class="top-bar">
-                <h2>Drives Calendar</h2>
+                <h2>Placement Calendar</h2>
                 <div class="top-bar-right">
-                    <a href="student_profile.html" class="avatar-small" style="text-decoration: none;">JS</a>
+                    <a href="home.html" class="btn-back-dashboard">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                        Back to Dashboard
+                    </a>
+                    <a href="student_profile.html" class="avatar-small">JS</a>
                 </div>
             </header>
 
-            <div class="container">
-                <div class="calendar-container">
+            <div class="container" style="max-width: 1400px;">
+                <div class="calendar-container view-year" id="mainContainer">
                     <div class="calendar-header">
-                        <div class="month-year">October 2024</div>
-                        <div style="display: flex; gap: 10px;">
-                            <button class="btn-outline" style="padding: 0.5rem 1rem;">‹</button>
-                            <button class="btn-primary" style="padding: 0.5rem 1.5rem;">Today</button>
-                            <button class="btn-outline" style="padding: 0.5rem 1rem;">›</button>
+                        <div class="view-controls">
+                            <button class="view-btn active" id="btn-year" onclick="setView('year')">Full Year</button>
+                            <button class="view-btn" id="btn-day" onclick="setView('day')">Schedule</button>
+                        </div>
+                        
+                        <div class="nav-controls">
+                            <button class="btn-outline" style="padding: 12px; border-radius: 14px;" onclick="navigate(-1)">‹</button>
+                            <div class="year-selector-wrap">
+                                <select id="yearSelect" class="year-select" onchange="syncDateFromSelector()"></select>
+                            </div>
+                            <button class="btn-outline" style="padding: 12px; border-radius: 14px;" onclick="navigate(1)">›</button>
+                            <button class="btn-primary" style="padding: 12px 24px; margin-left:15px; border-radius:14px; font-weight:800;" onclick="goToday()">Today</button>
                         </div>
                     </div>
 
-                    <div class="calendar-grid">
-                        <div class="day-name">Sun</div>
-                        <div class="day-name">Mon</div>
-                        <div class="day-name">Tue</div>
-                        <div class="day-name">Wed</div>
-                        <div class="day-name">Thu</div>
-                        <div class="day-name">Fri</div>
-                        <div class="day-name">Sat</div>
-
-                        <!-- Row 1 -->
-                        <div class="day-cell"><span class="day-number">29</span></div>
-                        <div class="day-cell"><span class="day-number">30</span></div>
-                        <div class="day-cell"><span class="day-number">1</span></div>
-                        <div class="day-cell"><span class="day-number">2</span></div>
-                        <div class="day-cell"><span class="day-number">3</span></div>
-                        <div class="day-cell"><span class="day-number">4</span></div>
-                        <div class="day-cell"><span class="day-number">5</span>
-                            <div class="event-item event-talk">Aptitude Workshop</div>
+                    <div id="yearView"></div>
+                    <div id="dayView">
+                        <div class="day-view-card">
+                            <div class="day-header">
+                                <h2 id="dayViewTitle"></h2>
+                                <p>Events & Placement Drives</p>
+                            </div>
+                            <div class="event-list" id="dayViewList"></div>
                         </div>
-
-                        <!-- Row 2 -->
-                        <div class="day-cell"><span class="day-number">6</span></div>
-                        <div class="day-cell"><span class="day-number">7</span></div>
-                        <div class="day-cell"><span class="day-number">8</span></div>
-                        <div class="day-cell"><span class="day-number">9</span></div>
-                        <div class="day-cell"><span class="day-number">10</span>
-                            <div class="event-item event-deadline">Infosys Deadline</div>
-                        </div>
-                        <div class="day-cell"><span class="day-number">11</span></div>
-                        <div class="day-cell"><span class="day-number">12</span></div>
-
-                        <!-- Row 3 -->
-                        <div class="day-cell"><span class="day-number">13</span></div>
-                        <div class="day-cell today"><span class="day-number">14</span>
-                            <div class="event-item event-talk">Amazon PPT</div>
-                        </div>
-                        <div class="day-cell"><span class="day-number">15</span>
-                            <div class="event-item event-test">Google Test</div>
-                        </div>
-                        <div class="day-cell"><span class="day-number">16</span></div>
-                        <div class="day-cell"><span class="day-number">17</span></div>
-                        <div class="day-cell"><span class="day-number">18</span></div>
-                        <div class="day-cell"><span class="day-number">19</span></div>
-
-                        <!-- Row 4 -->
-                        <div class="day-cell"><span class="day-number">20</span></div>
-                        <div class="day-cell"><span class="day-number">21</span></div>
-                        <div class="day-cell"><span class="day-number">22</span>
-                            <div class="event-item event-test">Adobe UX Test</div>
-                        </div>
-                        <div class="day-cell"><span class="day-number">23</span></div>
-                        <div class="day-cell"><span class="day-number">24</span></div>
-                        <div class="day-cell"><span class="day-number">25</span></div>
-                        <div class="day-cell"><span class="day-number">26</span></div>
                     </div>
 
                     <div class="calendar-legend">
-                        <div class="legend-item"><div class="legend-color event-talk"></div> Pre-Placement Talks</div>
-                        <div class="legend-item"><div class="legend-color event-test"></div> Technical Tests</div>
-                        <div class="legend-item"><div class="legend-color event-deadline"></div> App. Deadlines</div>
+                        <div class="legend-item"><div class="legend-dot" style="background:#10b981;"></div> Placement Drives</div>
+                        <div class="legend-item"><div class="legend-dot" style="background:#3b82f6;"></div> Online Tests</div>
+                        <div class="legend-item"><div class="legend-dot" style="background:#ef4444;"></div> Deadlines</div>
+                        <div class="legend-item"><div class="legend-dot" style="background:#f59e0b;"></div> Workshops</div>
                     </div>
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- Popup Code (sidebar popups) -->
-    <div class="popup-panel" id="notifPopup"></div>
-    <div class="popup-panel" id="quickPopup"></div>
-
     <script>
-        // Persistence for Notifications
-        let readNotifs = JSON.parse(localStorage.getItem('readNotifications') || '[]');
+        let currentDate = new Date();
+        let currentView = 'year';
+        
+        const staticEvents = [
+            { date: '2024-10-12', title: 'Amazon PPT', type: 'talk' },
+            { date: '2024-10-15', title: 'Google Test', type: 'test' },
+            { date: '2024-10-22', title: 'Adobe UX Test', type: 'test' },
+            { date: '2026-03-25', title: 'Microsoft Interview', type: 'talk' }
+        ];
 
-        function applyReadStatus() {
-            const badge = document.getElementById('notifBadge');
-            // In these pages we don't have the full list, but we can estimate the unread count from other pages
-            // For a real app, this would come from a server. For this static prototype, 
-            // we'll just check how many of our standard 2-4 notifications are NOT in the read list.
-            const totalNotifs = 2; // Assuming 2 unread by default as in other pages
-            const readCount = readNotifs.filter(id => id.startsWith('pop-notif-')).length;
-            const unreadCount = Math.max(0, totalNotifs - readCount);
-            
-            if (badge) {
-                badge.style.display = unreadCount === 0 ? 'none' : 'block';
-                badge.textContent = unreadCount > 0 ? unreadCount : '';
+        function getEvents() {
+            const adminEvents = JSON.parse(localStorage.getItem('adminEvents') || '[]');
+            return [...staticEvents, ...adminEvents];
+        }
+
+        function initYearSelector() {
+            const ySelect = document.getElementById('yearSelect');
+            const currentYear = new Date().getFullYear();
+            let yearOptions = '';
+            for(let i = currentYear - 2; i <= currentYear + 5; i++) {
+                yearOptions += `<option value="${i}">${i}</option>`;
+            }
+            ySelect.innerHTML = yearOptions;
+            ySelect.value = currentDate.getFullYear();
+        }
+
+        function syncDateFromSelector() {
+            currentDate.setFullYear(parseInt(document.getElementById('yearSelect').value));
+            updateContent();
+        }
+
+        function renderYearView() {
+            const view = document.getElementById('yearView');
+            view.innerHTML = '';
+            const year = currentDate.getFullYear();
+            const events = getEvents();
+            const today = new Date();
+
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            const dayNames = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+
+            for (let m = 0; m < 12; m++) {
+                const monthDiv = document.createElement('div');
+                monthDiv.className = 'mini-month';
+                monthDiv.innerHTML = `<div class="mini-month-name">${monthNames[m]}</div>`;
+                const grid = document.createElement('div');
+                grid.className = 'mini-grid';
+                dayNames.forEach(dn => {
+                    const dnDiv = document.createElement('div');
+                    dnDiv.className = 'mini-day-name'; dnDiv.textContent = dn;
+                    grid.appendChild(dnDiv);
+                });
+                const daysInMonth = new Date(year, m + 1, 0).getDate();
+                const firstDay = new Date(year, m, 1).getDay();
+                for(let b=0; b<firstDay; b++) grid.appendChild(document.createElement('div'));
+                for(let d=1; d<=daysInMonth; d++) {
+                    const day = document.createElement('div');
+                    day.className = 'mini-day';
+                    day.textContent = d;
+                    const dateKey = `${year}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                    if (events.some(e => e.date.startsWith(dateKey))) day.classList.add('has-event');
+                    if (d === today.getDate() && m === today.getMonth() && year === today.getFullYear()) day.classList.add('is-today');
+                    day.onclick = (e) => {
+                        e.stopPropagation();
+                        currentDate = new Date(year, m, d);
+                        setView('day');
+                    };
+                    grid.appendChild(day);
+                }
+                monthDiv.appendChild(grid);
+                view.appendChild(monthDiv);
             }
         }
 
-        // Initialize
-        applyReadStatus();
+        function renderDayView() {
+            const list = document.getElementById('dayViewList');
+            document.getElementById('dayViewTitle').textContent = currentDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+            list.innerHTML = '';
+            const dateKey = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`;
+            const events = getEvents().filter(e => e.date.startsWith(dateKey));
+            
+            if (events.length === 0) {
+                list.innerHTML = '<div style="padding: 3rem; text-align: center; color: #94a3b8; font-weight: 600;">No activities for this date.</div>';
+                return;
+            }
+            events.forEach(e => {
+                const time = e.date.includes('T') ? new Date(e.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '09:00 AM';
+                const card = document.createElement('div');
+                card.className = 'event-card-large';
+                card.innerHTML = `<div class="event-time-tag">${time}</div><div class="event-details-main"><h3>${e.title}</h3><p>${e.branches || 'All Eligible Branches'}</p></div>`;
+                list.appendChild(card);
+            });
+        }
 
+        function setView(view) {
+            currentView = view;
+            document.getElementById('mainContainer').className = `calendar-container view-${view}`;
+            document.querySelectorAll('.view-btn').forEach(b => b.classList.toggle('active', b.id === 'btn-' + view));
+            updateContent();
+        }
+
+        function updateContent() {
+            document.getElementById('yearSelect').value = currentDate.getFullYear();
+            if (currentView === 'year') renderYearView();
+            else renderDayView();
+        }
+
+        function navigate(dir) {
+            if (currentView === 'year') currentDate.setFullYear(currentDate.getFullYear() + dir);
+            else currentDate.setDate(currentDate.getDate() + dir);
+            updateContent();
+        }
+
+        function goToday() { currentDate = new Date(); setView('year'); }
+
+        // Popup Logic
         function togglePopup(id, event) {
             event.stopPropagation();
             const panel = document.getElementById(id);
             const overlay = document.getElementById('popupOverlay');
             const isActive = panel.classList.contains('active');
             closeAllPopups();
-            if (!isActive) { panel.classList.add('active'); overlay.classList.add('active'); }
+            if (!isActive) {
+                panel.classList.add('active');
+                overlay.classList.add('active');
+            }
         }
+
         function closeAllPopups() {
             document.querySelectorAll('.popup-panel').forEach(p => p.classList.remove('active'));
-            document.getElementById('popupOverlay').classList.remove('active');
+            if(document.getElementById('popupOverlay')) document.getElementById('popupOverlay').classList.remove('active');
         }
+
+        document.addEventListener('click', closeAllPopups);
+
+        // Init
+        initYearSelector();
+        updateContent();
     </script>
 </body>
 </html>
