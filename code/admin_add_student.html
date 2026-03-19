@@ -40,15 +40,9 @@
     <div class="login-wrapper">
         <!-- Left Branding side -->
         <div class="login-info-section">
-            <div class="brand-logo">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="3" width="7" height="7" />
-                    <rect x="14" y="3" width="7" height="7" />
-                    <rect x="14" y="14" width="7" height="7" />
-                    <rect x="3" y="14" width="7" height="7" />
-                </svg>
-                <span class="brand-name">Core Unleashed Admin</span>
+            <div class="brand-logo" style="margin-bottom: 32px;">
+                <img src="logo.png" alt="Logo" style="width: 48px; height: 48px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <span class="brand-name" style="margin-left: 12px; font-weight: 800; font-size: 1.25rem;">Core Unleashed Admin</span>
             </div>
             <h2>Student Enrollment System</h2>
             <p>Welcome to the Admin Portal. Easily securely enroll new students into the unified Campus Placement
@@ -71,8 +65,8 @@
             <form id="add-student-form">
                 <div class="grid-container">
                     <div class="form-group full-width">
-                        <label for="full_name">Full Name</label>
-                        <input type="text" id="full_name" class="form-control" placeholder="Enter student's full name"
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" class="form-control" placeholder="Enter student's full name"
                             required>
                     </div>
 
@@ -97,6 +91,16 @@
                         <label for="branch">Branch</label>
                         <input type="text" id="branch" class="form-control" placeholder="e.g. Computer Science"
                             required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="degree">Degree</label>
+                        <input type="text" id="degree" class="form-control" placeholder="e.g. B.Tech" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gradYear">Graduation Year</label>
+                        <input type="number" id="gradYear" class="form-control" placeholder="e.g. 2025" required>
                     </div>
 
                     <div class="form-group full-width">
@@ -137,11 +141,13 @@
             const statusMsg = document.getElementById('status-message');
 
             // Gather form data
-            const full_name = document.getElementById('full_name').value;
+            const name = document.getElementById('name').value;
             const usn = document.getElementById('usn').value;
             const email = document.getElementById('email').value;
             const class_name = document.getElementById('class_name').value;
             const branch = document.getElementById('branch').value;
+            const degree = document.getElementById('degree').value;
+            const gradYear = document.getElementById('gradYear').value;
             const password = document.getElementById('password').value;
 
             // UI Loading state
@@ -157,12 +163,15 @@
 
                 // 2. Attach robust metadata
                 await setDoc(doc(db, 'users', newStudent.uid), {
+                    uid: newStudent.uid,
                     role: 'student',
                     email: email,
-                    full_name: full_name,
-                    usn: usn,
+                    name: name,
+                    usn: usn.toLowerCase(),
                     class_name: class_name,
                     branch: branch,
+                    degree: degree,
+                    gradYear: gradYear,
                     createdAt: serverTimestamp()
                 });
 
