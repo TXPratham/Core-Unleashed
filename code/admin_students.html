@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Students | Campus Placement Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="home.css">
     <link rel="stylesheet" href="recruiter_dashboard.css">
     <style>
         /* Admin specific theme overrides - Only modifying Colors */
@@ -162,6 +163,14 @@
             justify-content: flex-end;
             margin-top: 24px;
         }
+
+        .avatar {
+            cursor: pointer;
+        }
+
+        .container {
+            margin-top: 100px;
+        }
     </style>
 </head>
 
@@ -173,11 +182,11 @@
             <img src="logo.png" alt="Placement Logo" style="width: 32px; height: 32px; border-radius: 4px;">
         </div>
         <div class="nav-links">
-            <a href="admin_dashboard.html" class="nav-item">Dashboard</a>
-            <a href="#" class="nav-item active">Students</a>
-            <a href="#" class="nav-item">Companies</a>
-            <a href="#" class="nav-item">Placement Drives</a>
-            <div class="avatar">A</div>
+            <a href="admin_dashboard.html" class="btn-back-dashboard">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to Dashboard
+            </a>
+            <div class="avatar" id="adminAvatar" title="Admin Profile">A</div>
         </div>
     </nav>
 
@@ -423,13 +432,37 @@
 
     <script type="module">
         import { app, auth, db } from './firebase_setup.js';
-        import { getAuth, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js';
+        import { onAuthStateChanged, getAuth, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js';
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js';
-        import { doc, setDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js';
+        import { doc, getDoc, setDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js';
 
         // Secondary App config to prevent Admin from being logged out
         const secondaryApp = initializeApp(app.options, 'Secondary');
         const secondaryAuth = getAuth(secondaryApp);
+
+        // Profile Icon & Navbar Logic
+        const adminAvatar = document.getElementById('adminAvatar');
+        
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                try {
+                    const userDoc = await getDoc(doc(db, 'users', user.uid));
+                    if (userDoc.exists()) {
+                        const data = userDoc.data();
+                        if (data.fullName) {
+                            adminAvatar.textContent = data.fullName.charAt(0).toUpperCase();
+                            adminAvatar.title = `${data.fullName} (${data.adminTitle || 'Admin'})`;
+                        }
+                    }
+                } catch (error) {
+                    console.error("Error fetching admin profile:", error);
+                }
+            }
+        });
+
+        adminAvatar.onclick = () => {
+            window.location.href = 'admin_setup_profile.html';
+        };
 
         window.openAddModal = function () {
             document.getElementById('addStudentModal').classList.add('active');
@@ -526,6 +559,16 @@
                 btn.textContent = originalText;
                 btn.disabled = false;
             }
+        });
+
+        // Add search functionality
+        document.querySelector('input[placeholder="Search by name, USN, or branch..."]').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const rows = document.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
         });
     </script>
 </body>

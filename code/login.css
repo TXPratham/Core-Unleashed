@@ -144,7 +144,7 @@ body::after {
     align-items: center;
     justify-content: center;
     margin-bottom: 32px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
 }
 
 .login-info-section h2 {
@@ -209,10 +209,9 @@ body::after {
 .login-header h1 {
     font-size: 2.25rem;
     font-weight: 700;
-    color: var(--text-main);
+    color: #1e293b;
     margin-bottom: 8px;
     letter-spacing: -0.5px;
-    text-align: center;
 }
 
 .login-header p {
@@ -327,9 +326,19 @@ body::after {
 }
 
 .btn-submit:hover {
+<<<<<<< HEAD
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 35px -10px rgba(37, 99, 235, 0.7), 0 0 20px rgba(37, 99, 235, 0.4);
+    filter: brightness(1.15);
+}
+
+.btn-submit:hover::after {
+    left: 100%;
+=======
     background: var(--primary-hover);
     transform: translateY(-1px);
     box-shadow: 0 6px 16px var(--focus-ring);
+>>>>>>> 6c8cbe49d8144c905482d170280dc3da99d4fd89
 }
 
 .btn-submit:active {
