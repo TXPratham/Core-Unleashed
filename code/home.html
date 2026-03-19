@@ -361,11 +361,11 @@
                     <!-- Right: Drives + Quick Links -->
                     <div class="col-sidebar">
                         <div class="card">
-                            <div class="card-header">
-                                <h2>Upcoming Drives</h2>
-                                <a href="drives_calendar.html" class="view-all">View All</a>
-                            </div>
-                            <div class="drives-list">
+                             <div class="card-header">
+                                 <h2>Upcoming Drives</h2>
+                             </div>
+                            <div class="drives-list" id="upcomingDrivesList">
+                                <!-- Filled by JS -->
                                 <div class="drive-item">
                                     <div class="drive-date">
                                         <span>OCT</span>
@@ -376,22 +376,13 @@
                                         <p>10:00 AM • Main Auditorium</p>
                                     </div>
                                 </div>
-                                <div class="drive-item">
-                                    <div class="drive-date highlight">
-                                        <span>OCT</span>
-                                        <strong>15</strong>
-                                    </div>
-                                    <div class="drive-info">
-                                        <h4>Google Online Assessment</h4>
-                                        <p>10:00 AM • Online Platform</p>
-                                    </div>
-                                </div>
                             </div>
-                            <div style="padding: 1rem 1.5rem;">
-                                <a href="drives_calendar.html" class="btn-outline"
-                                    style="width: 100%; text-align: center; display: block; text-decoration: none;">View
-                                    Full Calendar</a>
-                            </div>
+                             <div style="padding: 1rem 1.5rem; text-align: center;">
+                                 <a href="drives_calendar.html" class="btn-outline"
+                                     style="width: 100%; text-align: center; display: block; text-decoration: none; margin-bottom: 8px;">View
+                                     Full Calendar</a>
+                                 <span style="color: var(--text-muted); font-size: 0.8rem; font-weight: 500; opacity: 0.7;">view all events</span>
+                             </div>
                         </div>
                     </div>
                 </div> <!-- end .container -->
@@ -449,8 +440,53 @@
             });
         });
 
+        function loadUpcomingDrives() {
+            const list = document.getElementById('upcomingDrivesList');
+            const adminEvents = JSON.parse(localStorage.getItem('adminEvents') || '[]');
+            
+            // For the home page, we'll show a mix of static and dynamic, sorted by date
+            const staticDrives = [
+                { date: '2024-10-12', title: 'Amazon Pre-Placement Talk', info: '10:00 AM • Main Auditorium' },
+                { date: '2024-10-15', title: 'Google Online Assessment', info: '10:00 AM • Online Platform' }
+            ];
+
+            const allDrives = [...staticDrives, ...adminEvents.map(e => ({
+                date: e.date.split('T')[0],
+                title: e.title,
+                info: (e.date.split('T')[1] || '09:00') + ' • ' + (e.branches || 'Campus')
+            }))];
+
+            // Sort by date (closet to today first)
+            const today = new Date().toISOString().split('T')[0];
+            const upcoming = allDrives.filter(d => d.date >= today).sort((a,b) => a.date.localeCompare(b.date)).slice(0, 4);
+
+            if (upcoming.length > 0) {
+                list.innerHTML = '';
+                upcoming.forEach(d => {
+                    const dateObj = new Date(d.date);
+                    const month = dateObj.toLocaleString('en-US', { month: 'short' }).toUpperCase();
+                    const day = dateObj.getDate();
+                    
+                    const item = document.createElement('div');
+                    item.className = 'drive-item';
+                    item.innerHTML = `
+                        <div class="drive-date">
+                            <span>${month}</span>
+                            <strong>${day}</strong>
+                        </div>
+                        <div class="drive-info">
+                            <h4>${d.title}</h4>
+                            <p>${d.info}</p>
+                        </div>
+                    `;
+                    list.appendChild(item);
+                });
+            }
+        }
+
         // Initialize
         applyReadStatus();
+        loadUpcomingDrives();
 
         function togglePopup(id, event) {
             event.stopPropagation();
