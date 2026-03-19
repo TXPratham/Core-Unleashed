@@ -251,94 +251,21 @@
             <section class="section-card">
                 <div class="section-header">
                     <h2>Live & Upcoming Drives</h2>
-                    <a href="#" class="view-all">View Full Calendar</a>
+                    <a href="drives_calendar.html" class="view-all">View Full Calendar</a>
                 </div>
                 <div class="table-container">
                     <table>
-                        <thead>
+                        <thead id="event-table-head">
                             <tr>
-                                <th>Company</th>
+                                <th>Company / Event</th>
                                 <th>Target Branches</th>
                                 <th>Status</th>
                                 <th>Date</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="student-info">
-                                        <div class="student-avatar" style="background:#f97316;">T</div>
-                                        <div class="student-details-text">
-                                            <span class="student-name">TechCorp Inc.</span>
-                                            <span class="student-degree">Software Eng</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>CSE, IT</td>
-                                <td><span class="status-badge"
-                                        style="background:var(--success-bg); color:var(--success-text);">Ongoing</span>
-                                </td>
-                                <td>Today</td>
-                                <td>
-                                    <button class="action-btn" title="View Drive">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                            <circle cx="12" cy="12" r="3"></circle>
-                                        </svg>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="student-info">
-                                        <div class="student-avatar" style="background:#0ea5e9;">C</div>
-                                        <div class="student-details-text">
-                                            <span class="student-name">CloudSys Data</span>
-                                            <span class="student-degree">Data Science</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>CSE, IT, ECE</td>
-                                <td><span class="status-badge status-shortlisted">Scheduled</span></td>
-                                <td>Oct 28</td>
-                                <td>
-                                    <button class="action-btn" title="View Drive">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                            <circle cx="12" cy="12" r="3"></circle>
-                                        </svg>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="student-info">
-                                        <div class="student-avatar" style="background:#10b981;">G</div>
-                                        <div class="student-details-text">
-                                            <span class="student-name">Global Finance</span>
-                                            <span class="student-degree">Analyst</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>All Branches</td>
-                                <td><span class="status-badge status-pending">Reg. Open</span></td>
-                                <td>Nov 02</td>
-                                <td>
-                                    <button class="action-btn" title="View Drive">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                            <circle cx="12" cy="12" r="3"></circle>
-                                        </svg>
-                                    </button>
-                                </td>
-                            </tr>
+                        <tbody id="event-table-body">
+                            <!-- Dynamic content loaded via JS -->
                         </tbody>
                     </table>
                 </div>
@@ -498,6 +425,61 @@
             document.getElementById('event-branches').value = '';
         }
 
+        window.renderEventsTable = function() {
+            const tbody = document.getElementById('event-table-body');
+            const placeholderEvents = [
+                { title: 'TechCorp Inc.', branches: 'CSE, IT', type: 'drive', date: 'Ongoing', avatar: 'T', color: '#f97316' },
+                { title: 'CloudSys Data', branches: 'CSE, IT, ECE', type: 'drive', date: 'Oct 28', avatar: 'C', color: '#0ea5e9' },
+                { title: 'Global Finance', branches: 'All Branches', type: 'drive', date: 'Nov 02', avatar: 'G', color: '#10b981' }
+            ];
+
+            const adminEvents = JSON.parse(localStorage.getItem('adminEvents') || '[]');
+            const allEvents = [...placeholderEvents, ...adminEvents];
+
+            tbody.innerHTML = '';
+            allEvents.forEach(event => {
+                const tr = document.createElement('tr');
+                const avatarChar = event.avatar || event.title.charAt(0).toUpperCase();
+                const avatarBg = event.color || (event.type === 'drive' ? '#2563eb' : (event.type === 'talk' ? '#10b981' : '#f59e0b'));
+                
+                // Format relative date if it's a dynamic one
+                let displayDate = event.date;
+                if (displayDate.includes('T')) {
+                    const dateObj = new Date(displayDate);
+                    displayDate = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                }
+
+                tr.innerHTML = `
+                    <td>
+                        <div class="student-info">
+                            <div class="student-avatar" style="background:${avatarBg}; color:white;">${avatarChar}</div>
+                            <div class="student-details-text">
+                                <span class="student-name">${event.title}</span>
+                                <span class="student-degree">${event.type.charAt(0).toUpperCase() + event.type.slice(1)}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>${event.branches}</td>
+                    <td><span class="status-badge" style="background:var(--bg-main); color:var(--primary);">${event.status || 'Active'}</span></td>
+                    <td>${displayDate}</td>
+                    <td>
+                        <button class="action-btn" title="View Details">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Initialize table
+        document.addEventListener('DOMContentLoaded', () => {
+            renderEventsTable();
+        });
+
         window.submitEvent = function() {
             const title = document.getElementById('event-title').value;
             const dateStr = document.getElementById('event-date').value;
@@ -516,6 +498,7 @@
                 date: dateStr, // ISO string from datetime-local
                 type: typeValue,
                 branches: branches,
+                status: 'Scheduled',
                 createdAt: new Date().toISOString()
             };
 
@@ -526,7 +509,7 @@
             alert(`Event "${title}" has been successfully created!`);
             closeCreateEventModal();
             
-            if (typeof refreshDrivesTable === 'function') refreshDrivesTable();
+            renderEventsTable();
         }
     </script>
 </body>
