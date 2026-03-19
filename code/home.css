@@ -352,9 +352,29 @@ body {
    Buttons
    ======================================== */
 .btn-primary {
-    background-color: var(--primary);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
     color: white;
     border: none;
+<<<<<<< HEAD
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4), 0 0 15px rgba(37, 99, 235, 0.2);
+    filter: brightness(1.15);
+}
+
+.btn-primary:active {
+    transform: translateY(0) scale(0.98);
+=======
     padding: 10px 20px;
     border-radius: 12px;
     font-weight: 600;
@@ -366,11 +386,28 @@ body {
 .btn-primary:hover {
     background-color: var(--primary-hover);
     transform: translateY(-1px);
+>>>>>>> 95236c211167ea0ef8e09eb6aca9e2d977e8690b
 }
 
 .btn-outline {
     background-color: transparent;
     color: var(--primary);
+<<<<<<< HEAD
+    border: 2px solid var(--primary);
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-outline:hover {
+    background-color: rgba(37, 99, 235, 0.05);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.1);
+    color: var(--primary-hover);
+    border-color: var(--primary-hover);
+=======
     border: 1.5px solid var(--primary);
     padding: 10px 20px;
     border-radius: 12px;
@@ -382,6 +419,7 @@ body {
 
 .btn-outline:hover {
     background-color: var(--primary-light);
+>>>>>>> 95236c211167ea0ef8e09eb6aca9e2d977e8690b
 }
 
 /* ========================================
