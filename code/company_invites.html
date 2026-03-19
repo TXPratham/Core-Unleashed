@@ -8,6 +8,102 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="home.css">
     <link rel="stylesheet" href="company_invites.css">
+    <style>
+        /* Theme overrides to match Royal Blue / Light Blue palette */
+        :root {
+            --primary: #2563eb;
+            --primary-light: #60a5fa;
+            --primary-dark: #1e40af;
+            --bg-main: #f0f9ff;
+            --white: #ffffff;
+            --hero-gradient: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+        }
+
+        body {
+            background-color: var(--bg-main);
+            background-image: radial-gradient(at 0% 0%, #eff6ff 0%, transparent 50%),
+                radial-gradient(at 100% 0%, #e0f2fe 100% 0%, transparent 50%),
+                radial-gradient(at 100% 100%, #f0f9ff 0%, transparent 50%),
+                radial-gradient(at 0% 100%, #eff6ff 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .navbar {
+            background: var(--hero-gradient) !important;
+            border-bottom: none !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item {
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+
+        .nav-item.active {
+            color: white !important;
+            font-weight: 700;
+        }
+
+        .avatar {
+            background-color: var(--white) !important;
+            color: var(--primary) !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-header h1 {
+            color: var(--primary-dark) !important;
+            font-weight: 800;
+        }
+
+        .tab.active {
+            background: var(--hero-gradient) !important;
+            color: white !important;
+            border-color: transparent !important;
+        }
+
+        .invite-card {
+            border: 1px solid rgba(37, 99, 235, 0.1) !important;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.05) !important;
+            background: white !important;
+        }
+
+        .company-details h3 {
+            color: var(--primary-dark) !important;
+        }
+
+        .invited-role {
+            color: var(--primary) !important;
+            font-weight: 600;
+        }
+
+        .btn-accept {
+            background: var(--hero-gradient) !important;
+            border: none !important;
+            color: white !important;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2) !important;
+        }
+
+        .btn-decline {
+            color: var(--text-muted) !important;
+            border: 1px solid #e2e8f0 !important;
+            background: white !important;
+        }
+
+        .btn-decline:hover {
+            background: #f8fafc !important;
+            color: #ef4444 !important;
+            border-color: #fecaca !important;
+        }
+
+        .badge {
+            background: var(--white) !important;
+            color: var(--primary) !important;
+        }
+
+        .tab.active .badge {
+            background: rgba(255, 255, 255, 0.2) !important;
+            color: white !important;
+        }
+    </style>
 </head>
 
 <body>
