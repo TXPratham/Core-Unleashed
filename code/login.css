@@ -40,7 +40,6 @@ body {
     justify-content: center;
     position: relative;
     padding: 20px;
-    min-height: 100vh;
 }
 
 body::before,
@@ -88,6 +87,7 @@ body::after {
     100% {
         transform: translate(-100px, -100px);
     }
+
 }
 
 .login-wrapper {
@@ -117,11 +117,17 @@ body::after {
     }
 }
 
+
+
+.login-wrapper:hover {
+    transform: translateY(-5px);
+}
+
 .login-info-section {
     flex: 1;
     background: var(--primary);
     color: #ffffff;
-    padding: 60px 80px 60px 60px;
+    padding: 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -142,10 +148,9 @@ body::after {
 }
 
 .login-info-section h2 {
-    font-size: 2.25rem;
-    /* Scaled up further */
-    font-weight: 800;
-    line-height: 1.1;
+    font-size: 2.75rem;
+    font-weight: 700;
+    line-height: 1.2;
     margin-bottom: 24px;
     letter-spacing: -0.02em;
 }
@@ -199,7 +204,6 @@ body::after {
     justify-content: center;
     background: #ffffff;
     position: relative;
-    z-index: 1;
 }
 
 .login-header h1 {
@@ -257,7 +261,7 @@ body::after {
 }
 
 .form-group {
-    margin-bottom: 16px;
+    margin-bottom: 20px;
 }
 
 .form-group label {
@@ -322,6 +326,7 @@ body::after {
 }
 
 .btn-submit:hover {
+<<<<<<< HEAD
     transform: translateY(-3px) scale(1.02);
     box-shadow: 0 15px 35px -10px rgba(37, 99, 235, 0.7), 0 0 20px rgba(37, 99, 235, 0.4);
     filter: brightness(1.15);
@@ -329,10 +334,15 @@ body::after {
 
 .btn-submit:hover::after {
     left: 100%;
+=======
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px var(--focus-ring);
+>>>>>>> 6c8cbe49d8144c905482d170280dc3da99d4fd89
 }
 
 .btn-submit:active {
-    transform: translateY(1px) scale(0.98);
+    transform: scale(0.98);
 }
 
 .sign-up-link {
@@ -344,18 +354,115 @@ body::after {
 
 .sign-up-link a {
     color: var(--primary);
-    font-weight: 700;
+    font-weight: 600;
     text-decoration: none;
 }
 
 @media (max-width: 768px) {
     .login-wrapper {
         flex-direction: column;
-        max-width: 400px;
+        max-width: 480px;
     }
 
-    .login-info-section,
-    .login-form-section {
-        padding: 30px;
+    .login-info-section {
+        padding: 40px 24px;
+        flex: none;
     }
+
+    .login-form-section {
+        padding: 30px 24px;
+    }
+
+    .login-info-section h2 {
+        font-size: 2rem;
+    }
+}
+
+/* ── Input wrapper (icon prefix support) ── */
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper .form-control {
+    padding-left: 16px;
+}
+
+/* ── Form options row (remember me + forgot password) ── */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    font-size: 0.875rem;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+
+.remember-me input[type="checkbox"] {
+    accent-color: var(--primary);
+    width: 15px;
+    height: 15px;
+}
+
+/* ── Spinner ── */
+.spinner {
+    width: 22px;
+    height: 22px;
+    animation: rotate 1.4s linear infinite;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.spinner .path {
+    stroke: #fff;
+    stroke-linecap: round;
+    animation: dash 1.4s ease-in-out infinite;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes dash {
+    0% {
+        stroke-dasharray: 1, 150;
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -35;
+    }
+
+    100% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -124;
+    }
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ── Button state variants ── */
+.btn-submit.loading {
+    opacity: 0.8;
+    cursor: not-allowed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-submit.success {
+    background: linear-gradient(135deg, #059669, #10b981);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }

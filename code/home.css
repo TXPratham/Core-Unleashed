@@ -361,9 +361,10 @@ body {
    Buttons
    ======================================== */
 .btn-primary {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+    background-color: var(--primary);
     color: white;
     border: none;
+<<<<<<< HEAD
     padding: 12px 24px;
     border-radius: 10px;
     font-weight: 600;
@@ -382,11 +383,25 @@ body {
 
 .btn-primary:active {
     transform: translateY(0) scale(0.98);
+=======
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.15s;
+    font-size: 0.9rem;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+>>>>>>> 6c8cbe49d8144c905482d170280dc3da99d4fd89
 }
 
 .btn-outline {
     background-color: transparent;
     color: var(--primary);
+<<<<<<< HEAD
     border: 2px solid var(--primary);
     padding: 12px 24px;
     border-radius: 10px;
@@ -401,6 +416,19 @@ body {
     box-shadow: 0 6px 15px rgba(37, 99, 235, 0.1);
     color: var(--primary-hover);
     border-color: var(--primary-hover);
+=======
+    border: 1.5px solid var(--primary);
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+}
+
+.btn-outline:hover {
+    background-color: var(--primary-light);
+>>>>>>> 6c8cbe49d8144c905482d170280dc3da99d4fd89
 }
 
 /* ========================================
