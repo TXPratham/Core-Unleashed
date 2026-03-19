@@ -203,7 +203,7 @@
     <script type="module">
         import { auth, db } from './firebase_setup.js';
         import { signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js';
-        import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js';
+        import { doc, getDoc, collection, query, where, getDocs } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js';
 
         const form = document.querySelector('.signin-form');
         const submitBtn = document.getElementById('signin-btn');
@@ -223,10 +223,19 @@
             const password = document.getElementById('password').value;
 
             // Resolve which identifier is used for login. In Firebase, Auth requires email.
-            // Ideally, lookup mapping from ID to Email, but assuming direct email for now
-            const email = unifiedInput.value;
+            let email = unifiedInput.value.trim();
 
             try {
+                if (role === 'student' && !email.includes('@')) {
+                    // It's a USN, looking up the associated email
+                    const q = query(collection(db, 'users'), where('usn', '==', email.toLowerCase()), where('role', '==', 'student'));
+                    const querySnapshot = await getDocs(q);
+                    if (querySnapshot.empty) {
+                        throw new Error("No student account found with that USN.");
+                    }
+                    email = querySnapshot.docs[0].data().email;
+                }
+
                 // 1. Authenticate with Firebase
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
                 const user = userCredential.user;
@@ -252,7 +261,7 @@
 
                     // 3. Routing
                     setTimeout(() => {
-                        if (role === 'student') window.location.href = 'student_profile.html';
+                        if (role === 'student') window.location.href = 'home.html';
                         else if (role === 'recruiter') window.location.href = 'recruiter_dashboard.html';
                         else if (role === 'admin') window.location.href = 'admin_dashboard.html';
                     }, 500);
