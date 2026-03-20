@@ -1,0 +1,23 @@
+.env
+.env.*
+node_modules/
+
+# API Keys and Secrets
+*.pem
+*.key
+*.cer
+*.cert
+secrets.json
+config.json
+credentials.json
+client_secret.json
+
+# Logs
+*.log
+npm-debug.log*
+firebase-debug.log*
+firestore-debug.log*
+
+# OS generated files
+.DS_Store
+Thumbs.db
