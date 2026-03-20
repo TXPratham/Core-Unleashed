@@ -10,75 +10,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="home.css">
     <link rel="stylesheet" href="project_upload.css">
-    <style>
-        /* Theme overrides to match Royal Blue / Light Blue palette */
-        :root {
-            --primary: #2563eb;
-            --primary-hover: #1e40af;
-            --primary-dark: #1e40af;
-            --bg-color: #f0f9ff;
-            --surface: #ffffff;
-            --white: #ffffff;
-            --hero-gradient: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-        }
 
-        body {
-            background-color: var(--bg-color);
-            background-image: radial-gradient(at 0% 0%, #eff6ff 0%, transparent 50%),
-                radial-gradient(at 100% 0%, #e0f2fe 100% 0%, transparent 50%),
-                radial-gradient(at 100% 100%, #f0f9ff 0%, transparent 50%),
-                radial-gradient(at 0% 100%, #eff6ff 0%, transparent 50%);
-            background-attachment: fixed;
-        }
-
-        .navbar {
-            background: var(--hero-gradient) !important;
-            border-bottom: none !important;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-item {
-            color: rgba(255, 255, 255, 0.8) !important;
-        }
-
-        .nav-item.active {
-            color: white !important;
-            font-weight: 700;
-        }
-
-        .avatar {
-            background-color: var(--white) !important;
-            color: var(--primary) !important;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .page-header h1 {
-            color: var(--primary-dark) !important;
-            font-weight: 800;
-        }
-
-        .upload-section {
-            border: 1px solid rgba(37, 99, 235, 0.1) !important;
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.05) !important;
-            background: white !important;
-        }
-
-        .btn-primary {
-            background: var(--hero-gradient) !important;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2) !important;
-            border: none !important;
-        }
-
-        .btn-secondary {
-            color: var(--primary) !important;
-            border: 1px solid var(--primary) !important;
-            background: white !important;
-        }
-
-        .cert-name {
-            color: var(--primary) !important;
-        }
-    </style>
     <!-- html2pdf for downloading the certificate -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
@@ -204,69 +136,7 @@
         </div>
     </main>
 
-    <script>
-        document.getElementById('project-file').addEventListener('change', function (e) {
-            const fileName = e.target.files[0] ? e.target.files[0].name : '';
-            if (fileName) {
-                document.getElementById('file-name').textContent = fileName;
-                document.querySelector('.file-upload-label span').textContent = 'File selected';
-            } else {
-                document.getElementById('file-name').textContent = '';
-                document.querySelector('.file-upload-label span').textContent = 'Upload Project Files (.zip, .pdf)';
-            }
-        });
-
-        document.getElementById('project-form').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            // Get form values
-            const name = document.getElementById('student-name').value;
-            const project = document.getElementById('project-title').value;
-
-            // Set certificate values
-            document.getElementById('cert-name').textContent = name;
-            document.getElementById('cert-project').textContent = project;
-
-            // Set current date
-            const today = new Date();
-            const options = { year: 'numeric', month: 'short', day: 'numeric' };
-            document.getElementById('cert-date').textContent = today.toLocaleDateString('en-US', options);
-
-            // Show certificate section
-            const certSection = document.getElementById('certificate-section');
-            certSection.style.display = 'flex';
-
-            // Smooth scroll to certificate on mobile or adjust view
-            certSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-
-        function downloadCertificate() {
-            const element = document.getElementById('certificate-wrapper');
-            const opt = {
-                margin: 0,
-                filename: 'project-certificate.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true, logging: true },
-                jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' }
-            };
-
-            // Make sure wait for rendering
-            const btn = document.querySelector('.btn-secondary');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = 'Generating...';
-            btn.disabled = true;
-
-            html2pdf().set(opt).from(element).save().then(() => {
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-            }).catch(err => {
-                console.error(err);
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-                alert('Error generating certificate PDF');
-            });
-        }
-    </script>
+    <script src="project_upload.js"></script>
 </body>
 
 </html>

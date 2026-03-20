@@ -8,41 +8,23 @@
     <title>Recruiter Profile Setup | Campus Placement Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="login.css">
-    <style>
-        .setup-header {
-            margin-bottom: 24px;
-            text-align: center;
-        }
-
-        .setup-header h1 {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 8px;
-        }
-
-        .setup-header p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-    </style>
+    <link rel="stylesheet" href="recruiter_setup_profile.css">
 </head>
 
 <body>
 
     <div class="login-wrapper">
         <!-- Left Branding side -->
-        <!-- Left Branding side -->
         <div class="login-info-section">
             <div class="brand-logo-container">
-                <img src="logo.png" alt="Logo" style="width: 40px; height: 40px;">
+                <img src="logo.png" alt="Logo">
             </div>
             <h2>Almost there!</h2>
             <p>Tell us about your company and hiring goals to get started.</p>
 
             <ul class="features-list">
                 <li>
-                    <span class="check-icon" style="background: #2563eb; width: 20px; height: 20px;">
+                    <span class="check-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round"
                             stroke-linejoin="round">
                             <polyline points="20 6 9 17 4 12"></polyline>
@@ -51,7 +33,7 @@
                     Post job openings fast
                 </li>
                 <li>
-                    <span class="check-icon" style="background: #2563eb; width: 20px; height: 20px;">
+                    <span class="check-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round"
                             stroke-linejoin="round">
                             <polyline points="20 6 9 17 4 12"></polyline>
@@ -60,7 +42,7 @@
                     Filter top candidates
                 </li>
                 <li>
-                    <span class="check-icon" style="background: #2563eb; width: 20px; height: 20px;">
+                    <span class="check-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round"
                             stroke-linejoin="round">
                             <polyline points="20 6 9 17 4 12"></polyline>
@@ -72,24 +54,22 @@
         </div>
 
         <!-- Right Form side -->
-        <div class="login-form-section" style="overflow-y: auto;">
+        <div class="login-form-section">
             <div class="setup-header">
                 <h1>Complete Your Profile</h1>
                 <p>Tell us about your company and hiring goals.</p>
             </div>
 
             <form action="#" method="POST" id="profile-setup-form">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div class="form-row">
                     <div class="form-group">
-                        <label for="company-site"
-                            style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Company Website</label>
+                        <label for="company-site">Company Website</label>
                         <input type="url" id="company-site" class="form-control" placeholder="https://company.com"
                             required>
                     </div>
-                    <div class="form-group" style="margin-bottom: 20px;">
-                        <label for="industry"
-                            style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Industry</label>
-                        <select id="industry" class="form-control" required style="height: 48px;">
+                    <div class="form-group">
+                        <label for="industry">Industry</label>
+                        <select id="industry" class="form-control" required>
                             <option value="">Select Industry...</option>
                             <option value="it">Software / IT</option>
                             <option value="finance">Finance / FinTech</option>
@@ -101,16 +81,14 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="designation" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Your
-                        Designation</label>
+                    <label for="designation">Your Designation</label>
                     <input type="text" id="designation" class="form-control" placeholder="e.g. HR Manager, Tech Lead"
                         required>
                 </div>
 
                 <div class="form-group">
-                    <label for="company-size" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Company
-                        Size</label>
-                    <select id="company-size" class="form-control" required style="height: 48px;">
+                    <label for="company-size">Company Size</label>
+                    <select id="company-size" class="form-control" required>
                         <option value="">Select Size...</option>
                         <option value="startup">1 - 50 Employees</option>
                         <option value="mid">51 - 500 Employees</option>
@@ -119,79 +97,21 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="linkedin" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">LinkedIn
-                        Profile (Optional)</label>
+                    <label for="linkedin">LinkedIn Profile (Optional)</label>
                     <input type="url" id="linkedin" class="form-control" placeholder="https://linkedin.com/in/profile">
                 </div>
 
-                <button type="submit" class="btn-submit" style="margin-top: 10px;">Finish Setup & Go to
+                <button type="submit" class="btn-submit">Finish Setup & Go to
                     Dashboard</button>
             </form>
 
-            <div class="sign-up-link" style="margin-top: 16px;">
+            <div class="sign-up-link">
                 <a href="index.html">← Back to Sign In</a>
             </div>
         </div>
     </div>
 
-    <script type="module">
-        import { auth, db } from './firebase_setup.js';
-        import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js';
-        import { doc, setDoc } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js';
-
-        let currentUser = null;
-
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                currentUser = user;
-            } else {
-                // Not logged in — redirect to sign in
-                window.location.href = 'index.html';
-            }
-        });
-
-        document.getElementById('profile-setup-form').addEventListener('submit', async function (e) {
-            e.preventDefault();
-
-            if (!currentUser) {
-                alert("You aren't authenticated. Please return to the sign in page.");
-                return;
-            }
-
-            const submitBtn = this.querySelector('.btn-submit');
-            submitBtn.textContent = 'Saving Profile...';
-            submitBtn.disabled = true;
-
-            try {
-                const profileData = {
-                    uid: currentUser.uid,
-                    companyWebsite: document.getElementById('company-site').value,
-                    industry: document.getElementById('industry').value,
-                    designation: document.getElementById('designation').value,
-                    companySize: document.getElementById('company-size').value,
-                    linkedin: document.getElementById('linkedin').value,
-                    updatedAt: new Date()
-                };
-
-                // 1. Save detailed info to 'recruiters' collection
-                await setDoc(doc(db, 'recruiters', currentUser.uid), profileData);
-
-                // 2. Update 'users' doc with status and reference
-                await setDoc(doc(db, 'users', currentUser.uid), {
-                    profileSetupComplete: true
-                }, { merge: true });
-
-                alert('Profile setup complete! Your account is now pending admin approval.');
-                window.location.href = 'recruiter_dashboard.html';
-
-            } catch (error) {
-                console.error("Profile Setup Error:", error);
-                alert("There was an issue saving your profile. Please try again.");
-                submitBtn.textContent = 'Finish Setup & Go to Dashboard';
-                submitBtn.disabled = false;
-            }
-        });
-    </script>
+    <script type="module" src="recruiter_setup_profile.js"></script>
 </body>
 
 </html>
