@@ -32,21 +32,74 @@
             background: var(--hero-gradient) !important;
             border-bottom: none !important;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 12px 40px !important;
+            height: 72px;
+            display: flex;
+            align-items: center;
         }
 
         .nav-item {
             color: rgba(255, 255, 255, 0.8) !important;
+            width: auto !important;
+            height: auto !important;
+            padding: 8px 16px !important;
+            border-radius: 8px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            background: transparent !important;
+            font-size: 0.95rem !important;
+            font-weight: 500 !important;
+            position: relative !important;
+            transition: all 0.2s ease !important;
+            box-shadow: none !important;
+        }
+
+        .nav-item:hover {
+            color: white !important;
+            background: rgba(255, 255, 255, 0.1) !important;
         }
 
         .nav-item.active {
             color: white !important;
-            font-weight: 700;
+            background: rgba(255, 255, 255, 0.2) !important;
+            font-weight: 700 !important;
+        }
+
+        .btn-back-dashboard {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: white;
+            color: var(--primary);
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-right: 12px;
+        }
+
+        .btn-back-dashboard:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            background: #f8fafc;
         }
 
         .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             background-color: var(--white) !important;
             color: var(--primary) !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-left: 8px;
         }
 
         .page-header h1 {
@@ -95,13 +148,23 @@
         }
 
         .badge {
-            background: var(--white) !important;
+            position: static !important;
+            background: white !important;
             color: var(--primary) !important;
+            padding: 2px 8px !important;
+            border-radius: 12px !important;
+            font-size: 0.75rem !important;
+            font-weight: 700 !important;
+            margin-left: 4px !important;
+            display: inline-block !important;
+            width: auto !important;
+            height: auto !important;
+            border: none !important;
         }
 
         .tab.active .badge {
-            background: rgba(255, 255, 255, 0.2) !important;
-            color: white !important;
+            background: white !important;
+            color: var(--primary) !important;
         }
     </style>
 </head>
@@ -115,7 +178,11 @@
         </div>
         <div class="nav-links">
             <a href="home.html" class="btn-back-dashboard">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
                 Back to Dashboard
             </a>
             <a href="home.html" class="nav-item">Dashboard</a>
