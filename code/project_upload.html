@@ -8,6 +8,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="home.css">
     <link rel="stylesheet" href="project_upload.css">
     <style>
         /* Theme overrides to match Royal Blue / Light Blue palette */
@@ -74,305 +75,8 @@
             background: white !important;
         }
 
-        /* ═══════════════════════════════════════════
-           PREMIUM CSS CERTIFICATE TEMPLATE
-        ═══════════════════════════════════════════ */
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
-
-        .cert-card {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            aspect-ratio: 1.414 / 1;
-            /* A4 landscape ratio */
-            background: #0d1b3e;
-            border-radius: 10px;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45), 0 0 0 2px #c9a84c;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 5% 7%;
-            box-sizing: border-box;
-        }
-
-        /* ── Background decorative arcs ── */
-        .cert-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse 60% 55% at 50% -10%, rgba(201, 168, 76, 0.18) 0%, transparent 70%),
-                radial-gradient(ellipse 50% 45% at 50% 110%, rgba(201, 168, 76, 0.12) 0%, transparent 70%),
-                radial-gradient(ellipse 30% 40% at 5% 50%, rgba(255, 255, 255, 0.04) 0%, transparent 60%),
-                radial-gradient(ellipse 30% 40% at 95% 50%, rgba(255, 255, 255, 0.04) 0%, transparent 60%);
-            pointer-events: none;
-        }
-
-        /* ── Gold outer border frame ── */
-        .cert-frame {
-            position: absolute;
-            inset: 14px;
-            border: 1.5px solid rgba(201, 168, 76, 0.55);
-            border-radius: 6px;
-            pointer-events: none;
-        }
-
-        .cert-frame::before {
-            content: '';
-            position: absolute;
-            inset: 5px;
-            border: 0.5px solid rgba(201, 168, 76, 0.3);
-            border-radius: 3px;
-        }
-
-        /* ── Corner ornaments ── */
-        .cert-corner {
-            position: absolute;
-            width: 38px;
-            height: 38px;
-            opacity: 0.7;
-        }
-
-        .cert-corner svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .cert-corner.tl {
-            top: 20px;
-            left: 20px;
-        }
-
-        .cert-corner.tr {
-            top: 20px;
-            right: 20px;
-            transform: scaleX(-1);
-        }
-
-        .cert-corner.bl {
-            bottom: 20px;
-            left: 20px;
-            transform: scaleY(-1);
-        }
-
-        .cert-corner.br {
-            bottom: 20px;
-            right: 20px;
-            transform: scale(-1);
-        }
-
-        /* ── Top gold stripe ── */
-        .cert-top-stripe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, transparent, #c9a84c 20%, #f0d080 50%, #c9a84c 80%, transparent);
-        }
-
-        .cert-bottom-stripe {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, transparent, #c9a84c 20%, #f0d080 50%, #c9a84c 80%, transparent);
-        }
-
-        /* ── Content ── */
-        .cert-body {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0;
-            text-align: center;
-        }
-
-        .cert-logo-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 4px;
-        }
-
-        .cert-logo-img {
-            width: 32px;
-            height: 32px;
-            border-radius: 4px;
-            object-fit: contain;
-            filter: brightness(1.2);
-        }
-
-        .cert-org {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(8px, 1.3vw, 14px);
-            font-weight: 700;
-            color: #c9a84c;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-        }
-
-        .cert-divider-gold {
-            width: 60%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #c9a84c 20%, #f0d080 50%, #c9a84c 80%, transparent);
-            margin: 6px auto;
-        }
-
-        .cert-headline {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(18px, 3.5vw, 38px);
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            margin: 0;
-            line-height: 1.1;
-        }
-
-        .cert-subheadline {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(8px, 1.2vw, 13px);
-            font-weight: 400;
-            color: #c9a84c;
-            letter-spacing: 0.35em;
-            text-transform: uppercase;
-            margin: 2px 0 10px;
-        }
-
-        .cert-presented-to {
-            font-family: 'EB Garamond', serif;
-            font-style: italic;
-            font-size: clamp(10px, 1.3vw, 15px);
-            color: rgba(255, 255, 255, 0.65);
-            letter-spacing: 0.05em;
-            margin-bottom: 4px;
-        }
-
         .cert-name {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(20px, 4vw, 44px);
-            font-weight: 700;
-            color: #f0d080;
-            letter-spacing: 0.05em;
-            margin: 0;
-            line-height: 1.1;
-            text-shadow: 0 2px 20px rgba(201, 168, 76, 0.4);
-        }
-
-        .cert-divider-ornament {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 8px 0;
-            width: 55%;
-        }
-
-        .cert-divider-ornament span {
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.6));
-        }
-
-        .cert-divider-ornament span:last-child {
-            background: linear-gradient(270deg, transparent, rgba(201, 168, 76, 0.6));
-        }
-
-        .cert-divider-ornament .diamond {
-            flex: none;
-            width: 7px;
-            height: 7px;
-            background: #c9a84c;
-            transform: rotate(45deg);
-        }
-
-        .cert-recognition {
-            font-family: 'EB Garamond', serif;
-            font-size: clamp(9px, 1.1vw, 13px);
-            color: rgba(255, 255, 255, 0.65);
-            line-height: 1.6;
-            max-width: 68%;
-            margin: 0;
-        }
-
-        .cert-recognition strong {
-            color: #e8c96d;
-            font-style: italic;
-        }
-
-        .cert-footer-row {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            width: 90%;
-            margin-top: 10px;
-        }
-
-        .cert-seal {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 3px;
-        }
-
-        .cert-seal svg {
-            width: clamp(42px, 6vw, 68px);
-            height: clamp(42px, 6vw, 68px);
-            filter: drop-shadow(0 4px 14px rgba(201, 168, 76, 0.5));
-        }
-
-        .cert-seal-label {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(6px, 0.8vw, 9px);
-            color: #c9a84c;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-        }
-
-        .cert-date-block {
-            text-align: center;
-        }
-
-        .cert-date-label {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(6px, 0.8vw, 9px);
-            color: #c9a84c;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            margin-bottom: 2px;
-        }
-
-        .cert-date {
-            font-family: 'EB Garamond', serif;
-            font-style: italic;
-            font-size: clamp(9px, 1.1vw, 13px);
-            color: rgba(255, 255, 255, 0.75);
-        }
-
-        .cert-signature-block {
-            text-align: center;
-        }
-
-        .cert-sig-line {
-            width: 90px;
-            height: 1px;
-            background: rgba(201, 168, 76, 0.5);
-            margin: 0 auto 3px;
-        }
-
-        .cert-sig-label {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(6px, 0.75vw, 9px);
-            color: rgba(255, 255, 255, 0.45);
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
+            color: var(--primary) !important;
         }
     </style>
     <!-- html2pdf for downloading the certificate -->
@@ -386,24 +90,17 @@
             <img src="logo.png" alt="Placement Logo" style="width: 32px; height: 32px; border-radius: 4px;">
         </div>
         <div class="nav-links">
-            <a href="home.html" class="nav-item">Dashboard</a>
-            <a href="project_upload.html" class="nav-item active">Projects</a>
+            <a href="home.html" class="btn-back-dashboard">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to Dashboard
+            </a>
+            <a href="job_explorer.html" class="nav-item">Jobs</a>
             <a href="student_profile.html" class="nav-item">Profile</a>
             <div class="avatar">JS</div>
         </div>
     </nav>
 
     <main class="container">
-        <!-- Back Button -->
-        <a href="home.html" class="back-btn">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                stroke-linecap="round" stroke-linejoin="round">
-                <line x1="19" y1="12" x2="5" y2="12"></line>
-                <polyline points="12 19 5 12 12 5"></polyline>
-            </svg>
-            <span>Back to Dashboard</span>
-        </a>
-
         <!-- Page Header -->
         <header class="page-header">
             <h1>Upload Your Project</h1>
@@ -414,6 +111,10 @@
             <!-- Upload Form Section -->
             <section class="upload-section">
                 <form id="project-form" class="project-form">
+                    <div class="form-group">
+                        <label for="student-name">Student Name</label>
+                        <input type="text" id="student-name" placeholder="e.g., Jane Smith" required>
+                    </div>
 
                     <div class="form-group">
                         <label for="project-title">Project Title</label>
@@ -468,167 +169,39 @@
 
                 <div class="certificate-wrapper-outer">
                     <div class="certificate-wrapper" id="certificate-wrapper">
-
-                        <!-- ★ CUSTOM HTML/CSS CERTIFICATE ★ -->
-                        <div class="cert-card">
-
-                            <!-- Decorative stripes -->
-                            <div class="cert-top-stripe"></div>
-                            <div class="cert-bottom-stripe"></div>
-
-                            <!-- Gold border frame -->
-                            <div class="cert-frame"></div>
-
-                            <!-- Corner ornaments -->
-                            <div class="cert-corner tl">
-                                <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M2 2 L20 2 M2 2 L2 20" stroke="#c9a84c" stroke-width="2" />
-                                    <path d="M2 2 L12 12" stroke="#c9a84c" stroke-width="0.8" stroke-dasharray="2 2" />
-                                    <circle cx="2" cy="2" r="2" fill="#c9a84c" />
-                                    <circle cx="20" cy="2" r="1" fill="#c9a84c" opacity="0.5" />
-                                    <circle cx="2" cy="20" r="1" fill="#c9a84c" opacity="0.5" />
-                                </svg>
-                            </div>
-                            <div class="cert-corner tr">
-                                <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M2 2 L20 2 M2 2 L2 20" stroke="#c9a84c" stroke-width="2" />
-                                    <path d="M2 2 L12 12" stroke="#c9a84c" stroke-width="0.8" stroke-dasharray="2 2" />
-                                    <circle cx="2" cy="2" r="2" fill="#c9a84c" />
-                                    <circle cx="20" cy="2" r="1" fill="#c9a84c" opacity="0.5" />
-                                    <circle cx="2" cy="20" r="1" fill="#c9a84c" opacity="0.5" />
-                                </svg>
-                            </div>
-                            <div class="cert-corner bl">
-                                <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M2 2 L20 2 M2 2 L2 20" stroke="#c9a84c" stroke-width="2" />
-                                    <path d="M2 2 L12 12" stroke="#c9a84c" stroke-width="0.8" stroke-dasharray="2 2" />
-                                    <circle cx="2" cy="2" r="2" fill="#c9a84c" />
-                                    <circle cx="20" cy="2" r="1" fill="#c9a84c" opacity="0.5" />
-                                    <circle cx="2" cy="20" r="1" fill="#c9a84c" opacity="0.5" />
-                                </svg>
-                            </div>
-                            <div class="cert-corner br">
-                                <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M2 2 L20 2 M2 2 L2 20" stroke="#c9a84c" stroke-width="2" />
-                                    <path d="M2 2 L12 12" stroke="#c9a84c" stroke-width="0.8" stroke-dasharray="2 2" />
-                                    <circle cx="2" cy="2" r="2" fill="#c9a84c" />
-                                    <circle cx="20" cy="2" r="1" fill="#c9a84c" opacity="0.5" />
-                                    <circle cx="2" cy="20" r="1" fill="#c9a84c" opacity="0.5" />
-                                </svg>
-                            </div>
-
-                            <!-- Main content -->
-                            <div class="cert-body">
-
-                                <!-- Logo + Org name -->
-                                <div class="cert-logo-row">
-                                    <img src="logo.png" alt="HireHub" class="cert-logo-img">
-                                    <span class="cert-org">HireHub &nbsp;|&nbsp; Campus Placement Portal</span>
+                        <div class="certificate">
+                            <div class="cert-border-inner">
+                                <div class="cert-logo">
+                                    <img src="logo.png" alt="Placement Logo" style="width: 48px; height: 48px; display: inline-block;">
                                 </div>
+                                <h1 class="cert-title">Certificate of Completion</h1>
+                                <p class="cert-subtitle">This proudly certifies that</p>
+                                <h2 class="cert-name" id="cert-name">Jane Smith</h2>
+                                <p class="cert-text">has successfully completed and submitted the project titled</p>
+                                <h3 class="cert-project" id="cert-project">E-Commerce Web App</h3>
+                                <p class="cert-text">demonstrating exceptional skills, dedication, and technical
+                                    proficiency.</p>
 
-                                <div class="cert-divider-gold"></div>
-
-                                <!-- Title -->
-                                <h1 class="cert-headline">Certificate</h1>
-                                <p class="cert-subheadline">of &nbsp; Project &nbsp; Completion</p>
-
-                                <div class="cert-divider-gold"></div>
-
-                                <!-- Recipient -->
-                                <p class="cert-presented-to">This is proudly presented to</p>
-                                <h2 class="cert-name" id="cert-name">STUDENT NAME</h2>
-
-                                <!-- Ornament divider -->
-                                <div class="cert-divider-ornament">
-                                    <span></span>
-                                    <div class="diamond"></div>
-                                    <span></span>
-                                </div>
-
-                                <!-- Recognition text -->
-                                <p class="cert-recognition">
-                                    In recognition of outstanding dedication, commitment, and exceptional
-                                    achievement in successfully completing the project titled
-                                    <strong id="cert-project">Project Title</strong>.
-                                </p>
-
-                                <!-- Footer: seal · date · signature -->
-                                <div class="cert-footer-row">
-
-                                    <!-- Date -->
-                                    <div class="cert-date-block">
-                                        <div class="cert-date-label">Awarded On</div>
-                                        <div class="cert-date" id="cert-date">March, 20 2026</div>
+                                <div class="cert-footer">
+                                    <div class="cert-date-wrap">
+                                        <span class="cert-date" id="cert-date">Oct 26, 2024</span>
+                                        <span class="cert-line">Date</span>
                                     </div>
-
-                                    <!-- Gold Seal SVG -->
-                                    <div class="cert-seal">
-                                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                                            <defs>
-                                                <radialGradient id="sealGrad" cx="50%" cy="40%" r="60%">
-                                                    <stop offset="0%" stop-color="#f5e07a" />
-                                                    <stop offset="60%" stop-color="#c9a84c" />
-                                                    <stop offset="100%" stop-color="#8b6914" />
-                                                </radialGradient>
-                                            </defs>
-                                            <!-- Star badge shape -->
-                                            <polygon points="50,6 61,35 92,35 68,54 77,84 50,65 23,84 32,54 8,35 39,35"
-                                                fill="url(#sealGrad)" stroke="#f0d080" stroke-width="1.5" />
-                                            <!-- Inner circle -->
-                                            <circle cx="50" cy="50" r="20" fill="#0d1b3e" stroke="#f0d080"
-                                                stroke-width="1.5" />
-                                            <!-- Check mark -->
-                                            <polyline points="40,50 47,58 62,42" stroke="#f0d080" stroke-width="3"
-                                                stroke-linecap="round" stroke-linejoin="round" fill="none" />
-                                        </svg>
-                                        <span class="cert-seal-label">Verified</span>
+                                    <div class="cert-signature">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Signature_of_John_Hancock.svg"
+                                            alt="Signature" class="signature-img">
+                                        <span class="cert-line">Authorised Signatory</span>
                                     </div>
-
-                                    <!-- Signature -->
-                                    <div class="cert-signature-block">
-                                        <div class="cert-sig-line"></div>
-                                        <div class="cert-sig-label">Authorised Signatory</div>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
-                        <!-- ★ END CERTIFICATE ★ -->
-
                     </div>
                 </div>
             </section>
         </div>
     </main>
 
-    <!-- Firebase SDK -->
-    <script type="module">
-        import { auth, db } from './firebase_setup.js';
-        import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js';
-        import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js';
-
-        let currentUserName = 'Student';
-
-        // Load logged-in user's name from Firestore
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                try {
-                    const snap = await getDoc(doc(db, 'students', user.uid));
-                    if (snap.exists()) {
-                        const data = snap.data();
-                        currentUserName = data.name || data.displayName || user.displayName || 'Student';
-                    } else {
-                        currentUserName = user.displayName || 'Student';
-                    }
-                } catch (e) {
-                    currentUserName = user.displayName || 'Student';
-                }
-                // Update avatar initials
-                const initials = currentUserName.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
-                document.querySelector('.avatar').textContent = initials;
-            }
-        });
-
+    <script>
         document.getElementById('project-file').addEventListener('change', function (e) {
             const fileName = e.target.files[0] ? e.target.files[0].name : '';
             if (fileName) {
@@ -643,34 +216,38 @@
         document.getElementById('project-form').addEventListener('submit', function (e) {
             e.preventDefault();
 
+            // Get form values
+            const name = document.getElementById('student-name').value;
             const project = document.getElementById('project-title').value;
 
-            // Populate certificate overlay with the Firebase user's name
-            document.getElementById('cert-name').textContent = currentUserName.toUpperCase();
+            // Set certificate values
+            document.getElementById('cert-name').textContent = name;
             document.getElementById('cert-project').textContent = project;
 
-            // Set current date formatted like template
+            // Set current date
             const today = new Date();
-            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            document.getElementById('cert-date').textContent =
-                `${months[today.getMonth()]}, ${today.getDate()} ${today.getFullYear()}`;
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            document.getElementById('cert-date').textContent = today.toLocaleDateString('en-US', options);
 
             // Show certificate section
             const certSection = document.getElementById('certificate-section');
             certSection.style.display = 'flex';
+
+            // Smooth scroll to certificate on mobile or adjust view
             certSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
 
-        window.downloadCertificate = function () {
+        function downloadCertificate() {
             const element = document.getElementById('certificate-wrapper');
             const opt = {
                 margin: 0,
                 filename: 'project-certificate.pdf',
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { scale: 2, useCORS: true, logging: true },
-                jsPDF: { unit: 'in', format: 'a4', orientation: 'landscape' }
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' }
             };
 
+            // Make sure wait for rendering
             const btn = document.querySelector('.btn-secondary');
             const originalText = btn.innerHTML;
             btn.innerHTML = 'Generating...';
@@ -685,7 +262,7 @@
                 btn.disabled = false;
                 alert('Error generating certificate PDF');
             });
-        };
+        }
     </script>
 </body>
 
