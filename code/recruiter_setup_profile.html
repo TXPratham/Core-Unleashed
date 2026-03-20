@@ -43,19 +43,28 @@
             <ul class="features-list">
                 <li>
                     <span class="check-icon" style="background: #2563eb; width: 20px; height: 20px;">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
                     </span>
                     Post job openings fast
                 </li>
                 <li>
                     <span class="check-icon" style="background: #2563eb; width: 20px; height: 20px;">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
                     </span>
                     Filter top candidates
                 </li>
                 <li>
                     <span class="check-icon" style="background: #2563eb; width: 20px; height: 20px;">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
                     </span>
                     Schedule interviews easily
                 </li>
@@ -72,11 +81,14 @@
             <form action="#" method="POST" id="profile-setup-form">
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
                     <div class="form-group">
-                        <label for="company-site" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Company Website</label>
-                        <input type="url" id="company-site" class="form-control" placeholder="https://company.com" required>
+                        <label for="company-site"
+                            style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Company Website</label>
+                        <input type="url" id="company-site" class="form-control" placeholder="https://company.com"
+                            required>
                     </div>
                     <div class="form-group" style="margin-bottom: 20px;">
-                        <label for="industry" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Industry</label>
+                        <label for="industry"
+                            style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Industry</label>
                         <select id="industry" class="form-control" required style="height: 48px;">
                             <option value="">Select Industry...</option>
                             <option value="it">Software / IT</option>
@@ -89,12 +101,15 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="designation" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Your Designation</label>
-                    <input type="text" id="designation" class="form-control" placeholder="e.g. HR Manager, Tech Lead" required>
+                    <label for="designation" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Your
+                        Designation</label>
+                    <input type="text" id="designation" class="form-control" placeholder="e.g. HR Manager, Tech Lead"
+                        required>
                 </div>
 
                 <div class="form-group">
-                    <label for="company-size" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Company Size</label>
+                    <label for="company-size" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Company
+                        Size</label>
                     <select id="company-size" class="form-control" required style="height: 48px;">
                         <option value="">Select Size...</option>
                         <option value="startup">1 - 50 Employees</option>
@@ -104,7 +119,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="linkedin" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">LinkedIn Profile (Optional)</label>
+                    <label for="linkedin" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">LinkedIn
+                        Profile (Optional)</label>
                     <input type="url" id="linkedin" class="form-control" placeholder="https://linkedin.com/in/profile">
                 </div>
 
@@ -148,16 +164,24 @@
 
             try {
                 const profileData = {
+                    uid: currentUser.uid,
                     companyWebsite: document.getElementById('company-site').value,
                     industry: document.getElementById('industry').value,
                     designation: document.getElementById('designation').value,
                     companySize: document.getElementById('company-size').value,
                     linkedin: document.getElementById('linkedin').value,
-                    profileSetupComplete: true
+                    updatedAt: new Date()
                 };
 
-                await setDoc(doc(db, 'users', currentUser.uid), profileData, { merge: true });
+                // 1. Save detailed info to 'recruiters' collection
+                await setDoc(doc(db, 'recruiters', currentUser.uid), profileData);
 
+                // 2. Update 'users' doc with status and reference
+                await setDoc(doc(db, 'users', currentUser.uid), {
+                    profileSetupComplete: true
+                }, { merge: true });
+
+                alert('Profile setup complete! Your account is now pending admin approval.');
                 window.location.href = 'recruiter_dashboard.html';
 
             } catch (error) {
