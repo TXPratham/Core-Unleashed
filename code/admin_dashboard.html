@@ -37,7 +37,8 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .nav-item, .nav-item.active {
+        .nav-item,
+        .nav-item.active {
             color: white !important;
         }
 
@@ -121,8 +122,13 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
     </style>
 </head>
@@ -377,7 +383,7 @@
 
         // Profile Icon & Navbar Logic
         const adminAvatar = document.getElementById('adminAvatar');
-        
+
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 try {
@@ -396,10 +402,10 @@
         });
 
         adminAvatar.onclick = () => {
-            window.location.href = 'admin_setup_profile.html';
+            window.location.href = 'admin_profile.html';
         };
 
-        window.downloadReports = function() {
+        window.downloadReports = function () {
             const csvData = "Report Type,Count,Trend\nTotal Students,1248,+98%\nActive Companies,42,+5\nUpcoming Drives,8,Neutral\nStudents Placed,415,+33%";
             const blob = new Blob([csvData], { type: 'text/csv' });
             const url = window.URL.createObjectURL(blob);
@@ -413,11 +419,11 @@
             alert("Reports downloaded successfully!");
         }
 
-        window.openCreateEventModal = function() {
+        window.openCreateEventModal = function () {
             document.getElementById('createEventModal').classList.add('active');
         }
 
-        window.closeCreateEventModal = function() {
+        window.closeCreateEventModal = function () {
             document.getElementById('createEventModal').classList.remove('active');
             document.getElementById('event-title').value = '';
             document.getElementById('event-type').value = 'drive';
@@ -425,7 +431,7 @@
             document.getElementById('event-branches').value = '';
         }
 
-        window.renderEventsTable = function() {
+        window.renderEventsTable = function () {
             const tbody = document.getElementById('event-table-body');
             const placeholderEvents = [
                 { title: 'TechCorp Inc.', branches: 'CSE, IT', type: 'drive', date: 'Ongoing', avatar: 'T', color: '#f97316' },
@@ -441,7 +447,7 @@
                 const tr = document.createElement('tr');
                 const avatarChar = event.avatar || event.title.charAt(0).toUpperCase();
                 const avatarBg = event.color || (event.type === 'drive' ? '#2563eb' : (event.type === 'talk' ? '#10b981' : '#f59e0b'));
-                
+
                 // Format relative date if it's a dynamic one
                 let displayDate = event.date;
                 if (displayDate.includes('T')) {
@@ -480,12 +486,12 @@
             renderEventsTable();
         });
 
-        window.submitEvent = function() {
+        window.submitEvent = function () {
             const title = document.getElementById('event-title').value;
             const dateStr = document.getElementById('event-date').value;
             const typeValue = document.getElementById('event-type').value;
             const branches = document.getElementById('event-branches').value;
-            
+
             if (!title || !dateStr) {
                 alert("Please fill in the event title and date.");
                 return;
@@ -508,7 +514,7 @@
 
             alert(`Event "${title}" has been successfully created!`);
             closeCreateEventModal();
-            
+
             renderEventsTable();
         }
     </script>
