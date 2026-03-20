@@ -8,339 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="home.css">
-    <style>
-        /* Theme overrides to match Royal Blue / Light Blue palette */
-        :root {
-            --primary: #2563eb;
-            --primary-light: #60a5fa;
-            --primary-dark: #1e40af;
-            --bg-main: #f0f9ff;
-            --white: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #475569;
-            --hero-gradient: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-            --border-color: rgba(37, 99, 235, 0.1);
-            --shadow: 0 10px 25px rgba(37, 99, 235, 0.05);
-
-            --calendar-border: #e2e8f0;
-            --calendar-bg: #ffffff;
-            --calendar-today-bg: #eff6ff;
-            --calendar-hover: #f8fafc;
-        }
-
-        body {
-            background-color: var(--bg-main);
-            background-image: radial-gradient(at 0% 0%, #eff6ff 0%, transparent 50%),
-                radial-gradient(at 100% 0%, #e0f2fe 100% 0%, transparent 50%),
-                radial-gradient(at 100% 100%, #f0f9ff 0%, transparent 50%),
-                radial-gradient(at 0% 100%, #eff6ff 0%, transparent 50%);
-            background-attachment: fixed;
-        }
-
-        .sidebar {
-            background: var(--hero-gradient) !important;
-            border-right: none !important;
-        }
-
-        .nav-item {
-            color: rgba(255, 255, 255, 0.7) !important;
-        }
-
-        .nav-item:hover,
-        .nav-item.active {
-            color: white !important;
-            background: rgba(255, 255, 255, 0.1) !important;
-        }
-
-        .top-bar {
-            background: rgba(255, 255, 255, 0.8) !important;
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color) !important;
-        }
-
-        .top-bar h2 {
-            color: var(--primary-dark) !important;
-            font-weight: 800;
-        }
-
-        .calendar-container {
-            background: white !important;
-            border: 1px solid var(--border-color) !important;
-            box-shadow: var(--shadow) !important;
-            border-radius: 20px;
-            padding: 2.5rem;
-            min-height: 850px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .view-controls {
-            display: flex;
-            background: #f1f5f9;
-            padding: 4px;
-            border-radius: 12px;
-            gap: 4px;
-        }
-
-        .view-btn {
-            border: none;
-            background: transparent;
-            padding: 10px 24px;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            cursor: pointer;
-            color: var(--text-muted);
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .view-btn.active {
-            background: white;
-            color: var(--primary);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-
-        .nav-controls {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .year-selector-wrap {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: white;
-            padding: 6px 16px;
-            border-radius: 14px;
-            border: 1px solid var(--calendar-border);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .year-select {
-            border: none;
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: var(--primary-dark);
-            background: transparent;
-            cursor: pointer;
-            outline: none;
-        }
-
-        .year-select:hover { color: var(--primary); }
-
-        #yearView, #dayView {
-            display: none;
-            width: 100%;
-        }
-
-        .calendar-container.view-year #yearView { display: grid; }
-        .calendar-container.view-day #dayView { display: block; }
-
-        #yearView {
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            flex: 1;
-        }
-
-        .mini-month {
-            background: white;
-            border: 1px solid var(--calendar-border);
-            border-radius: 18px;
-            padding: 18px;
-            transition: all 0.2s ease;
-        }
-
-        .mini-month:hover {
-            border-color: var(--primary);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.04);
-            transform: translateY(-2px);
-        }
-
-        .mini-month-name {
-            font-weight: 800;
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            color: var(--text-main);
-            border-bottom: 2px solid #f1f5f9;
-            padding-bottom: 10px;
-        }
-
-        .mini-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 6px;
-        }
-
-        .mini-day {
-            font-size: 0.8rem;
-            text-align: center;
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            color: #64748b;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.15s;
-        }
-
-        .mini-day:hover {
-            background: var(--calendar-hover);
-            color: var(--primary);
-        }
-
-        .mini-day.has-event {
-            background: #eff6ff;
-            color: var(--primary);
-            font-weight: 800;
-            box-shadow: inset 0 0 0 1px rgba(37, 99, 235, 0.2);
-        }
-
-        .mini-day.is-today {
-            background: var(--primary);
-            color: white !important;
-        }
-
-        .day-cell.today {
-            background: #eff6ff !important;
-            border-color: var(--primary) !important;
-        }
-
-        .day-cell.today .day-number {
-            background: var(--primary) !important;
-            color: white !important;
-            border-radius: 6px;
-        }
-
-        .mini-day-name {
-            font-size: 0.7rem;
-            font-weight: 800;
-            color: #94a3b8;
-            text-transform: uppercase;
-            text-align: center;
-            padding-bottom: 8px;
-        }
-
-        .day-view-card {
-            background: linear-gradient(135deg, white, #f8fafc);
-            border-radius: 20px;
-            border: 1px solid var(--calendar-border);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-        }
-
-        .day-header {
-            padding: 30px;
-            background: var(--primary);
-            color: white;
-        }
-
-        .day-header h2 { font-size: 1.8rem; font-weight: 800; }
-
-        .event-card-large {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-            padding: 24px;
-            border-bottom: 1px solid var(--calendar-border);
-            background: white;
-            transition: background 0.2s;
-        }
-
-        .event-card-large:last-child { border-bottom: none; }
-        .event-card-large:hover { background: #fbfcfd; }
-
-        .event-time-tag {
-            min-width: 110px;
-            font-weight: 800;
-            color: var(--primary);
-            font-size: 1rem;
-            text-align: center;
-            padding: 10px;
-            background: var(--primary-light);
-            border-radius: 12px;
-        }
-
-        .event-talk {
-            background: #ecfdf5;
-            color: #059669;
-            border: 1px solid #bbf7d0;
-        }
-
-        .event-test {
-            background: #eff6ff;
-            color: #2563eb;
-            border: 1px solid #bfdbfe;
-        }
-
-        .event-deadline {
-            background: #fef2f2;
-            color: #dc2626;
-            border: 1px solid #fecaca;
-        }
-
-        .calendar-legend {
-            display: flex;
-            gap: 30px;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--calendar-border);
-            flex-wrap: wrap;
-        }
-
-        .legend-item { display: flex; align-items: center; gap: 12px; font-size: 0.9rem; font-weight: 700; color: #64748b; }
-        .legend-dot { width: 14px; height: 14px; border-radius: 5px; }
-
-        @media (max-width: 1200px) { #yearView { grid-template-columns: repeat(3, 1fr); } }
-        @media (max-width: 900px) { #yearView { grid-template-columns: repeat(2, 1fr); } }
-
-        .legend-color {
-            width: 12px;
-            height: 12px;
-            border-radius: 3px;
-        }
-
-        .btn-primary {
-            background: var(--hero-gradient) !important;
-            border: none !important;
-            color: white !important;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2) !important;
-            cursor: pointer;
-            border-radius: 8px;
-        }
-
-        .btn-outline {
-            color: var(--primary) !important;
-            border: 1px solid var(--primary) !important;
-            background: transparent;
-            cursor: pointer;
-            border-radius: 8px;
-        }
-
-        .avatar-small {
-            background: var(--hero-gradient) !important;
-            color: white !important;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            font-weight: 600;
-            font-size: 0.85rem;
-        }
-    </style>
+    <link rel="stylesheet" href="drives_calendar.css">
 </head>
 
 <body>
@@ -356,7 +24,10 @@
         <div class="notification-list">
             <div class="popup-notif-item unread">
                 <div class="noti-icon bg-blue-light">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
                 </div>
                 <div class="noti-content">
                     <h4>Google Test Date Announced</h4>
@@ -365,7 +36,10 @@
             </div>
             <div class="popup-notif-item unread">
                 <div class="noti-icon bg-purple-light">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                    </svg>
                 </div>
                 <div class="noti-content">
                     <h4>Resume Shortlisted by Microsoft</h4>
@@ -385,13 +59,20 @@
         <div style="padding: 16px; display: flex; flex-direction: column; gap: 12px;">
             <a href="ai_resume_builder.html" class="create-card">
                 <div class="create-card-icon" style="background: var(--primary);">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                    </svg>
                 </div>
                 <div class="create-card-text"><strong>AI Resume Builder</strong></div>
             </a>
             <a href="project_upload.html" class="create-card">
                 <div class="create-card-icon" style="background: #8b5cf6;">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path
+                            d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                        </path>
+                    </svg>
                 </div>
                 <div class="create-card-text"><strong>Project Showcase</strong></div>
             </a>
@@ -463,7 +144,11 @@
                 <h2>Placement Calendar</h2>
                 <div class="top-bar-right">
                     <a href="home.html" class="btn-back-dashboard">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="19" y1="12" x2="5" y2="12"></line>
+                            <polyline points="12 19 5 12 12 5"></polyline>
+                        </svg>
                         Back to Dashboard
                     </a>
                     <a href="student_profile.html" class="avatar-small">JS</a>
@@ -477,14 +162,18 @@
                             <button class="view-btn active" id="btn-year" onclick="setView('year')">Full Year</button>
                             <button class="view-btn" id="btn-day" onclick="setView('day')">Schedule</button>
                         </div>
-                        
+
                         <div class="nav-controls">
-                            <button class="btn-outline" style="padding: 12px; border-radius: 14px;" onclick="navigate(-1)">‹</button>
+                            <button class="btn-outline" style="padding: 12px; border-radius: 14px;"
+                                onclick="navigate(-1)">‹</button>
                             <div class="year-selector-wrap">
                                 <select id="yearSelect" class="year-select" onchange="syncDateFromSelector()"></select>
                             </div>
-                            <button class="btn-outline" style="padding: 12px; border-radius: 14px;" onclick="navigate(1)">›</button>
-                            <button class="btn-primary" style="padding: 12px 24px; margin-left:15px; border-radius:14px; font-weight:800;" onclick="goToday()">Today</button>
+                            <button class="btn-outline" style="padding: 12px; border-radius: 14px;"
+                                onclick="navigate(1)">›</button>
+                            <button class="btn-primary"
+                                style="padding: 12px 24px; margin-left:15px; border-radius:14px; font-weight:800;"
+                                onclick="goToday()">Today</button>
                         </div>
                     </div>
 
@@ -500,170 +189,25 @@
                     </div>
 
                     <div class="calendar-legend">
-                        <div class="legend-item"><div class="legend-dot" style="background:#10b981;"></div> Placement Drives</div>
-                        <div class="legend-item"><div class="legend-dot" style="background:#3b82f6;"></div> Online Tests</div>
-                        <div class="legend-item"><div class="legend-dot" style="background:#ef4444;"></div> Deadlines</div>
-                        <div class="legend-item"><div class="legend-dot" style="background:#f59e0b;"></div> Workshops</div>
+                        <div class="legend-item">
+                            <div class="legend-dot" style="background:#10b981;"></div> Placement Drives
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot" style="background:#3b82f6;"></div> Online Tests
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot" style="background:#ef4444;"></div> Deadlines
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot" style="background:#f59e0b;"></div> Workshops
+                        </div>
                     </div>
                 </div>
             </div>
         </main>
     </div>
 
-    <script>
-        let currentDate = new Date();
-        let currentView = 'year';
-        
-        const staticEvents = [
-            { date: '2024-10-12', title: 'Amazon PPT', type: 'talk' },
-            { date: '2024-10-15', title: 'Google Test', type: 'test' },
-            { date: '2024-10-22', title: 'Adobe UX Test', type: 'test' },
-            { date: '2026-03-25', title: 'Microsoft Interview', type: 'talk' }
-        ];
-
-        function getEvents() {
-            const adminEvents = JSON.parse(localStorage.getItem('adminEvents') || '[]');
-            return [...staticEvents, ...adminEvents];
-        }
-
-        function initYearSelector() {
-            const ySelect = document.getElementById('yearSelect');
-            const currentYear = new Date().getFullYear();
-            let yearOptions = '';
-            for(let i = currentYear - 2; i <= currentYear + 5; i++) {
-                yearOptions += `<option value="${i}">${i}</option>`;
-            }
-            ySelect.innerHTML = yearOptions;
-            ySelect.value = currentDate.getFullYear();
-        }
-
-        function syncDateFromSelector() {
-            currentDate.setFullYear(parseInt(document.getElementById('yearSelect').value));
-            updateContent();
-        }
-
-        function renderYearView() {
-            const view = document.getElementById('yearView');
-            view.innerHTML = '';
-            const year = currentDate.getFullYear();
-            const events = getEvents();
-            const today = new Date();
-
-            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            const dayNames = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-
-            for (let m = 0; m < 12; m++) {
-                const monthDiv = document.createElement('div');
-                monthDiv.className = 'mini-month';
-                monthDiv.innerHTML = `<div class="mini-month-name">${monthNames[m]}</div>`;
-                const grid = document.createElement('div');
-                grid.className = 'mini-grid';
-                dayNames.forEach(dn => {
-                    const dnDiv = document.createElement('div');
-                    dnDiv.className = 'mini-day-name'; dnDiv.textContent = dn;
-                    grid.appendChild(dnDiv);
-                });
-                const daysInMonth = new Date(year, m + 1, 0).getDate();
-                const firstDay = new Date(year, m, 1).getDay();
-                for(let b=0; b<firstDay; b++) grid.appendChild(document.createElement('div'));
-                for(let d=1; d<=daysInMonth; d++) {
-                    const day = document.createElement('div');
-                    day.className = 'mini-day';
-                    day.textContent = d;
-                    const dateKey = `${year}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-                    if (events.some(e => e.date.startsWith(dateKey))) day.classList.add('has-event');
-                    if (d === today.getDate() && m === today.getMonth() && year === today.getFullYear()) day.classList.add('is-today');
-                    day.onclick = (e) => {
-                        e.stopPropagation();
-                        currentDate = new Date(year, m, d);
-                        setView('day');
-                    };
-                    grid.appendChild(day);
-                }
-                monthDiv.appendChild(grid);
-                view.appendChild(monthDiv);
-            }
-        }
-
-        function applyReadStatus() {
-            const readNotifs = JSON.parse(localStorage.getItem('readNotifications') || '[]');
-            const badge = document.getElementById('notifBadge');
-            // In these pages we don't have the full list, but we can estimate the unread count from other pages
-            const totalNotifs = 2; 
-            const readCount = readNotifs.filter(id => id.startsWith('pop-notif-')).length;
-            const unreadCount = Math.max(0, totalNotifs - readCount);
-
-            if (badge) {
-                badge.style.display = unreadCount === 0 ? 'none' : 'block';
-                badge.textContent = unreadCount > 0 ? unreadCount : '';
-            }
-        }
-
-        function renderDayView() {
-            const list = document.getElementById('dayViewList');
-            document.getElementById('dayViewTitle').textContent = currentDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
-            list.innerHTML = '';
-            const dateKey = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`;
-            const events = getEvents().filter(e => e.date.startsWith(dateKey));
-            
-            if (events.length === 0) {
-                list.innerHTML = '<div style="padding: 3rem; text-align: center; color: #94a3b8; font-weight: 600;">No activities for this date.</div>';
-                return;
-            }
-            events.forEach(e => {
-                const time = e.date.includes('T') ? new Date(e.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '09:00 AM';
-                const card = document.createElement('div');
-                card.className = 'event-card-large';
-                card.innerHTML = `<div class="event-time-tag">${time}</div><div class="event-details-main"><h3>${e.title}</h3><p>${e.branches || 'All Eligible Branches'}</p></div>`;
-                list.appendChild(card);
-            });
-        }
-
-        function setView(view) {
-            currentView = view;
-            document.getElementById('mainContainer').className = `calendar-container view-${view}`;
-            document.querySelectorAll('.view-btn').forEach(b => b.classList.toggle('active', b.id === 'btn-' + view));
-            updateContent();
-        }
-
-        function updateContent() {
-            document.getElementById('yearSelect').value = currentDate.getFullYear();
-            if (currentView === 'year') renderYearView();
-            else renderDayView();
-        }
-
-        function navigate(dir) {
-            if (currentView === 'year') currentDate.setFullYear(currentDate.getFullYear() + dir);
-            else currentDate.setDate(currentDate.getDate() + dir);
-            updateContent();
-        }
-
-        function goToday() { currentDate = new Date(); setView('year'); }
-
-        // Popup Logic
-        function togglePopup(id, event) {
-            event.stopPropagation();
-            const panel = document.getElementById(id);
-            const overlay = document.getElementById('popupOverlay');
-            const isActive = panel.classList.contains('active');
-            closeAllPopups();
-            if (!isActive) {
-                panel.classList.add('active');
-                overlay.classList.add('active');
-            }
-        }
-
-        function closeAllPopups() {
-            document.querySelectorAll('.popup-panel').forEach(p => p.classList.remove('active'));
-            if(document.getElementById('popupOverlay')) document.getElementById('popupOverlay').classList.remove('active');
-        }
-
-        document.addEventListener('click', closeAllPopups);
-
-        // Init
-        initYearSelector();
-        updateContent();
-    </script>
+    <script src="drives_calendar.js"></script>
 </body>
 
 </html>

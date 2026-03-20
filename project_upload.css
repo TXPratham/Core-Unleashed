@@ -419,3 +419,71 @@ body {
         /* simple mobile fallback */
     }
 }
+
+/* Theme overrides to match Royal Blue / Light Blue palette */
+:root {
+    --primary: #2563eb;
+    --primary-hover: #1e40af;
+    --primary-dark: #1e40af;
+    --bg-color: #f0f9ff;
+    --surface: #ffffff;
+    --white: #ffffff;
+    --hero-gradient: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+}
+
+body {
+    background-color: var(--bg-color);
+    background-image: radial-gradient(at 0% 0%, #eff6ff 0%, transparent 50%),
+        radial-gradient(at 100% 0%, #e0f2fe 100% 0%, transparent 50%),
+        radial-gradient(at 100% 100%, #f0f9ff 0%, transparent 50%),
+        radial-gradient(at 0% 100%, #eff6ff 0%, transparent 50%);
+    background-attachment: fixed;
+}
+
+.navbar {
+    background: var(--hero-gradient) !important;
+    border-bottom: none !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.nav-item.active {
+    color: white !important;
+    font-weight: 700;
+}
+
+.avatar {
+    background-color: var(--white) !important;
+    color: var(--primary) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.page-header h1 {
+    color: var(--primary-dark) !important;
+    font-weight: 800;
+}
+
+.upload-section {
+    border: 1px solid rgba(37, 99, 235, 0.1) !important;
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.05) !important;
+    background: white !important;
+}
+
+.btn-primary {
+    background: var(--hero-gradient) !important;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2) !important;
+    border: none !important;
+}
+
+.btn-secondary {
+    color: var(--primary) !important;
+    border: 1px solid var(--primary) !important;
+    background: white !important;
+}
+
+.cert-name {
+    color: var(--primary) !important;
+}
