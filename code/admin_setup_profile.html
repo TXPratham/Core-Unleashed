@@ -46,26 +46,35 @@
             <ul class="features-list">
                 <li>
                     <span class="check-icon" style="background: #2563eb; width: 20px; height: 20px;">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
                     </span>
                     Manage student data
                 </li>
                 <li>
                     <span class="check-icon" style="background: #2563eb; width: 20px; height: 20px;">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
                     </span>
                     Organize placement drives
                 </li>
                 <li>
                     <span class="check-icon" style="background: #2563eb; width: 20px; height: 20px;">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
                     </span>
                     Track live attendance
                 </li>
             </ul>
         </div>
-          
-        <!-- Right Form side -->     
+
+        <!-- Right Form side -->
         <!-- Right Form side -->
         <div class="login-form-section" style="overflow-y: auto;">
             <div class="setup-header">
@@ -76,11 +85,13 @@
             <form action="#" method="POST" id="profile-setup-form">
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
                     <div class="form-group">
-                        <label for="full-name" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Full Name</label>
+                        <label for="full-name" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Full
+                            Name</label>
                         <input type="text" id="full-name" class="form-control" placeholder="Dr. Ramesh Kumar" required>
                     </div>
                     <div class="form-group">
-                        <label for="admin-title" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Admin Role</label>
+                        <label for="admin-title" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Admin
+                            Role</label>
                         <select id="admin-title" class="form-control" required>
                             <option value="">Select Role...</option>
                             <option value="placement-officer">Chief Placement Officer</option>
@@ -92,24 +103,29 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="department" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Department</label>
+                    <label for="department"
+                        style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Department</label>
                     <input type="text" id="department" class="form-control" placeholder="Computer Science" required>
                 </div>
 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
                     <div class="form-group">
-                        <label for="office" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Office Location</label>
+                        <label for="office" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Office
+                            Location</label>
                         <input type="text" id="office" class="form-control" placeholder="Block A, 402">
                     </div>
                     <div class="form-group">
-                        <label for="contact-number" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Internal Phone</label>
+                        <label for="contact-number"
+                            style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Internal Phone</label>
                         <input type="tel" id="contact-number" class="form-control" placeholder="Ext 402">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="college-name" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">College Name</label>
-                    <input type="text" id="college-name" class="form-control" placeholder="RV College of Engineering" required>
+                    <label for="college-name" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">College
+                        Name</label>
+                    <input type="text" id="college-name" class="form-control" placeholder="RV College of Engineering"
+                        required>
                 </div>
 
                 <button type="submit" class="btn-submit" style="margin-top: 10px;">Finish Setup & Go to
@@ -152,17 +168,25 @@
 
             try {
                 const profileData = {
+                    uid: currentUser.uid,
                     fullName: document.getElementById('full-name').value,
                     adminTitle: document.getElementById('admin-title').value,
                     department: document.getElementById('department').value,
                     officeLocation: document.getElementById('office').value,
                     contactPhone: document.getElementById('contact-number').value,
                     collegeName: document.getElementById('college-name').value,
-                    profileSetupComplete: true
+                    updatedAt: new Date()
                 };
 
-                await setDoc(doc(db, 'users', currentUser.uid), profileData, { merge: true });
+                // 1. Save detailed info to 'admins' collection
+                await setDoc(doc(db, 'admins', currentUser.uid), profileData);
 
+                // 2. Update 'users' doc with status and reference
+                await setDoc(doc(db, 'users', currentUser.uid), {
+                    profileSetupComplete: true
+                }, { merge: true });
+
+                alert('Admin profile setup complete! Your account is now active.');
                 window.location.href = 'admin_dashboard.html';
 
             } catch (error) {
