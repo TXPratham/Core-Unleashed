@@ -8,28 +8,7 @@
     <title>Admin Profile Setup | Campus Placement Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="login.css">
-    <style>
-        .login-info-section {
-            background: linear-gradient(135deg, #1f2937, #111827);
-        }
-
-        .setup-header {
-            margin-bottom: 24px;
-            text-align: center;
-        }
-
-        .setup-header h1 {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 8px;
-        }
-
-        .setup-header p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-    </style>
+    <link rel="stylesheet" href="admin_setup_profile.css">
 </head>
 
 <body>
@@ -138,65 +117,7 @@
         </div>
     </div>
 
-    <script type="module">
-        import { auth, db } from './firebase_setup.js';
-        import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js';
-        import { doc, setDoc } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js';
-
-        let currentUser = null;
-
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                currentUser = user;
-            } else {
-                // Not logged in — redirect to sign in
-                window.location.href = 'index.html';
-            }
-        });
-
-        document.getElementById('profile-setup-form').addEventListener('submit', async function (e) {
-            e.preventDefault();
-
-            if (!currentUser) {
-                alert("You aren't authenticated. Please return to the sign in page.");
-                return;
-            }
-
-            const submitBtn = this.querySelector('.btn-submit');
-            submitBtn.textContent = 'Saving Profile...';
-            submitBtn.disabled = true;
-
-            try {
-                const profileData = {
-                    uid: currentUser.uid,
-                    fullName: document.getElementById('full-name').value,
-                    adminTitle: document.getElementById('admin-title').value,
-                    department: document.getElementById('department').value,
-                    officeLocation: document.getElementById('office').value,
-                    contactPhone: document.getElementById('contact-number').value,
-                    collegeName: document.getElementById('college-name').value,
-                    updatedAt: new Date()
-                };
-
-                // 1. Save detailed info to 'admins' collection
-                await setDoc(doc(db, 'admins', currentUser.uid), profileData);
-
-                // 2. Update 'users' doc with status and reference
-                await setDoc(doc(db, 'users', currentUser.uid), {
-                    profileSetupComplete: true
-                }, { merge: true });
-
-                alert('Admin profile setup complete! Your account is now active.');
-                window.location.href = 'admin_dashboard.html';
-
-            } catch (error) {
-                console.error("Profile Setup Error:", error);
-                alert("There was an issue saving your profile. Please try again.");
-                submitBtn.textContent = 'Finish Setup & Go to Dashboard';
-                submitBtn.disabled = false;
-            }
-        });
-    </script>
+    <script type="module" src="admin_setup_profile.js"></script>
 </body>
 
 </html>

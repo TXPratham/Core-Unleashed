@@ -1,17 +1,20 @@
 :root {
+    --primary: #2563eb;
+    --primary-light: #60a5fa;
+    --primary-dark: #1e40af;
+    --bg-main: #f0f9ff;
+    --white: #ffffff;
+    --hero-gradient: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    --ai-accent: #2563eb;
+    --success: #10b981;
     --bg-color: #f1f5f9;
     --card-bg: #ffffff;
     --text-main: #0f172a;
     --text-muted: #64748b;
-    --primary: #2563eb;
-    --primary-hover: #1d4ed8;
     --border-color: #e2e8f0;
     --input-bg: #f8fafc;
     --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
     --focus-ring: rgba(37, 99, 235, 0.2);
-    --ai-accent: #8b5cf6;
-    /* A purple accent for AI features */
-    --ai-accent-light: #f3f0ff;
 }
 
 * {
@@ -453,5 +456,96 @@ body {
 
     .resume-document {
         padding: 32px;
+    }
+}
+
+/* Theme overrides to match Royal Blue / Light Blue palette */
+body {
+    background-color: var(--bg-main);
+    background-image: radial-gradient(at 0% 0%, #eff6ff 0%, transparent 50%),
+        radial-gradient(at 100% 0%, #e0f2fe 100% 0%, transparent 50%),
+        radial-gradient(at 100% 100%, #f0f9ff 0%, transparent 50%),
+        radial-gradient(at 0% 100%, #eff6ff 0%, transparent 50%);
+    background-attachment: fixed;
+}
+
+.navbar {
+    background: var(--hero-gradient) !important;
+    border-bottom: none !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.nav-item.active {
+    color: white !important;
+    font-weight: 700;
+}
+
+.avatar {
+    background-color: var(--white) !important;
+    color: var(--primary) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.editor-panel {
+    background: white !important;
+    border-right: 1px solid rgba(37, 99, 235, 0.1) !important;
+    box-shadow: 10px 0 30px rgba(37, 99, 235, 0.05) !important;
+}
+
+.ai-header h2 {
+    color: var(--primary-dark) !important;
+}
+
+.ai-icon {
+    background: var(--hero-gradient) !important;
+    color: white !important;
+}
+
+.btn-generate {
+    background: var(--hero-gradient) !important;
+    border: none !important;
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2) !important;
+    color: white !important;
+}
+
+.suggestion-pill:hover {
+    background: var(--bg-main) !important;
+    color: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+
+.preview-panel {
+    background: rgba(224, 242, 254, 0.2) !important;
+}
+
+.resume-document {
+    box-shadow: 0 20px 50px rgba(37, 99, 235, 0.1) !important;
+}
+
+.doc-name,
+.doc-section-title {
+    color: var(--primary-dark) !important;
+}
+
+.doc-role {
+    color: var(--primary) !important;
+}
+
+.upload-section:hover {
+    border-color: var(--primary) !important;
+    background: var(--bg-main) !important;
+}
+
+.upload-icon {
+    color: var(--primary) !important;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
     }
 }

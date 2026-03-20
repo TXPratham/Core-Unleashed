@@ -8,136 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="home.css">
     <link rel="stylesheet" href="recruiter_dashboard.css">
-    <style>
-        /* Theme overrides to match Royal Blue / Light Blue palette */
-        :root {
-            --primary: #2563eb;
-            --primary-light: #60a5fa;
-            --primary-dark: #1e40af;
-            --bg-main: #f0f9ff;
-            --white: #ffffff;
-            --hero-gradient: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-        }
-
-        body {
-            background-color: var(--bg-main);
-            background-image: radial-gradient(at 0% 0%, #eff6ff 0%, transparent 50%),
-                radial-gradient(at 100% 0%, #e0f2fe 100% 0%, transparent 50%),
-                radial-gradient(at 100% 100%, #f0f9ff 0%, transparent 50%),
-                radial-gradient(at 0% 100%, #eff6ff 0%, transparent 50%);
-            background-attachment: fixed;
-        }
-
-        .navbar {
-            background: var(--hero-gradient) !important;
-            border-bottom: none !important;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-item {
-            color: rgba(255, 255, 255, 0.8) !important;
-        }
-
-        .nav-item.active,
-        .nav-item:hover {
-            color: white !important;
-            opacity: 1;
-        }
-
-        .avatar {
-            background: var(--white) !important;
-            color: var(--primary) !important;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .container {
-            margin-top: 100px;
-        }
-
-        .dashboard-header h1 {
-            color: var(--primary-dark) !important;
-            font-weight: 800;
-        }
-
-        .section-card {
-            border: 1px solid rgba(37, 99, 235, 0.1) !important;
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.05) !important;
-            background: white !important;
-        }
-
-        .section-header h2 {
-            color: var(--primary-dark) !important;
-        }
-
-        .btn-success {
-            background: var(--hero-gradient) !important;
-            border: none !important;
-            color: white !important;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2) !important;
-            transition: all 0.2s ease;
-        }
-
-        .btn-success:hover {
-            transform: translateY(-1px);
-            filter: brightness(1.1);
-        }
-
-        .btn-danger {
-            background: white !important;
-            color: #ef4444 !important;
-            border: 1px solid #fecaca !important;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 500;
-            margin-left: 8px;
-            transition: all 0.2s ease;
-        }
-
-        .btn-danger:hover {
-            background: #fef2f2 !important;
-            border-color: #ef4444 !important;
-        }
-
-        .btn-secondary {
-            color: var(--primary) !important;
-            border: 1px solid var(--primary) !important;
-            background: white !important;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .student-avatar {
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        table thead tr {
-            background: #f8fafc !important;
-        }
-
-        table th {
-            color: var(--primary-dark) !important;
-            font-weight: 700 !important;
-        }
-
-        .action-cell {
-            display: flex;
-            align-items: center;
-        }
-    </style>
+    <link rel="stylesheet" href="admin_verify_students.css">
 </head>
 
 <body>
@@ -149,7 +20,11 @@
         </div>
         <div class="nav-links">
             <a href="admin_dashboard.html" class="btn-back-dashboard">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
                 Back to Dashboard
             </a>
             <div class="avatar" id="adminAvatar" title="Admin Profile">A</div>
@@ -177,7 +52,8 @@
                 <div class="section-header">
                     <h2>Pending Verification (34)</h2>
                     <div style="display: flex; gap: 8px;">
-                        <input type="text" placeholder="Search by name or USN..." style="padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.9rem;">
+                        <input type="text" placeholder="Search by name or USN..."
+                            style="padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.9rem;">
                     </div>
                 </div>
                 <div class="table-container">
@@ -254,51 +130,7 @@
         </main>
     </div>
 
-    <script type="module">
-        import { auth, db } from './firebase_setup.js';
-        import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js';
-        import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js';
-
-        // Profile Icon Logic
-        const adminAvatar = document.getElementById('adminAvatar');
-        
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                try {
-                    const userDoc = await getDoc(doc(db, 'users', user.uid));
-                    if (userDoc.exists()) {
-                        const data = userDoc.data();
-                        if (data.fullName) {
-                            adminAvatar.textContent = data.fullName.charAt(0).toUpperCase();
-                            adminAvatar.title = `${data.fullName} (${data.adminTitle || 'Admin'})`;
-                        }
-                    }
-                } catch (error) {
-                    console.error("Error fetching admin profile:", error);
-                }
-            }
-        });
-
-        adminAvatar.onclick = () => {
-            window.location.href = 'admin_setup_profile.html';
-        };
-
-        window.verifyRow = function(rowId) {
-            if (confirm("Are you sure you want to verify this student profile?")) {
-                const row = document.getElementById(rowId);
-                row.remove();
-                alert("Student profile verified successfully.");
-            }
-        }
-
-        window.rejectRow = function(rowId) {
-            if (confirm("Are you sure you want to reject this student profile?")) {
-                const row = document.getElementById(rowId);
-                row.remove();
-                alert("Student profile request rejected.");
-            }
-        }
-    </script>
+    <script type="module" src="admin_verify_students.js"></script>
 </body>
 
 </html>

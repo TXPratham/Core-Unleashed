@@ -8,127 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="home.css">
     <link rel="stylesheet" href="recruiter_dashboard.css">
-    <style>
-        /* Admin specific theme overrides - Only modifying Colors */
-        :root {
-            --primary: #2563eb;
-            --primary-light: #60a5fa;
-            --primary-dark: #1e40af;
-            --bg-main: #f0f9ff;
-            --text-main: #0f172a;
-            --text-muted: #475569;
-            --white: #ffffff;
-            --hero-gradient: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-            --card-shadow: 0 10px 25px rgba(37, 99, 235, 0.1);
-            --border-color: rgba(37, 99, 235, 0.1);
-        }
-
-        body {
-            background: #f0f9ff;
-            background-image: radial-gradient(at 0% 0%, #eff6ff 0%, transparent 50%),
-                radial-gradient(at 100% 0%, #e0f2fe 100% 0%, transparent 50%),
-                radial-gradient(at 100% 100%, #f0f9ff 0%, transparent 50%),
-                radial-gradient(at 0% 100%, #eff6ff 0%, transparent 50%);
-            background-attachment: fixed;
-        }
-
-        .navbar {
-            background: var(--hero-gradient) !important;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-item, .nav-item.active {
-            color: white !important;
-        }
-
-        /* Adjustment to bring content down */
-        .container {
-            margin-top: 100px;
-        }
-
-        .avatar {
-            background: var(--white) !important;
-            color: var(--primary) !important;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .dashboard-header h1 {
-            color: var(--primary-dark) !important;
-            font-weight: 800;
-        }
-
-        .section-card {
-            background: white !important;
-            border: 1px solid var(--border-color) !important;
-            box-shadow: var(--card-shadow) !important;
-        }
-
-        .btn-secondary {
-            background: var(--white) !important;
-            color: var(--primary) !important;
-            border: 1px solid var(--primary) !important;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-
-        .btn-secondary:hover {
-            background: var(--bg-main) !important;
-        }
-
-        .btn-success {
-            background: #10b981;
-            color: #fff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-
-        .btn-success:hover {
-            background: #059669;
-        }
-
-        .btn-danger {
-            background: #ef4444;
-            color: #fff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            margin-left: 8px;
-        }
-
-        .btn-danger:hover {
-            background: #dc2626;
-        }
-
-        .action-cell {
-            display: flex;
-            align-items: center;
-        }
-        
-        .company-logo-placeholder {
-            width: 36px;
-            height: 36px;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-    </style>
+    <link rel="stylesheet" href="admin_approve_recruiters.css">
 </head>
 
 <body>
@@ -140,7 +20,11 @@
         </div>
         <div class="nav-links">
             <a href="admin_dashboard.html" class="btn-back-dashboard">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
                 Back to Dashboard
             </a>
             <div class="avatar" id="adminAvatar" title="Admin Profile">A</div>
@@ -168,7 +52,8 @@
                 <div class="section-header">
                     <h2>Pending Approvals (2)</h2>
                     <div style="display: flex; gap: 8px;">
-                        <input type="text" placeholder="Search companies..." style="padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.9rem;">
+                        <input type="text" placeholder="Search companies..."
+                            style="padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.9rem;">
                     </div>
                 </div>
                 <div class="table-container">
@@ -194,11 +79,14 @@
                                     </div>
                                 </td>
                                 <td>John Anderson</td>
-                                <td>j.anderson@apex.io<br><span style="color:var(--text-muted); font-size: 0.8rem;">+1 (555) 123-4567</span></td>
+                                <td>j.anderson@apex.io<br><span style="color:var(--text-muted); font-size: 0.8rem;">+1
+                                        (555) 123-4567</span></td>
                                 <td>Software/IT</td>
                                 <td class="action-cell">
-                                    <button class="btn-success" onclick="approveRow('row-1', 'Apex Innovations')">Approve</button>
-                                    <button class="btn-danger" onclick="rejectRow('row-1', 'Apex Innovations')">Reject</button>
+                                    <button class="btn-success"
+                                        onclick="approveRow('row-1', 'Apex Innovations')">Approve</button>
+                                    <button class="btn-danger"
+                                        onclick="rejectRow('row-1', 'Apex Innovations')">Reject</button>
                                 </td>
                             </tr>
                             <tr id="row-2">
@@ -212,11 +100,14 @@
                                     </div>
                                 </td>
                                 <td>Sarah Williams</td>
-                                <td>hr@nexusglobal.com<br><span style="color:var(--text-muted); font-size: 0.8rem;">+1 (555) 987-6543</span></td>
+                                <td>hr@nexusglobal.com<br><span style="color:var(--text-muted); font-size: 0.8rem;">+1
+                                        (555) 987-6543</span></td>
                                 <td>Consulting</td>
                                 <td class="action-cell">
-                                    <button class="btn-success" onclick="approveRow('row-2', 'Nexus Global Services')">Approve</button>
-                                    <button class="btn-danger" onclick="rejectRow('row-2', 'Nexus Global Services')">Reject</button>
+                                    <button class="btn-success"
+                                        onclick="approveRow('row-2', 'Nexus Global Services')">Approve</button>
+                                    <button class="btn-danger"
+                                        onclick="rejectRow('row-2', 'Nexus Global Services')">Reject</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -226,51 +117,7 @@
         </main>
     </div>
 
-    <script type="module">
-        import { auth, db } from './firebase_setup.js';
-        import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js';
-        import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js';
-
-        // Profile Icon Logic
-        const adminAvatar = document.getElementById('adminAvatar');
-        
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                try {
-                    const userDoc = await getDoc(doc(db, 'users', user.uid));
-                    if (userDoc.exists()) {
-                        const data = userDoc.data();
-                        if (data.fullName) {
-                            adminAvatar.textContent = data.fullName.charAt(0).toUpperCase();
-                            adminAvatar.title = `${data.fullName} (${data.adminTitle || 'Admin'})`;
-                        }
-                    }
-                } catch (error) {
-                    console.error("Error fetching admin profile:", error);
-                }
-            }
-        });
-
-        adminAvatar.onclick = () => {
-            window.location.href = 'admin_setup_profile.html';
-        };
-
-        window.approveRow = function(rowId, companyName) {
-            if (confirm(`Are you sure you want to approve the request for ${companyName}?`)) {
-                const row = document.getElementById(rowId);
-                row.remove();
-                alert(`${companyName} has been approved and granted access.`);
-            }
-        }
-
-        window.rejectRow = function(rowId, companyName) {
-            if (confirm(`Are you sure you want to reject the request for ${companyName}?`)) {
-                const row = document.getElementById(rowId);
-                row.remove();
-                alert(`Request for ${companyName} has been rejected.`);
-            }
-        }
-    </script>
+    <script type="module" src="admin_approve_recruiters.js"></script>
 </body>
 
 </html>
