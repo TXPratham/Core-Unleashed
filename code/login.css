@@ -326,7 +326,6 @@ body::after {
 }
 
 .btn-submit:hover {
-<<<<<<< HEAD
     transform: translateY(-3px) scale(1.02);
     box-shadow: 0 15px 35px -10px rgba(37, 99, 235, 0.7), 0 0 20px rgba(37, 99, 235, 0.4);
     filter: brightness(1.15);
@@ -334,11 +333,9 @@ body::after {
 
 .btn-submit:hover::after {
     left: 100%;
-=======
     background: var(--primary-hover);
     transform: translateY(-1px);
     box-shadow: 0 6px 16px var(--focus-ring);
->>>>>>> 6c8cbe49d8144c905482d170280dc3da99d4fd89
 }
 
 .btn-submit:active {
