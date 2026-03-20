@@ -107,10 +107,24 @@
             font-weight: 800;
         }
 
+        .tab {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 10px !important;
+            padding: 12px 24px !important;
+            border-radius: 8px 8px 0 0 !important;
+            transition: all 0.2s ease !important;
+        }
+
         .tab.active {
             background: var(--hero-gradient) !important;
             color: white !important;
             border-color: transparent !important;
+        }
+
+        .tab.active::after {
+            display: none !important;
         }
 
         .invite-card {
