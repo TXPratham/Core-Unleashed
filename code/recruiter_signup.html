@@ -23,31 +23,27 @@
     <div class="login-wrapper">
         <div class="login-info-section">
             <div class="brand-logo-container">
-                <img src="logo.png" alt="Placement Logo" style="width: 40px; height: 40px; border-radius: 4px;">
+                <img src="logo.png" alt="Logo" style="width: 40px; height: 40px;">
             </div>
             <h2>Hire Top Talent</h2>
-            <p>Your journey to finding the perfect candidates starts here. Build your company profile and connect with
-                top students.</p>
+            <p>Your journey to finding the perfect candidates starts here. Build your company profile and connect with top students.</p>
             <ul class="features-list">
                 <li>
-                    <span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg></span>
+                    <span class="check-icon" style="background: #2563eb; width: 20px; height: 20px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </span>
                     Host Placement Drives
                 </li>
                 <li>
-                    <span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg></span>
+                    <span class="check-icon" style="background: #2563eb; width: 20px; height: 20px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </span>
                     Review Student Profiles
                 </li>
                 <li>
-                    <span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg></span>
+                    <span class="check-icon" style="background: #2563eb; width: 20px; height: 20px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </span>
                     Interview & Shortlist Talent
                 </li>
             </ul>
@@ -71,25 +67,37 @@
                         <span class="role-btn">Admin</span>
                     </label>
                 </div>
-                <div class="form-group">
-                    <label for="identifier" id="identifier-label">Company Name</label>
-                    <input type="text" id="identifier" name="identifier" class="form-control"
-                        placeholder="Enter your company name" required>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div class="form-group">
+                        <label for="fullname" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Full Name</label>
+                        <input type="text" id="fullname" class="form-control" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="company" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Company Name</label>
+                        <input type="text" id="company" class="form-control" placeholder="InnovateTech" required>
+                    </div>
                 </div>
+
                 <div class="form-group">
-                    <label for="email" id="email-label">Work Email</label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="name@company.com"
-                        required>
+                    <label for="email" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Work Email</label>
+                    <input type="email" id="email" class="form-control" placeholder="name@company.com" required>
                 </div>
+
                 <div class="form-group">
-                    <label for="password" id="password-label">Password</label>
-                    <input type="password" id="password" name="password" class="form-control"
-                        placeholder="Create a new password" required>
+                    <label for="phone" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Phone Number</label>
+                    <input type="tel" id="phone" class="form-control" placeholder="+1 (555) 000-0000" required>
                 </div>
-                <button type="submit" class="btn-submit">Sign Up</button>
+
+                <div class="form-group">
+                    <label for="password" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Create a new password" required>
+                </div>
+
+                <button type="submit" class="btn-submit">Create Account</button>
             </form>
-            <div class="sign-up-link">
-                Already have an account? <a href="login.html">Login In</a>
+            <div class="sign-up-link" style="margin-top: 15px; font-weight: 500;">
+                Already have an account? <a href="login.html" style="color: #2563eb; text-decoration: none; font-weight: 600;">Sign In</a>
             </div>
         </div>
     </div>
@@ -106,8 +114,10 @@
             submitBtn.disabled = true;
 
             const role = 'recruiter';
-            const identifier = document.getElementById('identifier').value;
+            const fullname = document.getElementById('fullname').value;
+            const company = document.getElementById('company').value;
             const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
             const password = document.getElementById('password').value;
 
             try {
@@ -118,7 +128,9 @@
                     uid: user.uid,
                     role: role,
                     email: email,
-                    company_name: identifier,
+                    fullname: fullname,
+                    company_name: company,
+                    phone: phone,
                     createdAt: serverTimestamp()
                 };
 

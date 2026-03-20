@@ -37,23 +37,31 @@
     <div class="login-wrapper">
         <!-- Left Branding side -->
         <div class="login-info-section">
-            <div class="brand-logo">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="3" width="7" height="7" />
-                    <rect x="14" y="3" width="7" height="7" />
-                    <rect x="14" y="14" width="7" height="7" />
-                    <rect x="3" y="14" width="7" height="7" />
-                </svg>
-                <span class="brand-name">Core Unleashed Admin</span>
+            <div class="brand-logo-container">
+                <img src="logo.png" alt="Logo" style="width: 40px; height: 40px;">
             </div>
             <h2>Admin Setup</h2>
             <p>Configure your administrative profile and capabilities to manage the placement system.</p>
 
             <ul class="features-list">
-                <li>Manage student data</li>
-                <li>Organize placement drives</li>
-                <li>Track live attendance</li>
+                <li>
+                    <span class="check-icon" style="background: #2563eb; width: 20px; height: 20px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </span>
+                    Manage student data
+                </li>
+                <li>
+                    <span class="check-icon" style="background: #2563eb; width: 20px; height: 20px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </span>
+                    Organize placement drives
+                </li>
+                <li>
+                    <span class="check-icon" style="background: #2563eb; width: 20px; height: 20px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </span>
+                    Track live attendance
+                </li>
             </ul>
         </div>
           
@@ -66,42 +74,42 @@
             </div>
 
             <form action="#" method="POST" id="profile-setup-form">
-                <div class="form-group">
-                    <label for="full-name">Full Name</label>
-                    <input type="text" id="full-name" class="form-control" placeholder="e.g. Dr. Ramesh Kumar" required>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div class="form-group">
+                        <label for="full-name" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Full Name</label>
+                        <input type="text" id="full-name" class="form-control" placeholder="Dr. Ramesh Kumar" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="admin-title" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Admin Role</label>
+                        <select id="admin-title" class="form-control" required>
+                            <option value="">Select Role...</option>
+                            <option value="placement-officer">Chief Placement Officer</option>
+                            <option value="coordinator">Faculty Coordinator</option>
+                            <option value="system-admin">System Administrator</option>
+                            <option value="dept-head">Department Head</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="admin-title">Admin Role</label>
-                    <select id="admin-title" class="form-control" required>
-                        <option value="">Select Role...</option>
-                        <option value="placement-officer">Chief Placement Officer</option>
-                        <option value="coordinator">Faculty Coordinator</option>
-                        <option value="system-admin">System Administrator</option>
-                        <option value="dept-head">Department Head</option>
-                    </select>
+                    <label for="department" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Department</label>
+                    <input type="text" id="department" class="form-control" placeholder="Computer Science" required>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div class="form-group">
+                        <label for="office" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Office Location</label>
+                        <input type="text" id="office" class="form-control" placeholder="Block A, 402">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-number" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">Internal Phone</label>
+                        <input type="tel" id="contact-number" class="form-control" placeholder="Ext 402">
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="department">Department</label>
-                    <input type="text" id="department" class="form-control"
-                        placeholder="e.g. Computer Science, Training & Placement" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="office">Office Location / Cabin No.</label>
-                    <input type="text" id="office" class="form-control" placeholder="e.g. Placement Cell, Block A">
-                </div>
-
-                <div class="form-group">
-                    <label for="contact-number">Contact Phone (Internal)</label>
-                    <input type="tel" id="contact-number" class="form-control" placeholder="e.g. Ext 402">
-                </div>
-
-                <div class="form-group">
-                    <label for="college-name">College / Institution Name</label>
-                    <input type="text" id="college-name" class="form-control"
-                        placeholder="e.g. RV College of Engineering" required>
+                    <label for="college-name" style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">College Name</label>
+                    <input type="text" id="college-name" class="form-control" placeholder="RV College of Engineering" required>
                 </div>
 
                 <button type="submit" class="btn-submit" style="margin-top: 10px;">Finish Setup & Go to
