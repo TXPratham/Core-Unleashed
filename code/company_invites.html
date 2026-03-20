@@ -221,103 +221,142 @@
             <div class="tab">Declined (0)</div>
         </div>
 
-        <!-- Invites Grid -->
-        <section class="invites-grid" id="pending-invites">
-
-            <!-- Invite Card 1 -->
-            <div class="invite-card">
-                <div class="company-info">
-                    <div class="company-logo" style="color: #2563eb; background-color: #eff6ff; border-color: #bfdbfe;">
-                        IN
-                    </div>
-                    <div class="company-details">
-                        <h3>InnovateTech Solutions</h3>
-                        <div class="invited-role">Software Engineering Intern</div>
-                        <div class="invite-meta">
-                            <span>Sent: Oct 24, 2024</span>
-                            <span>•</span>
-                            <span>San Francisco (Remote)</span>
-                            <span>•</span>
-                            <span class="urgency">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <polyline points="12 6 12 12 16 14"></polyline>
-                                </svg>
-                                Expires in 2 days
-                            </span>
+        <!-- Invites Grid Sections -->
+        <section class="invites-grid" id="pending-section">
+            <div id="pending-invites-container">
+                <!-- Invite Card 1 -->
+                <div class="invite-card" data-id="1">
+                    <div class="company-info">
+                        <div class="company-logo"
+                            style="color: #2563eb; background-color: #eff6ff; border-color: #bfdbfe;">IN</div>
+                        <div class="company-details">
+                            <h3>InnovateTech Solutions</h3>
+                            <div class="invited-role">Software Engineering Intern</div>
+                            <div class="invite-meta">
+                                <span>Sent: Oct 24, 2024</span>
+                                <span>•</span>
+                                <span>San Francisco (Remote)</span>
+                            </div>
                         </div>
                     </div>
+                    <div class="invite-actions">
+                        <button class="btn-decline" onclick="handleAction(this, 'Declined')">Decline</button>
+                        <button class="btn-accept" onclick="handleAction(this, 'Accepted')">Accept Invite</button>
+                    </div>
                 </div>
-                <div class="invite-actions">
-                    <button class="btn-decline" onclick="handleAction(this, 'Declined')">Decline</button>
-                    <button class="btn-accept" onclick="handleAction(this, 'Accepted')">Accept Invite</button>
+
+                <!-- Invite Card 2 -->
+                <div class="invite-card" data-id="2">
+                    <div class="company-info">
+                        <div class="company-logo"
+                            style="color: #ea580c; background-color: #fff7ed; border-color: #fed7aa;">DB</div>
+                        <div class="company-details">
+                            <h3>DataBridge Analytics</h3>
+                            <div class="invited-role">Data Analyst Intern</div>
+                            <div class="invite-meta">
+                                <span>Sent: Oct 23, 2024</span>
+                                <span>•</span>
+                                <span>New York, NY (Hybrid)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="invite-actions">
+                        <button class="btn-decline" onclick="handleAction(this, 'Declined')">Decline</button>
+                        <button class="btn-accept" onclick="handleAction(this, 'Accepted')">Accept Invite</button>
+                    </div>
+                </div>
+
+                <!-- Invite Card 3 -->
+                <div class="invite-card" data-id="3">
+                    <div class="company-info">
+                        <div class="company-logo"
+                            style="color: #16a34a; background-color: #f0fdf4; border-color: #bbf7d0;">GL</div>
+                        <div class="company-details">
+                            <h3>GreenLeaf Systems</h3>
+                            <div class="invited-role">Frontend Developer (Full-Time)</div>
+                            <div class="invite-meta">
+                                <span>Sent: Oct 20, 2024</span>
+                                <span>•</span>
+                                <span>Austin, TX (On-site)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="invite-actions">
+                        <button class="btn-decline" onclick="handleAction(this, 'Declined')">Decline</button>
+                        <button class="btn-accept" onclick="handleAction(this, 'Accepted')">Accept Invite</button>
+                    </div>
                 </div>
             </div>
 
-            <!-- Invite Card 2 -->
-            <div class="invite-card">
-                <div class="company-info">
-                    <div class="company-logo" style="color: #ea580c; background-color: #fff7ed; border-color: #fed7aa;">
-                        DB
-                    </div>
-                    <div class="company-details">
-                        <h3>DataBridge Analytics</h3>
-                        <div class="invited-role">Data Analyst Intern</div>
-                        <div class="invite-meta">
-                            <span>Sent: Oct 23, 2024</span>
-                            <span>•</span>
-                            <span>New York, NY (Hybrid)</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="invite-actions">
-                    <button class="btn-decline" onclick="handleAction(this, 'Declined')">Decline</button>
-                    <button class="btn-accept" onclick="handleAction(this, 'Accepted')">Accept Invite</button>
-                </div>
+            <div class="empty-state" id="pending-empty" style="display: none;">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <h3>You're all caught up!</h3>
+                <p>No more pending invitations.</p>
             </div>
-
-            <!-- Invite Card 3 -->
-            <div class="invite-card">
-                <div class="company-info">
-                    <div class="company-logo" style="color: #16a34a; background-color: #f0fdf4; border-color: #bbf7d0;">
-                        GL
-                    </div>
-                    <div class="company-details">
-                        <h3>GreenLeaf Systems</h3>
-                        <div class="invited-role">Frontend Developer (Full-Time)</div>
-                        <div class="invite-meta">
-                            <span>Sent: Oct 20, 2024</span>
-                            <span>•</span>
-                            <span>Austin, TX (On-site)</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="invite-actions">
-                    <button class="btn-decline" onclick="handleAction(this, 'Declined')">Decline</button>
-                    <button class="btn-accept" onclick="handleAction(this, 'Accepted')">Accept Invite</button>
-                </div>
-            </div>
-
         </section>
 
-        <!-- Hidden Empty State (For JS Logic) -->
-        <div class="empty-state" id="empty-state" style="display: none;">
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-            </svg>
-            <h3>You're all caught up!</h3>
-            <p>You have no pending company invitations. Keep enhancing your profile and applying to jobs to get noticed.
-            </p>
-        </div>
+        <section class="invites-grid" id="accepted-section" style="display: none;">
+            <div id="accepted-invites-container">
+                <!-- Example of existing accepted cards (demo only) -->
+                <div class="invite-card">
+                    <div class="company-info">
+                        <div class="company-logo"
+                            style="color: #7c3aed; background-color: #f5f3ff; border-color: #ddd6fe;">ST</div>
+                        <div class="company-details">
+                            <h3>SkyTech Systems</h3>
+                            <div class="invited-role">DevOps Engineer</div>
+                            <div class="invite-meta"><span>Accepted on: Oct 15, 2024</span></div>
+                        </div>
+                    </div>
+                    <div class="status-badge-accepted" style="color: #10b981; font-weight: 700;">Accepted</div>
+                </div>
+            </div>
+            <div class="empty-state" id="accepted-empty" style="display: none;">
+                <h3>No accepted invitations yet.</h3>
+            </div>
+        </section>
+
+        <section class="invites-grid" id="declined-section" style="display: none;">
+            <div id="declined-invites-container"></div>
+            <div class="empty-state" id="declined-empty">
+                <p>No recently declined invitations.</p>
+            </div>
+        </section>
     </main>
 
-    <!-- Simple JS to handle card removal for demo -->
     <script>
+        const tabs = document.querySelectorAll('.tab');
+        const sections = {
+            'Pending': document.getElementById('pending-section'),
+            'Accepted': document.getElementById('accepted-section'),
+            'Declined': document.getElementById('declined-section')
+        };
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                // Hide all sections
+                Object.values(sections).forEach(s => s.style.display = 'none');
+
+                // Show target section
+                const tabText = tab.innerText.split(' ')[0];
+                if (sections[tabText]) {
+                    sections[tabText].style.display = 'grid';
+                }
+            });
+        });
+
         function handleAction(btnElement, actionType) {
             const card = btnElement.closest('.invite-card');
+            const targetContainer = document.getElementById(`${actionType.toLowerCase()}-invites-container`);
+            const targetEmpty = document.getElementById(`${actionType.toLowerCase()}-empty`);
 
             // Visual fade out
             card.style.transition = "opacity 0.3s ease, transform 0.3s ease";
@@ -325,30 +364,69 @@
             card.style.transform = "scale(0.95)";
 
             setTimeout(() => {
-                card.remove();
+                // Remove actions div
+                const actions = card.querySelector('.invite-actions');
+                if (actions) actions.remove();
 
-                // Update badge numbers natively for demo
-                const badges = document.querySelectorAll('.badge');
-                badges.forEach(badge => {
-                    let count = parseInt(badge.innerText);
-                    if (count > 0) {
-                        badge.innerText = count - 1;
-                        // Hide badge if 0
-                        if (count - 1 === 0) badge.style.display = 'none';
-                    }
-                });
+                // Add status text or badge
+                const statusInfo = document.createElement('div');
+                statusInfo.style.fontWeight = '700';
+                statusInfo.style.color = actionType === 'Accepted' ? '#10b981' : '#ef4444';
+                statusInfo.innerText = actionType;
+                card.appendChild(statusInfo);
 
-                // Check if empty
-                const grid = document.getElementById('pending-invites');
-                if (grid.children.length === 0) {
-                    document.getElementById('empty-state').style.display = 'block';
-                }
+                // Update meta info (Optional: add timestamp)
+                const meta = card.querySelector('.invite-meta');
+                meta.innerHTML = `<span>${actionType} on: ${new Date().toLocaleDateString()}</span>`;
 
-                // Temporary alert
-                alert(`You have ${actionType} this invitation.`);
+                // Move card
+                targetContainer.appendChild(card);
+                card.style.opacity = "1";
+                card.style.transform = "scale(1)";
 
+                // Update Badges
+                updateBadges();
+
+                // Show empty states if needed
+                checkEmptyStates();
+
+                alert(`Invitation ${actionType.toLowerCase()} successfully!`);
             }, 300);
         }
+
+        function updateBadges() {
+            // Update "Pending" tab badge (main one)
+            const pendingCount = document.getElementById('pending-invites-container').children.length;
+            const pendingTabBadge = document.querySelector('.tab:nth-child(1) .badge');
+            const navbarBadge = document.querySelector('.nav-item.active .badge');
+
+            if (pendingTabBadge) pendingTabBadge.innerText = pendingCount;
+            if (navbarBadge) navbarBadge.innerText = pendingCount;
+
+            // Update "Accepted" tab text
+            const acceptedCount = document.getElementById('accepted-invites-container').children.length;
+            document.querySelector('.tab:nth-child(2)').childNodes[0].textContent = `Accepted (${acceptedCount})`;
+
+            // Update "Declined" tab text
+            const declinedCount = document.getElementById('declined-invites-container').children.length;
+            document.querySelector('.tab:nth-child(3)').childNodes[0].textContent = `Declined (${declinedCount})`;
+        }
+
+        function checkEmptyStates() {
+            const sectionsList = ['pending', 'accepted', 'declined'];
+            sectionsList.forEach(s => {
+                const container = document.getElementById(`${s}-invites-container`);
+                const empty = document.getElementById(`${s}-empty`);
+                if (container.children.length === 0) {
+                    empty.style.display = 'block';
+                } else {
+                    empty.style.display = 'none';
+                }
+            });
+        }
+
+        // Initialize empty states
+        checkEmptyStates();
     </script>
 </body>
 
