@@ -65,7 +65,7 @@ body::after {
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 16px 40px;
+    padding: 0 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -73,6 +73,8 @@ body::after {
     width: 100%;
     top: 0;
     z-index: 1000;
+    height: 72px;
+    /* Consistent height */
 }
 
 /* Hero Section */
@@ -130,13 +132,25 @@ body::after {
 }
 
 @keyframes float {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(40px, 40px) scale(1.1); }
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    100% {
+        transform: translate(40px, 40px) scale(1.1);
+    }
 }
 
 @keyframes fadeInScale {
-    from { opacity: 0; transform: translateY(20px) scale(0.98); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 .hero-section .btn-secondary {
@@ -179,15 +193,49 @@ body::after {
     font-size: 0.95rem;
     font-weight: 500;
     transition: all 0.2s ease;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    display: flex !important;
+    /* Override home.css if needed */
+    align-items: center;
+    justify-content: center;
+    width: auto !important;
+    /* Remove fixed width from home.css */
+    height: auto !important;
+    /* Remove fixed height from home.css */
+    white-space: nowrap;
+}
+
+.btn-back-dashboard {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-right: 1rem;
+}
+
+.btn-back-dashboard:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(-3px);
 }
 
 .nav-item:hover {
     color: white;
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .nav-item.active {
     color: white;
     font-weight: 700;
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .avatar {
