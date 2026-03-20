@@ -1,0 +1,121 @@
+/* Admin specific theme overrides - Only modifying Colors */
+:root {
+    --primary: #2563eb;
+    --primary-light: #60a5fa;
+    --primary-dark: #1e40af;
+    --bg-main: #f0f9ff;
+    --text-main: #0f172a;
+    --text-muted: #475569;
+    --white: #ffffff;
+    --hero-gradient: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    --card-shadow: 0 10px 25px rgba(37, 99, 235, 0.1);
+    --border-color: rgba(37, 99, 235, 0.1);
+}
+
+body {
+    background: #f0f9ff;
+    background-image: radial-gradient(at 0% 0%, #eff6ff 0%, transparent 50%),
+        radial-gradient(at 100% 0%, #e0f2fe 100% 0%, transparent 50%),
+        radial-gradient(at 100% 100%, #f0f9ff 0%, transparent 50%),
+        radial-gradient(at 0% 100%, #eff6ff 0%, transparent 50%);
+    background-attachment: fixed;
+}
+
+.navbar {
+    background: var(--hero-gradient) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item,
+.nav-item.active {
+    color: white !important;
+}
+
+.avatar {
+    background: var(--white) !important;
+    color: var(--primary) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.container {
+    margin-top: 100px;
+}
+
+.dashboard-header h1 {
+    color: var(--primary-dark) !important;
+    font-weight: 800;
+}
+
+.stat-card {
+    background: white !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: var(--card-shadow) !important;
+}
+
+.stat-value {
+    color: var(--primary) !important;
+}
+
+.section-card {
+    background: white !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: var(--card-shadow) !important;
+}
+
+.btn-primary {
+    background: var(--hero-gradient) !important;
+    border: none !important;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2) !important;
+}
+
+.btn-secondary {
+    background: var(--white) !important;
+    color: var(--primary) !important;
+    border: 1px solid var(--primary) !important;
+}
+
+.btn-secondary:hover {
+    background: var(--bg-main) !important;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-overlay.active {
+    display: flex;
+    animation: fadeIn 0.2s;
+}
+
+.modal-box {
+    background: white !important;
+    padding: 32px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.modal-header h2 {
+    color: var(--primary-dark);
+    font-weight: 700;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

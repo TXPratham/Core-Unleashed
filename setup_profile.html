@@ -8,45 +8,7 @@
     <title>Complete Profile | Campus Placement Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="login.css">
-    <style>
-        .profile-form {
-            display: none;
-        }
-
-        .profile-form.active {
-            display: block;
-            animation: fadeIn 0.4s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .setup-header {
-            margin-bottom: 24px;
-            text-align: center;
-        }
-
-        .setup-header h1 {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 8px;
-        }
-
-        .setup-header p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-    </style>
+    <link rel="stylesheet" href="setup_profile.css">
 </head>
 
 <body>
@@ -136,107 +98,7 @@
         </div>
     </div>
 
-    <script type="module">
-        import { auth, db } from './firebase_setup.js';
-        import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js';
-        import { doc, setDoc } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js';
-
-        let currentUser = null;
-
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                currentUser = user;
-            } else {
-                // If they circumvent setup without an account, kick them to sign in
-                window.location.href = 'signin.html';
-            }
-        });
-
-        // Get role from URL query string
-        const urlParams = new URLSearchParams(window.location.search);
-        const role = urlParams.get('role') || 'recruiter'; // default to recruiter if none provided
-
-        document.addEventListener('DOMContentLoaded', () => {
-            // Show appropriate form
-            const activeForm = document.getElementById(`${role}-setup`);
-            if (activeForm) {
-                activeForm.classList.add('active');
-
-                // Add required to active form inputs
-                const visibleInputs = activeForm.querySelectorAll('input, select');
-                visibleInputs.forEach(input => input.setAttribute('required', 'true'));
-            }
-
-            // Update text based on role
-            const subtitle = document.getElementById('role-subtitle');
-            const features = document.getElementById('role-features');
-
-            if (role === 'recruiter') {
-                subtitle.textContent = "Tell us about your company and hiring goals.";
-                features.innerHTML = `
-                    <li>Post job openings fast</li>
-                    <li>Filter top candidates</li>
-                    <li>Schedule interviews easily</li>
-                `;
-            } else if (role === 'admin') {
-                subtitle.textContent = "Configure your administrative capabilities.";
-                features.innerHTML = `
-                    <li>Manage student data</li>
-                    <li>Organize placement drives</li>
-                    <li>Track live attendance</li>
-                `;
-            }
-        });
-
-        // Handle submission integration into Firestore
-        document.getElementById('profile-setup-form').addEventListener('submit', async function (e) {
-            e.preventDefault();
-
-            if (!currentUser) {
-                alert("You aren't authenticated. Please return to the sign in page.");
-                return;
-            }
-
-            const submitBtn = this.querySelector('.btn-submit');
-            submitBtn.textContent = 'Saving Profile...';
-            submitBtn.disabled = true;
-
-            try {
-                let profileData = {};
-
-                if (role === 'recruiter') {
-                    profileData = {
-                        companyWebsite: document.getElementById('company-site').value,
-                        industry: document.getElementById('industry').value,
-                        designation: document.getElementById('designation').value,
-                        companySize: document.getElementById('company-size').value,
-                        profileSetupComplete: true
-                    };
-                } else if (role === 'admin') {
-                    profileData = {
-                        adminTitle: document.getElementById('admin-title').value,
-                        officeLocation: document.getElementById('office').value,
-                        contactPhone: document.getElementById('contact-number').value,
-                        profileSetupComplete: true
-                    };
-                }
-
-                await setDoc(doc(db, 'users', currentUser.uid), profileData, { merge: true });
-
-                if (role === 'recruiter') {
-                    window.location.href = 'recruiter_dashboard.html';
-                } else if (role === 'admin') {
-                    window.location.href = 'admin_dashboard.html';
-                }
-
-            } catch (error) {
-                console.error("Profile Setup Error:", error);
-                alert("There was an issue saving your profile. Please try again.");
-                submitBtn.textContent = 'Finish Setup & Go to Dashboard';
-                submitBtn.disabled = false;
-            }
-        });
-    </script>
+    <script type="module" src="setup_profile.js"></script>
 </body>
 
 </html>
