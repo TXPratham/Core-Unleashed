@@ -167,6 +167,21 @@
                         </svg>
                     </a>
 
+                    <!-- Company Invites -->
+                    <a href="company_invites.html" class="nav-item" title="Company Invites">
+                        <div class="nav-icon-wrapper">
+                            <svg class="nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <line x1="19" y1="8" x2="19" y2="14"></line>
+                                <line x1="16" y1="11" x2="22" y2="11"></line>
+                            </svg>
+                            <span class="badge"
+                                style="background: #ef4444; border: 2px solid var(--sidebar-bg); top: -2px; right: -2px;"></span>
+                        </div>
+                    </a>
+
                     <!-- Create — popup trigger -->
                     <button class="nav-item" title="Create" onclick="togglePopup('quickPopup', event)">
                         <svg class="nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none"
@@ -361,9 +376,9 @@
                     <!-- Right: Drives + Quick Links -->
                     <div class="col-sidebar">
                         <div class="card">
-                             <div class="card-header">
-                                 <h2>Upcoming Drives</h2>
-                             </div>
+                            <div class="card-header">
+                                <h2>Upcoming Drives</h2>
+                            </div>
                             <div class="drives-list" id="upcomingDrivesList">
                                 <!-- Filled by JS -->
                                 <div class="drive-item">
@@ -377,12 +392,14 @@
                                     </div>
                                 </div>
                             </div>
-                             <div style="padding: 1rem 1.5rem; text-align: center;">
-                                 <a href="drives_calendar.html" class="btn-outline"
-                                     style="width: 100%; text-align: center; display: block; text-decoration: none; margin-bottom: 8px;">View
-                                     Full Calendar</a>
-                                 <span style="color: var(--text-muted); font-size: 0.8rem; font-weight: 500; opacity: 0.7;">view all events</span>
-                             </div>
+                            <div style="padding: 1rem 1.5rem; text-align: center;">
+                                <a href="drives_calendar.html" class="btn-outline"
+                                    style="width: 100%; text-align: center; display: block; text-decoration: none; margin-bottom: 8px;">View
+                                    Full Calendar</a>
+                                <span
+                                    style="color: var(--text-muted); font-size: 0.8rem; font-weight: 500; opacity: 0.7;">view
+                                    all events</span>
+                            </div>
                         </div>
                     </div>
                 </div> <!-- end .container -->
@@ -443,7 +460,7 @@
         function loadUpcomingDrives() {
             const list = document.getElementById('upcomingDrivesList');
             const adminEvents = JSON.parse(localStorage.getItem('adminEvents') || '[]');
-            
+
             // For the home page, we'll show a mix of static and dynamic, sorted by date
             const staticDrives = [
                 { date: '2024-10-12', title: 'Amazon Pre-Placement Talk', info: '10:00 AM • Main Auditorium' },
@@ -458,7 +475,7 @@
 
             // Sort by date (closet to today first)
             const today = new Date().toISOString().split('T')[0];
-            const upcoming = allDrives.filter(d => d.date >= today).sort((a,b) => a.date.localeCompare(b.date)).slice(0, 4);
+            const upcoming = allDrives.filter(d => d.date >= today).sort((a, b) => a.date.localeCompare(b.date)).slice(0, 4);
 
             if (upcoming.length > 0) {
                 list.innerHTML = '';
@@ -466,7 +483,7 @@
                     const dateObj = new Date(d.date);
                     const month = dateObj.toLocaleString('en-US', { month: 'short' }).toUpperCase();
                     const day = dateObj.getDate();
-                    
+
                     const item = document.createElement('div');
                     item.className = 'drive-item';
                     item.innerHTML = `
