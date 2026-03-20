@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <!-- Header Navigation -->
+    <!-- Header Navigation -->
     <!-- Header Navigation -->
     <nav class="navbar">
         <div class="brand">
@@ -19,14 +19,18 @@
         </div>
         <div class="nav-links">
             <a href="login.html" class="btn-back-dashboard">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
                 Sign Out
             </a>
             <a href="recruiter_dashboard.html" class="nav-item active">Dashboard</a>
-            <a href="#" class="nav-item">Job Postings</a>
+            <a href="recruiter_post_job.html" class="nav-item">Job Postings</a>
             <a href="#" class="nav-item">Candidates</a>
             <a href="#" class="nav-item">Interviews</a>
-            <div class="avatar">T2</div>
+            <div class="avatar" id="recruiterAvatar" style="cursor:pointer;" title="Recruiter Profile">T2</div>
         </div>
     </nav>
 
@@ -36,14 +40,14 @@
             <!-- Welcome Header -->
             <header class="dashboard-header">
                 <div>
-                    <h1>Welcome back, TechCorp</h1>
+                    <h1 id="welcomeText">Welcome back</h1>
                     <p>Here is what's happening with your recruitment drive today.</p>
                 </div>
                 <div class="header-actions">
                     <button class="btn-secondary">Export Data</button>
-                    <button class="btn-primary">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
+                    <button class="btn-primary" id="postJobBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="12" y1="5" x2="12" y2="19"></line>
                             <line x1="5" y1="12" x2="19" y2="12"></line>
                         </svg>
@@ -340,12 +344,57 @@
                     </div>
                 </div>
                 <div style="padding: 16px; border-top: 1px solid var(--border-color); text-align: center;">
-                    <button class="btn-secondary" style="width: 100%;">Post New Opening</button>
+                    <button class="btn-secondary" id="postOpeningBtn" style="width: 100%;">Post New Opening</button>
                 </div>
             </section>
         </main>
     </div>
 
+    <script type="module">
+        import { auth, db } from './firebase_setup.js';
+        import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js';
+        import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js';
+
+        const recruiterAvatar = document.getElementById('recruiterAvatar');
+        const welcomeText = document.getElementById('welcomeText');
+
+        // onAuthStateChanged(auth, async (user) => {
+        //     if (user) {
+        //         try {
+        //             const userDoc = await getDoc(doc(db, 'users', user.uid));
+        //             if (userDoc.exists()) {
+        //                 const data = userDoc.data();
+        //                 if (data.fullname) {
+        //                     // Update avatar initials
+        //                     recruiterAvatar.textContent = data.fullname.split(' ').map(n => n.charAt(0)).join('').toUpperCase().substring(0, 2);
+        //                     recruiterAvatar.title = `${data.fullname} (${data.company_name || 'Recruiter'})`;
+
+        //                     // Update welcome message
+        //                     welcomeText.textContent = `Welcome back, ${data.company_name || data.fullname}`;
+        //                 }
+        //             }
+        //         } catch (error) {
+        //             console.error("Error fetching recruiter profile:", error);
+        //         }
+        //     } else {
+        //         window.location.href = 'login.html';
+        //     }
+        // });
+
+        recruiterAvatar.onclick = () => {
+            window.location.href = 'recruiter_profile.html';
+        };
+
+        const postJobBtn = document.getElementById('postJobBtn');
+        const postOpeningBtn = document.getElementById('postOpeningBtn');
+
+        const goToPostJob = () => {
+            window.location.href = 'recruiter_post_job.html';
+        };
+
+        if (postJobBtn) postJobBtn.onclick = goToPostJob;
+        if (postOpeningBtn) postOpeningBtn.onclick = goToPostJob;
+    </script>
 </body>
 
 </html>
