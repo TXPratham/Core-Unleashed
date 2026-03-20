@@ -60,7 +60,7 @@ npm install
 
 ### 4. Configuration
 Ensure your Firebase configuration is correctly set up in:
-`code/firebase_setup.js`
+`firebase_setup.js`
 
 You will need to create a project on the [Firebase Console](https://console.firebase.google.com/) and enable:
 - **Authentication** (Email/Password & USN-based login)
@@ -68,10 +68,10 @@ You will need to create a project on the [Firebase Console](https://console.fire
 - **Firebase Storage**
 
 ### 5. Launch the Application
-- If using **VS Code**, use the **Live Server** extension to open `code/home.html` (for students) or `code/login.html`.
-- Alternatively, you can run a simple local server in the `code` directory:
+- If using **VS Code**, use the **Live Server** extension to open `index.html` (the login page) or `home.html`.
+- Alternatively, you can run a simple local server in the root directory:
 ```bash
-npx live-server code
+npx live-server .
 ```
 
 ---
