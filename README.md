@@ -1,4 +1,5 @@
 # Core Unleashed | Campus Placement Portal 🚀
+[Live Demo ✨](https://txpratham.github.io/Core-Unleashed/)
 
 Core Unleashed (HireHub) is a comprehensive, modern campus placement and recruitment management system. It's designed to streamline the entire job application lifecycle—combining recruitment management, personal student profile tracking, and automated attendance solutions.
 
