@@ -1,9 +1,10 @@
 import { auth, db } from './firebase_setup.js';
-import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js';
+import { onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js';
 import { doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js';
 
 const profileForm = document.getElementById('adminProfileForm');
 const saveBtn = document.getElementById('saveBtn');
+const signOutBtn = document.getElementById('signOutBtn');
 const statusMsg = document.getElementById('statusMsg');
 const avatarLarge = document.getElementById('profileAvatarLarge');
 const displayName = document.getElementById('displayAdminName');
@@ -102,6 +103,19 @@ if (profileForm) {
         } finally {
             saveBtn.textContent = 'Save Profile';
             saveBtn.disabled = false;
+        }
+    });
+}
+
+if (signOutBtn) {
+    signOutBtn.addEventListener('click', async () => {
+        try {
+            await signOut(auth);
+            // Redirection is handled by onAuthStateChanged, but adding it here for robustness
+            window.location.href = 'index.html';
+        } catch (error) {
+            console.error("Error signing out:", error);
+            showStatus("Failed to sign out. Please try again.", "error");
         }
     });
 }
